@@ -1,14 +1,14 @@
-// const {
-//   addToCart,
-//   getCart,
-//   getProducts,
-//   updateCart,
-//   removeFromCart,
-//   getRecommendedProducts,
-//   getSingularItem
-// } = require("./handlers");
+const {
+  // addToCart,
+  // getCart,
+  // getProducts,
+  // updateCart,
+  // removeFromCart,
+  // getRecommendedProducts,
+  // getSingularItem
+} = require("./handlers");
 
-// const router = require("express").Router();
+const router = require("express").Router();
 
 // router.get("/products", getProducts);
 // router.get("/products/recommended", getRecommendedProducts);
@@ -19,4 +19,4 @@
 // router.delete("/removeFromCart", removeFromCart);
 // router.get("/getOneItem/:_id", getSingularItem)
 
-// module.exports = router;
+module.exports = router;

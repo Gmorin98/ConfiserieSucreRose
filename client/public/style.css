@@ -1,4 +1,6 @@
-html, body {
-  margin: 0;
-  padding: 0;
-} 
+/* General CSS rules */
+
+html {
+  background-image: url(./images/SUCRE_ROSE_Background.jpg);
+  background-size: fit;
+}

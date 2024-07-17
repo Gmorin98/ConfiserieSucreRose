@@ -1,13 +1,13 @@
 // Necessary Import
-import { BrowserRouter as Router, Routes as Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes as Switch, Route, Navigate } from "react-router-dom";
 
 // Component Import
 import Accueil from "./pages/Accueil/index.js";
 import Produit from "./pages/Produits/index.js";
 import BarBonbon from "./pages/BarBonbon/index.js";
 import CreeTonPot from "./pages/CreeTonPot/index.js";
-import NavigationBar from "./pages/Other/NavigationBar.js";
-import Footer from "./pages/Other/Footer.js";
+import NavigationBar from "./pages/Components/NavigationBar.js";
+import Footer from "./pages/Components/Footer.js";
 
 const App = () => {
 
@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/produits" element={<Produit />} />
         <Route path="/barbonbon" element={<BarBonbon />} />
         <Route path="/creertonpot" element={<CreeTonPot />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Switch>
       <Footer />
     </Router>

@@ -7,8 +7,13 @@ import React from 'react';
 
 const Accueil = () => {
   return (
-    <p>Accueil</p>
+    <Test>Accueil</Test>
   );
 }
 
 export default Accueil;
+
+const Test = styled.p`
+  color: var(--primary-color);
+  background-image: url(../../);
+`
