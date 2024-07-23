@@ -6,6 +6,8 @@ import Accueil from "./pages/Accueil/index.js";
 import Produit from "./pages/Produits/index.js";
 import BarBonbon from "./pages/BarBonbon/index.js";
 import CreeTonPot from "./pages/CreeTonPot/index.js";
+import Checkout from "./pages/Checkout/index.js";
+import Admin from "./pages/Admin/index.js";
 import NavigationBar from "./pages/Components/NavigationBar.js";
 import Footer from "./pages/Components/Footer.js";
 
@@ -20,7 +22,9 @@ const App = () => {
         <Route path="/produits" element={<Produit />} />
         <Route path="/barbonbon" element={<BarBonbon />} />
         <Route path="/creertonpot" element={<CreeTonPot />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/admin" element={<Admin />} />
       </Switch>
       <Footer />
     </Router>

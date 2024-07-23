@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     --secondary-color: #D97E8F;
     --accent-color: #FC889B;
     --background-color: #FAE6E8;
-    --text-color: #FAE5D4;
+    --extra-color: #FAE5D4;
     --font-primary: 'Raleway', sans-serif;
     --font-secondary: 'Sacramento', cursive;
   }
