@@ -4,19 +4,20 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 // Component and Other Import
-
+import NavigationBar from "../Components/NavigationBar";
+import Footer from "../Components/Footer";
 
 const Accueil = () => {
   return (
     <Wrapper>
-      <img src="images/SUCRE_ROSE_Logo.png" alt="Logo Confiserie Sucre Rose" width="15%"/>
+      <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%"/>
       <section className="temp">
         <Link to={"/creertonpot"}>
           <h2>Créer ton pot à Bonbons!</h2>
         </Link>
-        <img src="images/Seperator.svg" height="350px" />
+        <img src="images/Seperator.svg" height="400px" />
         <Link to={"/barbonbon"}>
-          <h2>Bar à Bonbons& Corpo</h2>
+          <h2>Bar à Bonbons & Corpo</h2>
         </Link>
       </section>
       <section className="promotion">
@@ -39,8 +40,21 @@ const Wrapper = styled.div`
   section {
     display: flex;
     color: var(--primary-color);
-    font-size: 2em;
+    font-size: 2.25em;
     font-family: var(--font-primary);
+  }
+
+  .temp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    img {
+      margin: 50px;
+    }
+    a {
+      width: 20%;
+    }
   }
 
   .promotion {

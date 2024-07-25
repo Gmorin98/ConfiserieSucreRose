@@ -29,7 +29,7 @@ const NavWrapper = styled.nav`
   background-color: var(--background-color);
   border-radius: 0 0 35px 35px;
   box-shadow: 0px 8px 20px #696969;
-  margin-bottom: 4em;
+  margin-bottom: 3em;
   a {
     text-decoration: none;
     font-family: var(--font-secondary);

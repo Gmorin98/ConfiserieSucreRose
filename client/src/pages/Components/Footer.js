@@ -12,6 +12,7 @@ const Footer = () => {
         <a href="https://www.facebook.com/profile.php?id=100085415413271"><img src="images/Facebook_Icon.svg" width="40px"/></a>
         <a href="https://www.instagram.com/confiserie_sucre_rose/"><img src="images/Instagram_Icon.svg" width="40px"/></a>
       </section>
+      <img src="images/Seperator.svg" height="250px"/>
       <section className="horaire">
         <h3>Heures d'Ouverture</h3>
         <div>
@@ -43,6 +44,7 @@ const Footer = () => {
           <p>10h00 - 16h00</p>
         </div>
       </section>
+      <img src="images/Seperator.svg" height="250px"/>
       <section className="emplacement">
 
       </section>

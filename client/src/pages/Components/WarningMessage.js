@@ -21,7 +21,8 @@ const Wrapper = styled.div`
   font-family: var(--font-primary);
   font-weight: bold;
   font-size: 1.25em;
+  border-radius: 20px;
   width: fit-content;
   padding: 20px 15px;
-  border-radius: 20px;
+  margin-bottom: 2em;
 `

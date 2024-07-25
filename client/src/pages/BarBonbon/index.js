@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React, { useState } from 'react';
 
 // Component and Other Import
-
+import WarningMessage from "../Components/WarningMessage";
 
 const BarBonbons = () => {
   const [buttonSubmiting, setButtonSubmiting] = React.useState(true);
@@ -31,9 +31,7 @@ const BarBonbons = () => {
 
   return (
     <Wrapper>
-      <div className="warning">
-        <p>Contactez-nous pour réserver votre bar à bonbons!</p>
-      </div>
+      <WarningMessage children={"Contactez-nous pour réserver votre bar à bonbons!"} />
       <div>
         <p>Carousel ICI</p>
       </div>
