@@ -1,14 +1,12 @@
 const {
-  // addToCart,
-  // getCart,
-  // getProducts,
-  // updateCart,
-  // removeFromCart,
-  // getRecommendedProducts,
-  // getSingularItem
+  getFiltre,
+  getAllProduits
 } = require("./handlers");
 
 const router = require("express").Router();
+
+router.get("/getFiltre/:section", getFiltre);
+router.get("/getAllProduits/:section/:produit", getAllProduits)
 
 // router.get("/products", getProducts);
 // router.get("/products/recommended", getRecommendedProducts);

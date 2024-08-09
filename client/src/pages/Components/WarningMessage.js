@@ -24,5 +24,5 @@ const Wrapper = styled.div`
   border-radius: 20px;
   width: fit-content;
   padding: 20px 15px;
-  margin-bottom: 2em;
+  margin: 0em auto 2em;
 `

@@ -1,16 +1,37 @@
 // Necessary Import
 import styled from "styled-components";
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Components and Other Import
+import { Loader } from "@googlemaps/js-api-loader";
 
 const Footer = () => {
+
+  useEffect(() => {
+    const loader = new Loader({
+      apiKey: "AIzaSyBtGTMjV3WLKZfsOijFvH95g6MvzeYgfTg",
+      version: "weekly",
+    });
+
+    loader.load().then(() => {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 45.748571, lng: -73.603838 },
+        zoom: 18,
+      });
+
+      new google.maps.Marker({
+        position: { lat: 45.748571, lng: -73.603838 },
+        map: map,
+      });
+    });
+  }, []);
+  
   return (
     <Wrapper>
       <section className="logo">
         <img src="images/Logo_Nom.svg" width="400px"/>
-        <a href="https://www.facebook.com/profile.php?id=100085415413271"><img src="images/Facebook_Icon.svg" width="40px"/></a>
-        <a href="https://www.instagram.com/confiserie_sucre_rose/"><img src="images/Instagram_Icon.svg" width="40px"/></a>
+        <a href="https://www.facebook.com/profile.php?id=100085415413271" className="socials"><img src="images/Facebook_Icon.svg" width="40px"/></a>
+        <a href="https://www.instagram.com/confiserie_sucre_rose/" className="socials"><img src="images/Instagram_Icon.svg" width="40px"/></a>
       </section>
       <img src="images/Seperator.svg" height="250px"/>
       <section className="horaire">
@@ -46,8 +67,14 @@ const Footer = () => {
       </section>
       <img src="images/Seperator.svg" height="250px"/>
       <section className="emplacement">
-
+        <div id="map" style={{ height: "150px", width: "50%" }} />
+        <p>Addresse : 2918 Ch Sainte-Marie, Mascouche, QC J7K 1N7</p>
+        <p>Téléphone : (514) 730-0259</p>
+        <p>Email : confiseriesucrerose@gmail.com</p>
       </section>
+      <div className="credit">
+        <p>Site web fait par Gabriel</p>
+      </div>
     </Wrapper>
   )
 }
@@ -56,7 +83,9 @@ export default Footer;
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
+  align-items: center;
   color: var(--primary-color);
   background-color: var(--background-color);
   border-radius: 35px 35px 0px 0px;
@@ -76,8 +105,13 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: space-around;
     img:first-of-type {
       width: 100%; // This cause the logo to take 100% of the space available!! NEED TO CHANGE
+    }
+    .socials {
+      margin: 1.5em;
+      height: fit-content;
     }
 
     img:not(:first-of-type) {
@@ -90,5 +124,13 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     border-bottom: solid 1px var(--primary-color);
+  }
+
+  .credit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3em;
+    width: 100%;
   }
 `

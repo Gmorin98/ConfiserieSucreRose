@@ -4,6 +4,18 @@ import React, { useState } from 'react';
 
 // Component and Other Import
 import WarningMessage from "../Components/WarningMessage";
+import Checkbox from "../Components/Checkbox";
+import Carrousel from "../Components/Carrousel";
+import { CarrouselBarBonbons } from "../Components/DataTemp";
+
+// One time Rendering
+const typeEvenement = [
+  "Mariage",
+  "Corporation",
+  "Fête",
+  "Cadeau",
+  "Autre"
+]
 
 const BarBonbons = () => {
   const [buttonSubmiting, setButtonSubmiting] = React.useState(true);
@@ -32,9 +44,7 @@ const BarBonbons = () => {
   return (
     <Wrapper>
       <WarningMessage children={"Contactez-nous pour réserver votre bar à bonbons!"} />
-      <div>
-        <p>Carousel ICI</p>
-      </div>
+      <Carrousel children={CarrouselBarBonbons}/>
       <div className="formulaireWrapper">
         <form>
           <label htmlFor="firstName">Prénom*</label>
@@ -49,26 +59,11 @@ const BarBonbons = () => {
           <input name="date" id="date" type="date" />
           <div className="something">
             <label htmlFor="event">Type d'Évènement</label>
-            <label htmlFor="event">
-              <input type="radio" />
-              Mariage
-            </label>
-            <label htmlFor="event">
-              <input type="radio" />
-              Corporation
-            </label>
-            <label htmlFor="event">
-              <input type="radio" />
-              Fête
-            </label>
-            <label htmlFor="event">
-              <input type="radio" />
-              Cadeau
-            </label>
-            <label htmlFor="event">
-              <input type="radio" />
-              Autre
-            </label>
+            {typeEvenement.map((option, id) => {
+              return (
+                <Checkbox children={option} key={id} />
+              )
+            })}
           </div>
           <label htmlFor="information">Information Pertinente*</label>
           <textarea name="information" id="information" type="text" required/>
@@ -89,45 +84,44 @@ const Wrapper = styled.div`
 
   .formulaireWrapper {
     width: 50%;
-  }
+    form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
 
-  form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-
-  form > input {
-    margin-bottom: 20px;
-  }
-
-  input,
-  textarea {
-    border: solid  1px var(--primary-color);
-  }
-
-  textarea {
-    max-width: 100%;
-  }
-
-  .something {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    input {
-      margin-right: 10px;
+      input {
+        margin-bottom: 20px;
+      }
+    
+      input,
+      textarea {
+        border: solid  1px var(--primary-color);
+      }
+    
+      textarea {
+        max-width: 100%;
+      }
+    
+      .something {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        input {
+          margin-right: 10px;
+        }
+      }
+    
+      button {
+        width: fit-content;
+        margin: 30px auto;
+        padding: 15px 50px;
+        font-size: 1.5em;
+        border: none;
+        border-radius: 10px;
+        background-color: var(--background-color);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        cursor: pointer;
+      }
     }
-  }
-
-  button {
-    width: fit-content;
-    font-size: 25px;
-    margin: 30px auto;
-    padding: 15px 50px;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--background-color);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    cursor: pointer;
   }
 `

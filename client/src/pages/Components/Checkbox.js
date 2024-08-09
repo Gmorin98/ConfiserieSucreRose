@@ -5,11 +5,11 @@ import styled from "styled-components";
 // Components and Other Import
 
 
-const Checkbox = ({children}) => {
+const Checkbox = ({children, checked, onChange}) => {
   return (
     <Wrapper>
       <label className="container">
-        <input type="checkbox" />
+        <input type="checkbox" checked={checked} onChange={onChange}/>
         <span className="checkmark"></span>
         {children}
       </label>
@@ -20,6 +20,12 @@ const Checkbox = ({children}) => {
 export default Checkbox;
 
 const Wrapper = styled.div`
+  width: 12em;
+
+  label {
+    width: fit-content;
+  }
+
   /* Hide the default checkbox */
   .container input {
     display: none;
@@ -27,16 +33,18 @@ const Wrapper = styled.div`
 
   /* Create a custom checkbox */
   .container {
-    display: inline-flex;
+    display: inline-block;
     align-items: center;
     cursor: pointer;
     margin-top: 0.5em;
+    overflow-wrap: break-word;
   }
 
   /* The checkmark */
   .container .checkmark {
     display: inline-block;
     position: relative;
+    top: 7px;
     height: 25px;
     width: 25px;
     background-color: white;

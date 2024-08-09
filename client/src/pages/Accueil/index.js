@@ -4,8 +4,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 // Component and Other Import
-import NavigationBar from "../Components/NavigationBar";
-import Footer from "../Components/Footer";
+import Carrousel from "../Components/Carrousel";
+import { CarrouselEvenements } from "../Components/DataTemp";
 
 const Accueil = () => {
   return (
@@ -22,9 +22,7 @@ const Accueil = () => {
       </section>
       <section className="promotion">
         <h2>Évènements et Nouveautés</h2>
-        <div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
+        <Carrousel children={CarrouselEvenements}/>
       </section>
     </Wrapper>
   );
@@ -38,10 +36,10 @@ const Wrapper = styled.div`
   align-items: center;
 
   section {
-    display: flex;
     color: var(--primary-color);
     font-size: 2.25em;
     font-family: var(--font-primary);
+    margin-bottom: 3em;
   }
 
   .temp {
@@ -58,18 +56,10 @@ const Wrapper = styled.div`
   }
 
   .promotion {
+    display: flex;
     flex-direction: column;
+    width: 100%;
     align-items: center;
-    div {
-      width: 40%;
-      font-size: 25px;
-      border-radius: 35px;
-      background-color: var(--background-color);
-      padding: 10px;
-      p {
-        text-align: center;
-      }
-    }
   }
 
   a,

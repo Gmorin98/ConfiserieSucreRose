@@ -1,5 +1,7 @@
-// const getCart = require("./handlers/getCartHandler");
+const getFiltre = require("./handlers/getFiltre");
+const getAllProduits = require("./handlers/getAllProduits");
 
 module.exports = {
-    // getCart
+    getFiltre,
+    getAllProduits
 }
