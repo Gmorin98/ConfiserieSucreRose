@@ -10,8 +10,8 @@ import { CarrouselEvenements } from "../Components/DataTemp";
 const Accueil = () => {
   return (
     <Wrapper>
-      <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%"/>
-      <section className="temp">
+      <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%" className="logo"/>
+      <section className="redirection">
         <Link to={"/creertonpot"}>
           <h2>Créer ton pot à Bonbons!</h2>
         </Link>
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     margin-bottom: 3em;
   }
 
-  .temp {
+  .redirection {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,5 +66,34 @@ const Wrapper = styled.div`
   a:visited {
     text-decoration: none;
     color: var(--primary-color);
+  }
+
+  @media screen and (max-width: 900px) {
+    .logo {
+      display: none;
+    }
+
+    .redirection {
+      display: flex;
+      flex-direction: column;
+      margin-top: 150px;
+      margin-bottom: 150px;
+      a {
+        width: 80%;
+      }
+
+      img {
+        margin: 0;
+        transform: rotate(90deg);
+        margin-top: -150px;
+        margin-bottom: -150px;
+      }
+    }
+
+    .promotion {
+      h2 {
+        text-align: center;
+      }
+    }
   }
 `

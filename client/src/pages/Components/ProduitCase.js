@@ -72,8 +72,8 @@ const Wrapper = styled.div`
     align-items: center;
     min-height: 150px;
     > img {
-    max-height: 150px;
-    padding: 0.5em;
+      max-height: 150px;
+      padding: 0.5em;
     }
   }
 
@@ -113,5 +113,9 @@ const Wrapper = styled.div`
 
   .disableButton {
     cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 900px) {
+    width: 150px;
   }
 `

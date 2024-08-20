@@ -37,7 +37,7 @@ const Carrousel = ({ children }) => {
         <button onClick={() => {changePosition(1)}}>&gt;</button>
         <CarouselItem className="right" src={children[nextPosition].img} />
       </CarouselContainer>
-      {children[position].info ? <p>{children[position].info}</p> : null}
+      {children[position].info && <p>{children[position].info}</p> }
     </Wrapper>
   );
 };
@@ -68,7 +68,7 @@ const Wrapper = styled.div`
     max-width: 1000px;
     min-width: 350px;
   }
-  `;
+`;
 
 const CarouselContainer = styled.div`
   display: flex;
@@ -91,7 +91,21 @@ const CarouselContainer = styled.div`
     background-color: transparent;
     cursor: pointer;
   }
-  `;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    margin: 0;
+    button {
+      position: absolute;
+    }
+    button:first-of-type {
+      left: -2.5vw;
+    }
+    button:last-of-type {
+      right: -2.5vw;
+    }
+  }
+`;
 
 const CarouselItem = styled.img`
   min-height: 200px;
@@ -112,11 +126,21 @@ const CarouselItem = styled.img`
   }
 
   &.right {
-    transform: translateX(50%) scale(0.8); /* Shrink and translate */
     position: absolute;
     right: 0%;
     top: 50%;
     transform: translate(50%, -50%) scale(0.8); /* Center vertically */
     filter: blur(2px);
+  }
+
+  @media screen and (max-width: 900px) {
+
+    &.left {
+      display: none;
+    }
+
+    &.right {
+      display: none;
+    }
   }
 `;

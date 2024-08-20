@@ -2,9 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 
-// Components and Other Import
-
-
 const PanierCheckout = () => {
   const [itemCount, setItemCount] = useState(0);
 
@@ -33,8 +30,8 @@ const PanierCheckout = () => {
 export default PanierCheckout;
 
 const Wrapper = styled.div`
-  position: relative;
   display: inline-block;
+  position: relative;
   img {
     width: 60px;
   }

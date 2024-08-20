@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 // Components and Other Import
 
-
 const WarningMessage = ({children}) => {
   return (
     <Wrapper>
@@ -25,4 +24,5 @@ const Wrapper = styled.div`
   width: fit-content;
   padding: 20px 15px;
   margin: 0em auto 2em;
+  text-align: center;
 `

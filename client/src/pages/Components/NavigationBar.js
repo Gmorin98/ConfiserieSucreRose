@@ -1,13 +1,13 @@
 // Necessary Import
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 // Components and Other Import
 import PanierCheckout from './PanierCheckout';
 
-//YOU HAVE TO PUT IN THE FOOTER A LINK TO ICON8.COM FOR THE RIGHT TO USE THEM! LIKE : Icons by Icon8 <-- Link to the website
 const NavigationBar = () => {
+
   return (
     <NavWrapper>
       <NavLink to="/"><img src="images/Logo_Nom.svg" width="250px" id="ShoppingIcon"/></NavLink>
@@ -40,8 +40,8 @@ const NavWrapper = styled.nav`
   a {
     color: var(--primary-color);
   }
-  // RESPONSIVE DESIGN
 
+  // RESPONSIVE DESIGN
   // PHONE
   @media screen and (max-width: 900px) {
     .options {

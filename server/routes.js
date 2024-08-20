@@ -1,20 +1,23 @@
 const {
   getFiltre,
-  getAllProduits
+  getAllProduits,
+  updateFiltre,
+  updateInventaire,
+  postNouveauProduit,
+  upload,
+  deleteProduit,
 } = require("./handlers");
 
 const router = require("express").Router();
 
 router.get("/getFiltre/:section", getFiltre);
-router.get("/getAllProduits/:section/:produit", getAllProduits)
+router.get("/getAllProduits/:section", getAllProduits)
 
-// router.get("/products", getProducts);
-// router.get("/products/recommended", getRecommendedProducts);
+router.patch("/updateFiltre/:section", updateFiltre)
+router.patch("/updateInventaire/:inventaire", updateInventaire)
 
-// router.get("/cart", getCart);
-// router.post("/addToCart", addToCart);
-// router.patch("/updateCart", updateCart);
-// router.delete("/removeFromCart", removeFromCart);
-// router.get("/getOneItem/:_id", getSingularItem)
+router.post("/nouveauProduit", upload.single('img'), postNouveauProduit);
+
+router.delete("/deleteProduit/:_id/:inventaire", deleteProduit)
 
 module.exports = router;

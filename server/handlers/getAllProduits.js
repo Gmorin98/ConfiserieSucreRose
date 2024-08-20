@@ -1,5 +1,3 @@
-'use strict';
-
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
@@ -8,16 +6,13 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const getAllProduits = async (req, res) => {
-  const { section, produit } = req.params;
-  console.log(section);
-  console.log(produit);
-
+  const { section } = req.params;
   const client = new MongoClient(MONGO_URI);
   
   try {
 		await client.connect();
     const db = client.db(section);
-    const produitsInfo = await db.collection(produit).find().toArray();
+    const produitsInfo = await db.collection(section).find().toArray();
     if (produitsInfo.length === 0) {
       res.status(404).json({
         status: 404,

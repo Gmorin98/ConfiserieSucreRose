@@ -1,6 +1,8 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
+import { AllFiltreContext } from "../../contexts/AllFiltreContext";
+import { AllProduitsContext } from "../../contexts/AllProduitsContext";
 
 // Component and Other Import
 import WarningMessage from "../Components/WarningMessage";
@@ -8,45 +10,9 @@ import Filtre from "../Components/Filtre";
 import ProduitCase from "../Components/ProduitCase";
 
 const Produits = () => {
-  const [filtreInfo, setFiltreInfo] = useState([]);
+  const { allProduits } = useContext(AllProduitsContext);
+  const { filtreProduitInfo } = useContext(AllFiltreContext);
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
-
-  // Starter
-  useEffect(() => {
-    fetchFiltreInfo();
-    fetchProductsInfo();
-  }, []);
-
-  // ↓ Products Functions ↓
-  // Fetch all the products.
-  const fetchProductsInfo = async () => {
-    try {
-      const response = await fetch(`/getAllProduits/Produits/Produits`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch Products");
-      }
-      const allProduitsData = await response.json();
-      setAllProducts(allProduitsData.produitsInfo);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  
-  // ↓ Filter Functions ↓
-  // Getting the Section for the Filter.
-  const fetchFiltreInfo = async () => {
-    try {
-      const response = await fetch(`/getFiltre/${"Produits"}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch Vrac Filtre");
-      }
-      const vracFiltreData = await response.json();
-      setFiltreInfo(vracFiltreData.filtreInfo);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   const handleFilterChange = (option) => {
     setSelectedFilters((prevFilters) => 
@@ -56,14 +22,14 @@ const Produits = () => {
     );
   };
 
-  const filterProducts = () => {
+  const filterProduits = () => {
     if (selectedFilters.length === 0) {
-      return allProducts; // No filter selected, send back the entire catalog.
+      return allProduits; // No filter selected, send back the entire catalog.
     }
 
-    return allProducts.filter(product => {
+    return allProduits.filter(product => {
       // Filter products by ensurin all selected filters match the product's tags.
-      const tagsMatch = selectedFilters.every(filter => product.tag.includes(filter));
+      const tagsMatch = selectedFilters.some(filter => product.tag.includes(filter));
       
       // Handle the price range
       const priceMatch = selectedFilters.some(filter => {
@@ -74,14 +40,14 @@ const Produits = () => {
     });
   };
 
-  const filteredProducts = filterProducts();
+  const filteredProducts = filterProduits();
 
   return (
     <Wrapper>
       <WarningMessage children={"Plus de produits en Boutique!"}/>
       <div className="Content">
         <aside>
-          <Filtre children={filtreInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
+          <Filtre children={filtreProduitInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
         </aside>
         <div className="ProduitsShowcase">
           <ProduitCase children={filteredProducts}/>
@@ -99,12 +65,18 @@ const Wrapper = styled.div`
 
   .Content {
     display: flex;
-    justify-content: space-between;
     .ProduitsShowcase {
       display: flex;
       height: fit-content;
       flex-wrap: wrap;
       justify-content: space-evenly;
+      margin-left: 5em;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .ProduitsShowcase {
+      margin-left: 0;
     }
   }
 `
