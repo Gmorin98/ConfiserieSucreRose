@@ -6,6 +6,7 @@ const {
   postNouveauProduit,
   upload,
   deleteProduit,
+  deleteFiltre,
 } = require("./handlers");
 
 const router = require("express").Router();
@@ -17,7 +18,9 @@ router.patch("/updateFiltre/:section", updateFiltre)
 router.patch("/updateInventaire/:inventaire", updateInventaire)
 
 router.post("/nouveauProduit", upload.single('img'), postNouveauProduit);
+router.post("/ajoutFiltre/:_id/:inventaire")
 
-router.delete("/deleteProduit/:_id/:inventaire", deleteProduit)
+router.delete("/deleteProduit/:_id/:inventaire", deleteProduit);
+router.delete("/deleteFiltre/:_id/:section", deleteFiltre);
 
 module.exports = router;

@@ -90,7 +90,8 @@ const Admin = () => {
           setTrackError={setTrackError} />}
       {currentInventaire === "Filtre" && 
         <ListeTag 
-        optionSelectionne={optionSelectionne} />}
+        optionSelectionne={optionSelectionne}
+        currentInventaire={currentInventaire}/>}
     </Wrapper>
   );
 }

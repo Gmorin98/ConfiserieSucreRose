@@ -63,6 +63,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     formData.append('tag', nouveauProduit.tag);
     formData.append('inventaire', currentInventaire);
   
+    // ↓ Handeling the Fetch ↓
     fetch(`/nouveauProduit`, {
       method: "POST",
       body: formData
@@ -99,6 +100,8 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const handleDelete = () => {
+
+    // ↓ Handeling the Fetch ↓
     fetch(`/deleteProduit/${editedOption._id}/${currentInventaire}`, {
       method: "DELETE"
     })
@@ -112,9 +115,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
           setAllProduits(prevAllProduits => prevAllProduits.filter(item => item._id !== editedOption._id));
         }
       }
-    }
-  )
-
+    })
   }
 
   const handleCancel = () => {

@@ -4,11 +4,25 @@ import React from 'react';
 
 // Component and Other Import
 
-const ListeTag = ({optionSelectionne}) => {
+const ListeTag = ({optionSelectionne, currentInventaire, filtreVrac, setFiltreVrac, filtreProduits, setFiltreProduits}) => {
+
+  const handleDelete = (filtreOption, filtreSection) => {
+    console.log(filtreOption);
+    console.log(filtreSection);
+    console.log(currentInventaire);
+    // ↓ Handeling the Fetch ↓
+    // fetch(`/deleteFiltre/${filtreOption}/${filtreSection}/${currentInventaire}`, {
+    //   method: "DELETE"
+    // })
+    // .then(response => response.json())
+    // .then(data => { setTrackError(data) }
+    // })
+  }
 
   return (
     <Wrapper>
         {optionSelectionne.map((section, id) => {
+          console.log(section._id);
           return (
             <section>
               <div key={id} className="filtreTitre">
@@ -19,7 +33,7 @@ const ListeTag = ({optionSelectionne}) => {
                 {section.options.map((option, id) => {
                   return (
                     <div key={id} className="filtreOption">
-                      <button className="delete">X</button>
+                      <button className="delete" onClick={() => handleDelete(option, section._id)}>X</button>
                       <p>{option}</p>
                     </div >
                   )
