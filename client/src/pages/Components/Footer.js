@@ -11,7 +11,7 @@ const Footer = () => {
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: "AIzaSyBtGTMjV3WLKZfsOijFvH95g6MvzeYgfTg", // GOTTA MOVE THAT
+      
       version: "weekly",
     });
 
