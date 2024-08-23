@@ -14,15 +14,14 @@ import Footer from "./pages/Components/Footer.js";
 
 const App = () => {
 
-  // Gotta change the Route name for BarBonbon and CreerTonPot
   return (
     <Router>
       <NavigationBar />
       <Switch>
         <Route path="/" element={<Accueil />} />
         <Route path="/produits" element={<Produit />} />
-        <Route path="/barbonbon" element={<BarBonbon />} />
-        <Route path="/creertonpot" element={<CreeTonPot />} />
+        <Route path="/bar-a-bonbons" element={<BarBonbon />} />
+        <Route path="/creer-ton-pot" element={<CreeTonPot />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/admin" element={<Admin />} />

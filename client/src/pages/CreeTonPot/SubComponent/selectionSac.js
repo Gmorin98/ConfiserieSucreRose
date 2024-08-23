@@ -2,15 +2,6 @@
 import styled from "styled-components";
 import React from 'react';
 
-// Component and Other Import
-// const listSac = [
-//   {nom: "Petit Cône 125g", prix: "4.50", img: "images/Vrac/Sacs/Petit_cone.jpg", quantite: 125},
-//   {nom: "Sac 175g", prix: "5.50", img: "images/Vrac/Sacs/Sac.jpg", quantite: 175},
-//   {nom: "Grand Cône 225g", prix: "6.75", img: "images/Vrac/Sacs/Grand_Cone.jpg", quantite: 225},
-//   {nom: "Verre en vitre avec Paille ???g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale.jpg", quantite: 325},
-//   {nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau.jpg", quantite: 1000},
-// ]
-
 const listSac = [
 {nom: "Petit Cône 125g", prix: "4.50", img: "images/Vrac/Sacs/Petit_Cone_Crop.png", quantite: 125},
 {nom: "Sac 175g", prix: "5.50", img: "images/Vrac/Sacs/Sac_Crop.png", quantite: 175},
@@ -77,7 +68,8 @@ const Wrapper = styled.div`
                 rgba(0, 0, 0, 0.09) 0px 32px 16px;
 
     img {
-      height: 150px;
+      max-height: 150px;
+      width:fit-content;
       padding: 1em;
     }
   }

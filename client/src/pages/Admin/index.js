@@ -12,6 +12,7 @@ const Admin = () => {
   const { allVrac, allProduits } = useContext(AllProduitsContext);
   const { filtreVracInfo, filtreProduitInfo } = useContext(AllFiltreContext);
   const [currentInventaire, setCurrentInventaire] = useState("");
+  const [sectionFiltre, setSectionFiltre] = useState("");
   const [optionSelectionne, setOptionSelectionne] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null); // Track the index of the item being edited
   const [editedOption, setEditedOption] = useState({}); // Track the edited fields
@@ -55,9 +56,9 @@ const Admin = () => {
     <Wrapper>
       <aside>
         <button onClick={() => { setOptionSelectionne(allVrac); setCurrentInventaire("Vrac"); }}>Vrac Inventaire</button>
-        <button onClick={() => { setOptionSelectionne(filtreVracInfo); setCurrentInventaire("Filtre"); }}>Filtre Vrac Option</button>
+        <button onClick={() => { setOptionSelectionne(filtreVracInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Vrac") }}>Filtre Vrac Option</button>
         <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
-        <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); }}>Filtre Produits Option</button>
+        <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
         {editingIndex !== null && 
           <div className="selectionTagWrapper">
             {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
@@ -91,7 +92,7 @@ const Admin = () => {
       {currentInventaire === "Filtre" && 
         <ListeTag 
         optionSelectionne={optionSelectionne}
-        currentInventaire={currentInventaire}/>}
+        sectionFiltre={sectionFiltre}/>}
     </Wrapper>
   );
 }

@@ -3,6 +3,7 @@ const {
   getAllProduits,
   updateFiltre,
   updateInventaire,
+  patchAjoutFiltre,
   postNouveauProduit,
   upload,
   deleteProduit,
@@ -16,11 +17,12 @@ router.get("/getAllProduits/:section", getAllProduits)
 
 router.patch("/updateFiltre/:section", updateFiltre)
 router.patch("/updateInventaire/:inventaire", updateInventaire)
+router.patch("/ajoutFiltre/:section/:_id/:option", patchAjoutFiltre)
 
 router.post("/nouveauProduit", upload.single('img'), postNouveauProduit);
 router.post("/ajoutFiltre/:_id/:inventaire")
 
 router.delete("/deleteProduit/:_id/:inventaire", deleteProduit);
-router.delete("/deleteFiltre/:_id/:section", deleteFiltre);
+router.delete("/deleteFiltre/:section/:_id/:option", deleteFiltre);
 
 module.exports = router;

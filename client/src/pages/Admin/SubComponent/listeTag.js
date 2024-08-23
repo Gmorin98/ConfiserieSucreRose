@@ -1,32 +1,53 @@
 // Necessary Import
 import styled from "styled-components";
-import React from 'react';
+import React, { useState } from 'react';
 
 // Component and Other Import
 
-const ListeTag = ({optionSelectionne, currentInventaire, filtreVrac, setFiltreVrac, filtreProduits, setFiltreProduits}) => {
+const ListeTag = ({optionSelectionne, sectionFiltre}) => {
+  const [newOption, setNewOption] = useState({});
 
-  const handleDelete = (filtreOption, filtreSection) => {
-    console.log(filtreOption);
-    console.log(filtreSection);
-    console.log(currentInventaire);
+  const handleDelete = (filtreOption, sectionID) => {
     // ↓ Handeling the Fetch ↓
-    // fetch(`/deleteFiltre/${filtreOption}/${filtreSection}/${currentInventaire}`, {
-    //   method: "DELETE"
-    // })
-    // .then(response => response.json())
-    // .then(data => { setTrackError(data) }
-    // })
+    fetch(`/deleteFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
+      method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(data => { console.log(data) })
   }
+
+  const handleAjout = (filtreOption, sectionID) => {
+    // ↓ Handeling the Fetch ↓
+    fetch(`/ajoutFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type" : "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  }
+
+  const handleInputChange = (e, sectionID) => {
+    const value = e.target.value;
+    setNewOption({ ...newOption, [sectionID]: value }); // Store the input value keyed by sectionID
+  };
+
+  const handleAddClick = (sectionID) => {
+    const optionToAdd = newOption[sectionID]; // Get the input value for the specific sectionID
+    if (optionToAdd) {
+      handleAjout(optionToAdd, sectionID); // Pass the input value to handleAjout
+    }
+  };
 
   return (
     <Wrapper>
         {optionSelectionne.map((section, id) => {
-          console.log(section._id);
           return (
             <section>
               <div key={id} className="filtreTitre">
-                <button className="delete">X</button>
+                <button className="delete" onClick={() => handleDelete("", section._id)}>X</button>
                 <h3>{section.titre}</h3>
               </div>
               <div> 
@@ -38,8 +59,12 @@ const ListeTag = ({optionSelectionne, currentInventaire, filtreVrac, setFiltreVr
                     </div >
                   )
                 })}
-                <button className="filtreAjout">+</button>
-                <input type="text"></input>
+                <button className="filtreAjout" onClick={() => handleAddClick(section._id)}>+</button>
+                <input 
+                  type="text"
+                  onChange={(e) => handleInputChange(e, section._id)} 
+                  value={newOption[section._id] || ''}
+                />
               </div>
             </section>
           )
