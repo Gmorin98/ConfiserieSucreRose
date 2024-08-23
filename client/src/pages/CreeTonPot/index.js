@@ -56,6 +56,7 @@ const CreerTonPot = () => {
         <section>
           <h2 className="etape">Étape 1</h2>
           <p className="explication">Sélectionné le contenant que vous voulez.</p>
+          <p className="explication">Pour six items ou plus, commander via le bar à bonbons!</p>
           <SelectionSac setSac={setSac} />
           <h2 className="etape">Étape 2</h2>
           <p className="explication">Sélectionné les bonbons qui vous intéressent!</p>

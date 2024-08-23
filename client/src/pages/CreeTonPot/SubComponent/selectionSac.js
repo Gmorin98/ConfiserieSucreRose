@@ -6,7 +6,7 @@ const listSac = [
 {nom: "Petit Cône 125g", prix: "4.50", img: "images/Vrac/Sacs/Petit_Cone_Crop.png", quantite: 125},
 {nom: "Sac 175g", prix: "5.50", img: "images/Vrac/Sacs/Sac_Crop.png", quantite: 175},
 {nom: "Grand Cône 225g", prix: "6.75", img: "images/Vrac/Sacs/Grand_Cone_Crop.png", quantite: 225},
-{nom: "Verre en vitre avec Paille ???g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png", quantite: 325},
+{nom: "Verre en vitre avec Paille 325g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png", quantite: 325},
 {nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1000},
 ]
 
