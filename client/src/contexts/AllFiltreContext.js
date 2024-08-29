@@ -38,7 +38,7 @@ const AllFiltreProvider = ({children}) => {
   }, []);
 
   return (
-    <AllFiltreContext.Provider value={{ filtreVracInfo, filtreProduitInfo }}>
+    <AllFiltreContext.Provider value={{ filtreVracInfo, setFiltreVracInfo, filtreProduitInfo, setFiltreProduitInfo }}>
       {children}
     </AllFiltreContext.Provider>
   );

@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Component and Other Import
 import WarningMessage from "../../Components/WarningMessage";
@@ -22,9 +22,9 @@ const Confirmation = ({sac, setSac, setReset}) => {
 
     // Clear the current sac selection and reset state.
     setSac({
-      nom: '',
-      prix: '',
-      img: '',
+      nom: "",
+      prix: "",
+      img: "",
       quantitePrise: 0,
       quantiteMax: 0,
       bonbonsSelectionne: []
@@ -34,6 +34,10 @@ const Confirmation = ({sac, setSac, setReset}) => {
     setDisplayAvertissement(false);
   };
 
+  useEffect(() => {
+    console.log("State after reset:", sac);
+  }, [sac]);
+
   return (
     <Wrapper>
       {displayAvertissement && <WarningMessage children={`Il vous reste encore ${sac.quantiteMax - sac.quantitePrise}g à choisir!`} /> }
@@ -42,7 +46,7 @@ const Confirmation = ({sac, setSac, setReset}) => {
             <div className="imgContainer">
               <img src={sac.img} alt={sac.nom}/>
             </div>
-            <div className="sacContenu">
+            <div className="sacContenu" style={{ display: sac.nom=== "" ? "none" : "block" }}>
               <h3>Le contenant comprend:</h3>
               <div>
                 <h3>{sac.nom}</h3>
@@ -59,7 +63,7 @@ const Confirmation = ({sac, setSac, setReset}) => {
             </div>
           </div>
         }
-        <button onClick={() => ajouterAuPanier()}>Ajouter au panier!</button>
+        <button disabled={sac.nom === ""} onClick={() => ajouterAuPanier()} style={{ cursor: sac.nom === "" ? "not-allowed" : "pointer" }}>Ajouter au panier!</button>
     </Wrapper>
   )
 }

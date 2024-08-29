@@ -22,8 +22,8 @@ const deleteFiltre = async (req, res) => {
     const result = await collection.updateOne(filterID, optionToDelete);
 
     if(result.modifiedCount === 1) {
-      // This is to send back the new array with the right recipes after the delete
-      const updatedFiltreList = await collection.findOne({ filterID });
+      // Fetch the updated document after the addition
+      const updatedFiltreList = await collection.findOne(filterID);
       res.status(200).json({
         status: 200,
         data: updatedFiltreList, //Doesnt send back the new list. Fix this

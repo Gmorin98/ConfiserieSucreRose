@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 // Component and Other Import
 
-const ListeTag = ({optionSelectionne, sectionFiltre}) => {
+const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtreVracInfo, setFiltreVracInfo, filtreProduitInfo, setFiltreProduitInfo}) => {
   const [newOption, setNewOption] = useState({});
 
   const handleDelete = (filtreOption, sectionID) => {
@@ -13,7 +13,8 @@ const ListeTag = ({optionSelectionne, sectionFiltre}) => {
       method: "DELETE"
     })
     .then(response => response.json())
-    .then(data => { console.log(data) })
+    .then(data => updateList(data.data))
+    .catch(error => console.error('Error:', error));
   }
 
   const handleAjout = (filtreOption, sectionID) => {
@@ -25,7 +26,7 @@ const ListeTag = ({optionSelectionne, sectionFiltre}) => {
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => updateList(data.data))
     .catch(error => console.error('Error:', error));
   }
 
@@ -40,6 +41,32 @@ const ListeTag = ({optionSelectionne, sectionFiltre}) => {
       handleAjout(optionToAdd, sectionID); // Pass the input value to handleAjout
     }
   };
+
+  const updateList = (newData) => {
+    if(sectionFiltre === "Vrac") {
+      setFiltreVracInfo((prevInfo) => 
+        prevInfo.map((item) => 
+          item._id === newData._id
+            ? { ...item, titre: newData.titre, options: newData.options }
+            : item
+        )
+      );
+    } else {
+      setFiltreProduitInfo((prevInfo) => 
+        prevInfo.map((item) => 
+          item._id === newData._id
+            ? { ...item, titre: newData.titre, options: newData.options }
+            : item
+        )
+      );
+    }
+  };
+
+  if(sectionFiltre === "Vrac") {
+    setOptionSelectionne(filtreVracInfo);
+  } else {
+    setOptionSelectionne(filtreProduitInfo);
+  }
 
   return (
     <Wrapper>

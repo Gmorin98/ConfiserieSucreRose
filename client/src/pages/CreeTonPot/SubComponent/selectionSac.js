@@ -18,9 +18,7 @@ const SelectionSac = ({setSac}) => {
       nom: sac.nom,
       prix: sac.prix,
       img: sac.img,
-      quantitePrise: 0,
       quantiteMax: sac.quantite,
-      bonbonsSelectionne: []
     }));
   }
 
@@ -51,7 +49,6 @@ const Wrapper = styled.div`
     display: flex;
     color: var(--primary-color);
     font-family: var(--font-primary);
-
     width: 20%;
     min-width: 250px;
     height: fit-content;
@@ -60,7 +57,7 @@ const Wrapper = styled.div`
     align-items: center;
     border-radius: 35px;
     background-color: #ffffff;
-    margin: 1em 3em;
+    margin: 1em 1.5em;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px,
                 rgba(0, 0, 0, 0.09) 0px 4px 2px,
                 rgba(0, 0, 0, 0.09) 0px 8px 4px,

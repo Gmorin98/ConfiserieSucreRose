@@ -10,10 +10,6 @@ const patchAjoutFiltre = async (req, res) => {
   const { section, _id, option } = req.params;
   const client = new MongoClient(MONGO_URI);
 
-  // section --> Vrac
-  // _id --> long thing
-  // option --> Jujube
-
   try {
     await client.connect();
     const db = client.db(section); // Use your actual DB name
@@ -28,6 +24,7 @@ const patchAjoutFiltre = async (req, res) => {
     if (result.modifiedCount === 1) {
       // Fetch the updated document after the addition
       const updatedFiltreList = await collection.findOne(filterID);
+      
       res.status(200).json({
         status: 200,
         data: updatedFiltreList,

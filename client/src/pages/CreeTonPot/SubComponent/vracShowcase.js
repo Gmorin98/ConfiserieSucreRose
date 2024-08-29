@@ -30,9 +30,6 @@ const Wrapper = styled.div`
   position: relative;
   justify-content: center;
   color: var(--primary-color);
-
-  div:nth-child(2) {
-  }
   
   .wrapperQuantiteSac {
     height: 0;

@@ -35,6 +35,7 @@ const postNouveauProduit = async (req, res) => {
 
     res.status(201).json({
       status: 201,
+      data: nouveauProduit,
       message: ajoutProduit
     })
   } catch (error) {

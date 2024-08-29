@@ -10,10 +10,10 @@ const NavigationBar = () => {
 
   return (
     <NavWrapper>
-      <NavLink to="/"><img src="images/Logo_Nom.svg" width="250px" id="ShoppingIcon"/></NavLink>
+      <NavLink to="/"><img src="images/Logo_Nom.svg" width="250px" alt="Logo Nom" /></NavLink>
       <NavLink to="/produits" className={"options"}>Produits</NavLink>
-      <NavLink to="/barbonbon" className={"options"}>Bar à Bonbons</NavLink>
-      <NavLink to="/creertonpot" className={"options"}>Créer ton Pot</NavLink>
+      <NavLink to="/bar-a-bonbons" className={"options"}>Bar à Bonbons</NavLink>
+      <NavLink to="/creer-ton-pot" className={"options"}>Créer ton Pot</NavLink>
       <NavLink to="/checkout" className={"options"}><PanierCheckout /></NavLink>
     </NavWrapper>
   )

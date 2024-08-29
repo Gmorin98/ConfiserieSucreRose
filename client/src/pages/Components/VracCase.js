@@ -18,8 +18,10 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
       // Prevent negative quantities.
       newQuantites[index] = updatedQuantite < 0 ? 0 : updatedQuantite;
 
-      // Ensure the bag doesn't get overfilled.
-      if (sac.quantitePrise + change > sac.quantiteMax) return prevQuantites;
+      if (change > 0) {
+        // Ensure the bag doesn't get overfilled.
+        if (sac.quantitePrise + change > sac.quantiteMax) return prevQuantites;
+      }
 
       // Update the sac state
       setSac((prevSac) => {
@@ -53,17 +55,10 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
       // Reset the quantitesBonbon state to its initial values
       setQuantitesBonbon(initialQuantities);
 
-      // Reset the sac state
-      setSac({
-        quantitePrise: 0,
-        bonbonsSelectionne: [],
-        quantiteMax: sac.quantiteMax,
-      });
-
       // Set reset back to false after resetting
       setReset(false);
     }
-  }, [reset, initialQuantities, setReset, setSac, sac.quantiteMax]);
+  }, [reset]);
 
   return (
     <>

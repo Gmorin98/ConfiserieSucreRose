@@ -8,7 +8,7 @@ import { CarrouselBarBonbons } from "../Components/DataTemp";
 
 const typeEvenement = ["Mariage", "Corporation", "Fête", "Cadeau", "Autre"];
 
-const BarBonbons = () => {
+const BarABonbons = () => {
   // All the info in this object
   const [formData, setFormData] = useState({
     prenom: '',
@@ -125,7 +125,7 @@ const BarBonbons = () => {
   );
 };
 
-export default BarBonbons;
+export default BarABonbons;
 
 const Wrapper = styled.div`
   display: flex;

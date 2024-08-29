@@ -5,7 +5,7 @@ import React, { useState, useContext } from 'react';
 // Component and Other Import
 import { AllProduitsContext } from "../../../contexts/AllProduitsContext";
 
-const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, currentInventaire, setEditingIndex, setTrackError}) => {
+const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, currentInventaire, setEditingIndex, setTrackError, allProduits, allVrac}) => {
   const { setAllVrac, setAllProduits } = useContext(AllProduitsContext);
   const [formNouveauBonbons, setFormNouveauBonbons] = useState(false);
   const [nouveauProduit, setNouveauProduit] = useState({});
@@ -69,7 +69,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       body: formData
     })
     .then(response => response.json())
-    .then(data => setTrackError(data))
+    .then(data => updateList(data.data))
     .catch(error => console.error('Error:', error));
   };
 
@@ -122,27 +122,63 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     setEditingIndex(null);
   };
 
+  const updateList = (newData) => {
+    if(currentInventaire === "Vrac") {
+      allVrac.push(newData);
+    } else {
+      allProduits.push(newData);
+    }
+  };
+
+  if(currentInventaire === "Vrac") {
+    setOptionSelectionne(allVrac);
+  } else {
+    setOptionSelectionne(allProduits);
+  }
+
   return (
     <Wrapper>
-      {!formNouveauBonbons ? 
-        <button className="ajoutBonbonButton" onClick={() => setFormNouveauBonbons(true)}>+</button> 
-        : 
-        <div className="ajoutBonbonsWrapper">
-          <form className="ajoutBonbonsForm" onSubmit={handleConfirmNouveau}>
-            <label>Image:<input type="file" onChange={(e) => nouveauProduitInformation(e, 'img')} required /></label>
-            <label>Nom:<input type="text" onChange={(e) => nouveauProduitInformation(e, 'nom')} required ></input></label>
-            <label>Stock:<input type="number" onChange={(e) => nouveauProduitInformation(e, 'stock')} required ></input></label>
-            <label>Prix:<input type="text" onChange={(e) => nouveauProduitInformation(e, 'prix')} ></input></label>
-            <label>Actif:<input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'actif')} required ></input></label>
-            <label>Nouveauté:<input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'nouveau')} required ></input></label>
-            <label>Tag:<input type="text" onChange={(e) => nouveauProduitInformation(e, 'tag')} ></input></label>
-            <div>
-              <button className="confirmer" onClick={handleConfirmNouveau} type="">CONFIRM</button>
-              <button className="cancel" onClick={() => setFormNouveauBonbons(false)}>CANCEL</button>
-            </div>
-          </form>
-        </div>
-      }
+      {currentInventaire !== "" && (
+        !formNouveauBonbons ? 
+          <button className="ajoutBonbonButton" onClick={() => setFormNouveauBonbons(true)}>+</button> 
+          : 
+          <div className="ajoutBonbonsWrapper">
+            <form className="ajoutBonbonsForm" onSubmit={handleConfirmNouveau}>
+              <div>
+                <label>Image :</label>
+                <input type="file" onChange={(e) => nouveauProduitInformation(e, 'img')} required />
+              </div>
+              <div>
+                <label>Nom :</label>
+                <input type="text" onChange={(e) => nouveauProduitInformation(e, 'nom')} required />
+              </div>
+              <div>
+                <label>Stock :</label>
+                <input type="number" onChange={(e) => nouveauProduitInformation(e, 'stock')} required />
+              </div>
+              <div>
+                <label>Prix :</label>
+                <input type="text" onChange={(e) => nouveauProduitInformation(e, 'prix')} />
+              </div>
+              <div>
+                <label>Actif :</label>
+                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'actif')} required />
+              </div>
+              <div>
+                <label>Nouveauté :</label>
+                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'nouveau')} required />
+              </div>
+              <div>
+                <label>Tag :</label>
+                <input type="text" onChange={(e) => nouveauProduitInformation(e, 'tag')} />
+              </div>
+              <div>
+                <button className="confirmer" onClick={handleConfirmNouveau} type="">CONFIRM</button>
+                <button className="cancel" onClick={() => setFormNouveauBonbons(false)}>CANCEL</button>
+              </div>
+            </form>
+          </div>
+      )}
       {optionSelectionne.map((option, id) => {
         const isEditing = editingIndex === id;
         return (
@@ -224,7 +260,14 @@ const Wrapper = styled.div`
       align-items: center;
       height: 30px;
       > input {
-        width: 100px;
+        width: 70%;
+      }
+      > p:last-of-type {
+        width: fit-content;
+        height: 24px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     .editButton {
@@ -259,6 +302,7 @@ const Wrapper = styled.div`
     justify-content: center;
     width: 250px;
     height: 210px;
+    margin: 10px;
     color: white;
     background-color: var(--primary-color);
     border-radius: 10px;
@@ -267,7 +311,34 @@ const Wrapper = styled.div`
   }
 
   .ajoutBonbonsForm {
-    display: flex;
-    flex-direction: column;
+    width: 250px;
+    height: fit-content;
+    padding: 5px;
+    margin: 10px;
+    background-color: #ffffff;
+    border: solid 2px var(--primary-color);
+    border-radius: 10px;
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > label {
+        width: fit-content;
+      }
+      > input {
+        max-height: 30px;
+        max-width: 75%;
+      }
+      > button {
+        color: #ffffff;
+        margin-top: 5px;
+      }
+      > button:first-of-type {
+        background-color: limegreen;
+      }
+      > button:last-of-type {
+        background-color: crimson;
+      }
+    }
   }
 `

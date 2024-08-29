@@ -3,14 +3,16 @@ import styled from "styled-components";
 import React, { useContext, useState, useEffect } from 'react';
 
 // Component and Other Import
+import Authentification from "../Components/Authentification";
 import { AllProduitsContext } from "../../contexts/AllProduitsContext";
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import ProduitsInventaire from "./SubComponent/produitsInventaire";
 import ListeTag from "./SubComponent/listeTag";
 
 const Admin = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { allVrac, allProduits } = useContext(AllProduitsContext);
-  const { filtreVracInfo, filtreProduitInfo } = useContext(AllFiltreContext);
+  const { filtreVracInfo, setFiltreVracInfo, filtreProduitInfo, setFiltreProduitInfo} = useContext(AllFiltreContext);
   const [currentInventaire, setCurrentInventaire] = useState("");
   const [sectionFiltre, setSectionFiltre] = useState("");
   const [optionSelectionne, setOptionSelectionne] = useState([]);
@@ -50,50 +52,63 @@ const Admin = () => {
     }
   }
   useEffect (() => {
-  }, [allVrac, allProduits])
+  }, [allVrac, allProduits]);
 
   return (
-    <Wrapper>
-      <aside>
-        <button onClick={() => { setOptionSelectionne(allVrac); setCurrentInventaire("Vrac"); }}>Vrac Inventaire</button>
-        <button onClick={() => { setOptionSelectionne(filtreVracInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Vrac") }}>Filtre Vrac Option</button>
-        <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
-        <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
-        {editingIndex !== null && 
-          <div className="selectionTagWrapper">
-            {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
-              return (
-                <section className="selectionTag" key={id}>
-                  <h3>{section.titre}</h3>
-                  <div> 
-                    {section.options.map((option, id) => {
-                      return (
-                        <TagButton type="button" selected={editedOption.tag.includes(option)} onClick={() => addTag(option)} key={id}>{option}</TagButton>
-                      )
-                    })}
-                  </div>
-                </section>
-              )
-            })}
-          </div>
-        }
-      </aside>
-      {currentInventaire !== "Filtre" && 
-        <ProduitsInventaire 
-          currentInventaire={currentInventaire} 
-          optionSelectionne={optionSelectionne} 
-          setOptionSelectionne={setOptionSelectionne} 
-          editedOption={editedOption} 
-          setEditedOption={setEditedOption} 
-          editingIndex={editingIndex} 
-          setEditingIndex={setEditingIndex} 
-          trackError={trackError} 
-          setTrackError={setTrackError} />}
-      {currentInventaire === "Filtre" && 
-        <ListeTag 
-        optionSelectionne={optionSelectionne}
-        sectionFiltre={sectionFiltre}/>}
-    </Wrapper>
+    <div>
+      {isLoggedIn ? false : <Authentification setIsLoggedIn={setIsLoggedIn} />}
+      {!isLoggedIn ? true :      
+        <Wrapper>
+          <aside>
+            <button onClick={() => { setOptionSelectionne(allVrac); setCurrentInventaire("Vrac"); }}>Vrac Inventaire</button>
+            <button onClick={() => { setOptionSelectionne(filtreVracInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Vrac") }}>Filtre Vrac Option</button>
+            <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
+            <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
+            {editingIndex !== null && 
+              <div className="selectionTagWrapper">
+                {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
+                  return (
+                    <section className="selectionTag" key={id}>
+                      <h3>{section.titre}</h3>
+                      <div> 
+                        {section.options.map((option, id) => {
+                          return (
+                            <TagButton type="button" selected={editedOption.tag.includes(option)} onClick={() => addTag(option)} key={id}>{option}</TagButton>
+                          )
+                        })}
+                      </div>
+                    </section>
+                  )
+                })}
+              </div>
+            }
+          </aside>
+          {currentInventaire !== "Filtre" && 
+            <ProduitsInventaire 
+              currentInventaire={currentInventaire} 
+              optionSelectionne={optionSelectionne} 
+              setOptionSelectionne={setOptionSelectionne} 
+              editedOption={editedOption} 
+              setEditedOption={setEditedOption} 
+              editingIndex={editingIndex} 
+              setEditingIndex={setEditingIndex} 
+              trackError={trackError} 
+              setTrackError={setTrackError} 
+              allProduits={allProduits}
+              allVrac={allVrac}
+              />}
+          {currentInventaire === "Filtre" && 
+            <ListeTag 
+            optionSelectionne={optionSelectionne}
+            setOptionSelectionne={setOptionSelectionne} 
+            sectionFiltre={sectionFiltre}
+            filtreVracInfo={filtreVracInfo}
+            setFiltreVracInfo={setFiltreVracInfo}
+            filtreProduitInfo={filtreProduitInfo}
+            setFiltreProduitInfo={setFiltreProduitInfo}/>}
+        </Wrapper>
+      }
+    </div>
   );
 }
 
@@ -120,8 +135,12 @@ const Wrapper = styled.div`
       background-color: var(--primary-color);
     }
   }
-  .selectionTagWrapper > section {
-    margin-bottom: 1em;
+  .selectionTagWrapper {
+    position: sticky;
+    top: 0;
+    > section {
+      margin-bottom: 1em;
+    }
   }
 `
 
