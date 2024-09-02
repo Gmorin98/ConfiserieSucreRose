@@ -1,18 +1,21 @@
 // Necessary Import
 import styled from "styled-components";
-import React from 'react';
+import React, { useState } from 'react';
 
 const listSac = [
-{nom: "Petit Cône 125g", prix: "4.50", img: "images/Vrac/Sacs/Petit_Cone_Crop.png", quantite: 125},
-{nom: "Sac 175g", prix: "5.50", img: "images/Vrac/Sacs/Sac_Crop.png", quantite: 175},
-{nom: "Grand Cône 225g", prix: "6.75", img: "images/Vrac/Sacs/Grand_Cone_Crop.png", quantite: 225},
-{nom: "Verre en vitre avec Paille 325g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png", quantite: 325},
-{nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1000},
+  {nom: "Petit Cône 125g", prix: "4.50", img: "images/Vrac/Sacs/Petit_Cone_Crop.png", quantite: 125},
+  {nom: "Sac 175g", prix: "5.50", img: "images/Vrac/Sacs/Sac_Crop.png", quantite: 175},
+  {nom: "Contenant 200g", prix: "5.25", img: "images/Vrac/Sacs/Petit_Format_Crop.png", quantite: 200},
+  {nom: "Grand Cône 225g", prix: "6.75", img: "images/Vrac/Sacs/Grand_Cone_Crop.png", quantite: 225},
+  {nom: "Contenant 300g", prix: "7.55", img: "images/Vrac/Sacs/Grand_Format_Crop.png", quantite: 300},
+  {nom: "Verre en vitre avec Paille 325g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png", quantite: 325},
+  {nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1000}
 ]
 
 const SelectionSac = ({setSac}) => {
+  const [clickedButtons, setClickedButtons] = useState({}); // Track which buttons were clicked
 
-  const handleSacSelection = (sac) => {
+  const handleSacSelection = (sac, index) => {
     setSac((prevState) => ({
       ...prevState,
       nom: sac.nom,
@@ -20,6 +23,20 @@ const SelectionSac = ({setSac}) => {
       img: sac.img,
       quantiteMax: sac.quantite,
     }));
+
+    // Trigger the animation for the specific button
+    setClickedButtons((prevState) => ({
+      ...prevState,
+      [index]: true,
+    }));
+
+    // Revert the animation state after the animation completes
+    setTimeout(() => {
+      setClickedButtons((prevState) => ({
+        ...prevState,
+        [index]: false,
+      }));
+    }, 2000);  // Adjust the duration to match your animation
   }
 
   return (
@@ -30,7 +47,12 @@ const SelectionSac = ({setSac}) => {
             <img src={sac.img} alt={sac.nom} />
             <p>{sac.nom}</p>
             <p>{sac.prix}$</p>
-            <button onClick={() => handleSacSelection(sac)}>Sélectionner</button>
+            <button 
+              onClick={() => handleSacSelection(sac, id)}
+              className={`selection ${clickedButtons[id] ? 'transform-active' : ''}`}
+            >
+              Sélectionner
+            </button>
           </div>
         )
       })}
@@ -79,5 +101,24 @@ const Wrapper = styled.div`
     height: 3em;
     color: var(--primary-color);
     cursor: pointer;
+  }
+
+  @keyframes confirmationAdded {
+    0% {
+      background: var(--background-color);
+      color: white;
+    }
+    50% {
+      background: #6FF178;
+      color: white;
+    }
+    100% {
+      background: var(--background-color);
+      color: var(--primary-color);
+    }
+  }
+
+  .selection.transform-active {
+    animation: confirmationAdded 2s linear forwards;
   }
 `

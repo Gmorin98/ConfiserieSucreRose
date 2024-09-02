@@ -23,7 +23,7 @@ const Carrousel = ({ children }) => {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [position]);
 
   const prevPosition = (position - 1 + children.length) % children.length;
   const nextPosition = (position + 1) % children.length;

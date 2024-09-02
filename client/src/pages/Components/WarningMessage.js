@@ -25,4 +25,9 @@ const Wrapper = styled.div`
   padding: 10px 15px;
   margin: 0em auto 1.25em;
   text-align: center;
+
+  @media screen and (max-width: 900px) {
+    font-size: 1.5em;
+    margin-top: 2em;
+  }
 `

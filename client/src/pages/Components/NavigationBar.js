@@ -1,5 +1,5 @@
 // Necessary Import
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -44,6 +44,7 @@ const NavWrapper = styled.nav`
   // RESPONSIVE DESIGN
   // PHONE
   @media screen and (max-width: 900px) {
+    margin-bottom: 0;
     .options {
       display: none;
     }

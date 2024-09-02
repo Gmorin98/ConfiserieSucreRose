@@ -104,4 +104,10 @@ const Wrapper = styled.div`
   .etape:not(:first-child) {
     margin-top: 2em;
   }
+
+  @media screen and (max-width: 900px) {
+    .explication {
+      font-size: 1em;
+    }
+  }
 `

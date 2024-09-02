@@ -14,7 +14,7 @@ const Filtre = ({children, selectedFilters, handleFilterChange}) => {
 
   return (
     <Wrapper>
-      <button onClick={() => toggleVisibility()} className="toggleFiltre"><img src="images/Filter_Icon.svg" width="50px"/></button>
+      <button onClick={() => toggleVisibility()} className="toggleFiltre"><img src="images/Filter_Icon.svg"/></button>
       <div className={isVisible ? "" : "hidden"}>
         <h2>Filtre</h2>
         {children.map(element => {return (
@@ -58,6 +58,9 @@ const Wrapper = styled.div`
     background-color: transparent;
     border: none;
     cursor: pointer;
+    > img {
+      width: 50px;
+    }
   }
 
   section {
@@ -70,15 +73,16 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 900px) {
+    position: relative;
+    z-index: 5;
+    display: none;
+
     .hidden {
       display: none;
     }
 
     .toggleFiltre {
-      display: block;
-      position: absolute;
-      top: 0px;
-      left: 0px;
+      display: none;
     }
   }
 `

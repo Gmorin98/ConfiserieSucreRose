@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React, { useContext, useState, useEffect } from 'react';
 
 // Component and Other Import
-import Authentification from "../Components/Authentification";
+import Authentification from "./SubComponent/Authentification";
 import { AllProduitsContext } from "../../contexts/AllProduitsContext";
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import ProduitsInventaire from "./SubComponent/produitsInventaire";
@@ -25,14 +25,6 @@ const Admin = () => {
     setEditingIndex(null);
     setEditedOption({});
   }, [optionSelectionne]);
-
-  // Check for error message from fetches and log them to the console
-  // FIX THIS, ALWAYS LOG UNDEFINED
-  // useEffect(() => {
-  //   if(trackError.status !== 200 && trackError !== undefined) {
-  //     console.log(trackError.message);
-  //   }
-  // }, [trackError])
 
   const addTag = (tag) => {
     if (editedOption.tag.includes(tag)) {

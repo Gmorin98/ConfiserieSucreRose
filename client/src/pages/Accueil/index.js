@@ -12,11 +12,11 @@ const Accueil = () => {
     <Wrapper>
       <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%" className="logo"/>
       <section className="redirection">
-        <Link to={"/creertonpot"}>
+        <Link to={"/creer-ton-pot"}>
           <h2>Créer ton pot à Bonbons!</h2>
         </Link>
         <img src="images/Seperator.svg" height="400px" />
-        <Link to={"/barbonbon"}>
+        <Link to={"/bar-a-bonbons"}>
           <h2>Bar à Bonbons & Corpo</h2>
         </Link>
       </section>
@@ -76,7 +76,8 @@ const Wrapper = styled.div`
     .redirection {
       display: flex;
       flex-direction: column;
-      margin-top: 150px;
+      font-size: 2em;
+      margin-top: 4em;
       margin-bottom: 150px;
       a {
         width: 80%;

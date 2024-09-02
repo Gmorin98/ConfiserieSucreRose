@@ -71,12 +71,15 @@ const Wrapper = styled.div`
       flex-wrap: wrap;
       justify-content: space-evenly;
       margin-left: 5em;
+      width: 100%;
     }
   }
 
   @media screen and (max-width: 900px) {
-    .ProduitsShowcase {
-      margin-left: 0;
+    .Content {
+      .ProduitsShowcase {
+        margin-left: 0;
+      }
     }
   }
 `

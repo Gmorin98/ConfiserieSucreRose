@@ -143,4 +143,10 @@ const Wrapper = styled.div`
       cursor: not-allowed;
     }
   }
+
+  @media screen and (max-width: 900px) {
+    margin: 10px;
+    width: 150px;
+    min-width: 175px;
+  }
 `

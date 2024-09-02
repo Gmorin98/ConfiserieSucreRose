@@ -9,7 +9,7 @@ const Checkbox = ({children, checked, onChange}) => {
   return (
     <Wrapper>
       <label className="container">
-        <input type="checkbox" checked={checked} onChange={onChange}/>
+        <input type="checkbox" checked={checked} onChange={onChange} value={children}/>
         <span className="checkmark"></span>
         {children}
       </label>

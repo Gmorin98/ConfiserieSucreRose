@@ -5,7 +5,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Anneaux_A_L'Ananas.png",
     tag: ["Ananas"],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 2,
@@ -13,7 +14,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Anneaux_A_La_Fraise.png",
     tag: ["Fraise"],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 3,
@@ -21,7 +23,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Anneaux_A_La_Peche.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 4,
@@ -29,7 +32,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Anneaux_Au_Raisin.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 5,
@@ -37,7 +41,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Bouchee_Sure_A_L'Ananas_Et_Orange.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 6,
@@ -45,7 +50,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Boule_Sure_A_La_Cerise.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 7,
@@ -53,7 +59,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Boule_Sure_A_La_Pomme.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 8,
@@ -61,7 +68,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Bouteille_A_La_Gomme_Balloune.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 8,
@@ -69,7 +77,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Bouteille_De_Cola.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 9,
@@ -77,7 +86,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Coeur_De_Conversation_Sure.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 10,
@@ -85,7 +95,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Delice_A_La_Framboise.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 11,
@@ -93,7 +104,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Dinosaure.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 12,
@@ -101,7 +113,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Flamants_Roses_A_La_Cerise.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 13,
@@ -109,7 +122,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Fraise_Lunaire.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 14,
@@ -117,7 +131,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Framboise_Lunaire.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 15,
@@ -125,7 +140,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Grenouille.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 16,
@@ -133,7 +149,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Lait_Frappe_A_La_Fraise.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 17,
@@ -141,7 +158,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Levres_Chaudes.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 18,
@@ -149,7 +167,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Licorne.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 19,
@@ -157,7 +176,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Mangue_Epicee.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 20,
@@ -165,7 +185,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Mini_Framboise.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 21,
@@ -173,7 +194,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Oeuf.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 22,
@@ -181,7 +203,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Ourson_A_La_Mangue.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 23,
@@ -189,7 +212,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Ourson_Pamplemousse.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 24,
@@ -197,7 +221,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Ourson_Saveur_Variee.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 25,
@@ -205,7 +230,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Petite_Suce.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 26,
@@ -213,7 +239,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Petits_Fruits.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 27,
@@ -221,7 +248,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Soda_Banane.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 28,
@@ -229,7 +257,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Sucette_Glacee.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 29,
@@ -237,7 +266,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Tarte_A_La_Fraise.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 30,
@@ -245,7 +275,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Tranche_De_Kiwi.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
   {
     id: 31,
@@ -253,7 +284,8 @@ export const allVracs = [
     img: "images/Vrac/Bonbons/Tranche_De_Melon_D'Eau_Sure.png",
     tag: [],
     inventaire: 100,
-    nouveau: false
+    nouveau: false,
+    actif: true,
   },
 ]
 
@@ -265,7 +297,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Mike_Ike_Original.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 2,
@@ -274,7 +307,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Mike_Ike_Tropical.png",
     tag: ["Exotique", "Tropical"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 3,
@@ -283,7 +317,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Mike_Ike_Baie.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 4,
@@ -292,7 +327,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Gost_Pepper_Framboise_Bleue.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 5,
@@ -301,7 +337,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Ghost_Pepper_Cerise.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 6,
@@ -310,7 +347,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Pailles_Cereale_Cocoa_Krispie.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 7,
@@ -319,7 +357,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Pailles_Froot_Loops.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 8,
@@ -328,7 +367,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Gummi_Eyes_Herberts.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 9,
@@ -337,7 +377,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Starbust_Fraise.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 10,
@@ -346,7 +387,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Cornichon_Big_Papa.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
 
   {
@@ -356,7 +398,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Cornichon_Hot_Mama.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 12,
@@ -365,7 +408,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Cornichon_Sour_Sis.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 13,
@@ -374,7 +418,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Warheads_Galactic_Mix.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 14,
@@ -383,7 +428,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Warheads_Cubes_Framboises_Bleues.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 15,
@@ -392,7 +438,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Warheads_Mega_Sour_Booms.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 16,
@@ -401,7 +448,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Warheads_Wedgies.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 17,
@@ -410,7 +458,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Chipsnuts_Cornichon_A_L'Aneth.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 18,
@@ -419,7 +468,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Chipnuts_Sel_Et_Vinaigre.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 19,
@@ -428,7 +478,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Chipnuts_BBQ_De_Sud.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 20,
@@ -437,7 +488,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Nerds_Gummy_Clusters_Berry_Berry.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 21,
@@ -446,7 +498,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Sweet_Tarts_Chewy_Fusion_Punch_Aux_Fruits.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 22,
@@ -455,7 +508,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Sweet_Tarts_Ropes_Fraise.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
     {
     id: 23,
@@ -464,7 +518,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Fruity's_Snacks.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 24,
@@ -473,7 +528,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Coupes_De_Pudding_Au_Chocolat_Au_Lait.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 25,
@@ -482,7 +538,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Chili_Peppers.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 26,
@@ -491,7 +548,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Toxic_Waste.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 27,
@@ -500,7 +558,8 @@ export const allProducts = [
     img: "images/Produits/Exotique/Hot_Tamales.png",
     tag: ["Exotique"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 28,
@@ -509,7 +568,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Bon_Bons_A_La_Fraise.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 29,
@@ -518,7 +578,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Bon_Bons_Framboise_Bleue.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 30,
@@ -527,7 +588,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Casse_Gueule.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 31,
@@ -536,7 +598,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Charleston_Chew_Nougat_Fraise.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 32,
@@ -545,7 +608,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Gold_Mine_Gomme.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 33,
@@ -554,7 +618,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Lune_De_Miel.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 34,
@@ -563,7 +628,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Oublies_Rondes_Au_Gout_Dhosties.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 35,
@@ -572,7 +638,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Pastilles_Aux_Fruits.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 36,
@@ -581,7 +648,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Soucoupes_Volantes_A_La_Poudre_Surette.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 37,
@@ -590,7 +658,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Sugar_Daddy_Caramel.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 38,
@@ -599,7 +668,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Taffy_Aux_Fruits.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 39,
@@ -608,7 +678,8 @@ export const allProducts = [
     img: "images/Produits/Antan/Taffy_Napolitaine.png",
     tag: ["Antan"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 40,
@@ -617,7 +688,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Anneaux_A_La_Peche_Sucre.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 41,
@@ -626,7 +698,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Anneaux_A_La_Peche_Surette.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 42,
@@ -635,7 +708,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Bebe_Ours.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 43,
@@ -644,7 +718,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Puffy_Gummy_Virus.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 44,
@@ -653,7 +728,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Rainbow_Crunch_Suret.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 45,
@@ -662,7 +738,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Rainbow_Crunch.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 46,
@@ -671,7 +748,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Taffy_A_La_Fraise.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   },
   {
     id: 47,
@@ -680,7 +758,8 @@ export const allProducts = [
     img: "images/Produits/Lyophilises/Verre_De_Terre.png",
     tag: ["Lyophilisés"],
     inventaire: 10,
-    nouveau: false
+    nouveau: false,
+    actif: true
   }
 ]
 
@@ -704,20 +783,5 @@ export const CarrouselEvenements = [
     id: 4,
     img: "images/Evenements/FeteQuebec.jpg",
     info: "Nous sommes ouvert durant la fête du Québec! Venez nous voir pour des bundles de bonbons thématiques Québec! 🔵⚜️⚪"
-  }
-]
-
-export const CarrouselBarBonbons = [
-  {
-    id: 1,
-    img: "images/BarABonbons/Enfant.png",
-  },
-  {
-    id: 2,
-    img: "images/BarABonbons/Pop.jpg",
-  },
-  {
-    id: 3,
-    img: "images/BarABonbons/Rose.jpg",
   }
 ]

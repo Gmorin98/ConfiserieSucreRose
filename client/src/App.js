@@ -8,9 +8,10 @@ import Produit from "./pages/Produits/index.js";
 import BarABonbons from "./pages/BarABonbon/index.js";
 import CreeTonPot from "./pages/CreeTonPot/index.js";
 import Checkout from "./pages/Checkout/index.js";
-import Admin from "./pages/Admin/index.js";
 import NavigationBar from "./pages/Components/NavigationBar.js";
 import Footer from "./pages/Components/Footer.js";
+import Admin from "./pages/Admin/index.js";
+import Return from "./pages/Checkout/Return.js";
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/return" element={<Return/>} />
       </Switch>
       <Footer />
     </Router>

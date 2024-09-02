@@ -12,7 +12,9 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleChangeProduits = (e, field) => {
     let value = e.target.value;
-    if (field === ("nouveau" || "actif")) {
+    if (field === ("nouveau")) {
+      value = e.target.checked; // Handle checkbox toggle
+    } else if (field === ("actif")){
       value = e.target.checked; // Handle checkbox toggle
     } else if (field === "tag") {
       value = value.split(',').map(tag => tag.trim()); // Ensure the tags are stored as an array
@@ -28,10 +30,9 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const nouveauProduitInformation = (e, field) => {
     let value = e.target.value;
-
     if (field === "img") {
       value = e.target.files[0]; // Handle file input
-    } else if (field === ("nouveau" || "actif")) {
+    } else if (field === "nouveau" || field === "actif") {
       value = e.target.checked;
     } else if (field === "tag") {
       value = value.split(',').map(tag => tag.trim());
@@ -54,14 +55,14 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('img', nouveauProduit.img);
-    formData.append('nom', nouveauProduit.nom);
-    formData.append('stock', nouveauProduit.stock);
-    formData.append('prix', nouveauProduit.prix);
-    formData.append('actif', nouveauProduit.actif);
-    formData.append('nouveau', nouveauProduit.nouveau);
-    formData.append('tag', nouveauProduit.tag);
-    formData.append('inventaire', currentInventaire);
+      formData.append('img', nouveauProduit.img);
+      formData.append('nom', nouveauProduit.nom);
+      formData.append('stock', nouveauProduit.stock);
+      formData.append('prix', nouveauProduit.prix);
+      formData.append('actif', nouveauProduit.actif);
+      formData.append('nouveau', nouveauProduit.nouveau);
+      formData.append('tag', nouveauProduit.tag);
+      formData.append('inventaire', currentInventaire);
   
     // ↓ Handeling the Fetch ↓
     fetch(`/nouveauProduit`, {
@@ -89,7 +90,8 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
         nom: editedOption.nom,
         tag: editedOption.tag,
         inventaire: editedOption.inventaire,
-        nouveau: editedOption.nouveau
+        nouveau: editedOption.nouveau,
+
       })
     })
     .then(response => response.json())
@@ -212,7 +214,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                 <input type="checkbox" checked={editedOption.nouveau} onChange={(e) => handleChangeProduits(e, 'nouveau')} /> 
                 : (option.nouveau ? "OUI" : "NON")}</p>
               <p>ACTIF: {isEditing ?
-                <input type="checkbox" checked={editedOption.nouveau} onChange={(e) => handleChangeProduits(e, 'actif')} /> 
+                <input type="checkbox" checked={editedOption.actif} onChange={(e) => handleChangeProduits(e, 'actif')} /> 
                 : (option.nouveau ? "OUI" : "NON")}</p>
               <p>TAG: {(option.tag ? option.tag.join(', ') : '')}</p>
             </section>

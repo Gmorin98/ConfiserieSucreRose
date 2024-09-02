@@ -1,12 +1,31 @@
+// Necessary Import
 import styled from "styled-components";
 import React, { useState } from 'react';
 
+// Component and Other Import
 import WarningMessage from "../Components/WarningMessage";
 import Checkbox from "../Components/Checkbox";
 import Carrousel from "../Components/Carrousel";
-import { CarrouselBarBonbons } from "../Components/DataTemp";
 
 const typeEvenement = ["Mariage", "Corporation", "Fête", "Cadeau", "Autre"];
+const CarrouselBarBonbons = [
+  {
+    id: 1,
+    img: "images/BarABonbons/Bar_Bonbons_Bas.jpg",
+  },
+  {
+    id: 2,
+    img: "images/BarABonbons/Bar_Bonbons_Chaise.jpg",
+  },
+  {
+    id: 3,
+    img: "images/BarABonbons/Bar_Bonbons_Haut.jpg",
+  },
+  {
+    id: 4,
+    img: "images/BarABonbons/Meuble_Vide.jpg",
+  }
+]
 
 const BarABonbons = () => {
   // All the info in this object
@@ -19,6 +38,7 @@ const BarABonbons = () => {
     evenement: [],
     extraInfo: ''
   });
+  const [statusResponse, setStatusResponse] = useState();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -42,85 +62,112 @@ const BarABonbons = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Process the form data here
-    console.log(formData);
+  
+    try {
+      // Sending user credentials using POST
+      const response = await fetch(`/contactBarBonbon`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+      
+      if (data.status === 200) {
+        setStatusResponse(true);
+      } else {
+        setStatusResponse(false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <Wrapper>
       <WarningMessage children={"Contactez-nous pour réserver votre bar à bonbons!"} />
       <Carrousel children={CarrouselBarBonbons}/>
-      <div className="formulaireWrapper">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="prenom">Prénom*</label>
-          <input
-            name="prenom"
-            id="prenom"
-            type="text"
-            value={formData.prenom}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="nom">Nom*</label>
-          <input
-            name="nom"
-            id="nom"
-            type="text"
-            value={formData.nom}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="email">Email*</label>
-          <input
-            name="email"
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="telephone">Numéro de Téléphone*</label>
-          <input
-            name="telephone"
-            id="telephone"
-            type="tel"
-            value={formData.telephone}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="date">Date de l'Évènement</label>
-          <input
-            name="date"
-            id="date"
-            type="date"
-            value={formData.date}
-            onChange={handleChange}
-          />
-          <div className="something">
-            <label>Type d'Évènement</label>
-            {typeEvenement.map((option, id) => (
-              <Checkbox
-                key={id}
-                label={option}
-                value={option}
-                onChange={handleCheckboxChange}
-                children={option}
+      {!statusResponse ?
+        ( 
+          <div className="formulaireWrapper">
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="prenom">Prénom*</label>
+              <input
+                name="prenom"
+                id="prenom"
+                type="text"
+                value={formData.prenom}
+                onChange={handleChange}
+                required
               />
-            ))}
+              <label htmlFor="nom">Nom*</label>
+              <input
+                name="nom"
+                id="nom"
+                type="text"
+                value={formData.nom}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="email">Email*</label>
+              <input
+                name="email"
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="telephone">Numéro de Téléphone*</label>
+              <input
+                name="telephone"
+                id="telephone"
+                type="tel"
+                value={formData.telephone}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="date">Date de l'Évènement</label>
+              <input
+                name="date"
+                id="date"
+                type="date"
+                value={formData.date}
+                onChange={handleChange}
+              />
+              <div className="evenement">
+                <label>Type d'Évènement</label>
+                {typeEvenement.map((option, id) => (
+                  <Checkbox
+                    key={id}
+                    label={option}
+                    value={option}
+                    onChange={handleCheckboxChange}
+                    children={option}
+                  />
+                ))}
+              </div>
+              <label htmlFor="extraInfo">Information Pertinente*</label>
+              <textarea
+                name="extraInfo"
+                id="extraInfo"
+                value={formData.extraInfo}
+                onChange={handleChange}
+                required
+              />
+              <button type="submit" onClick={handleSubmit}>Soumettre!</button>
+            </form>
           </div>
-          <label htmlFor="extraInfo">Information Pertinente*</label>
-          <textarea
-            name="extraInfo"
-            id="extraInfo"
-            value={formData.extraInfo}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">Soumettre!</button>
-        </form>
-      </div>
+        ) : (
+          <Wrapper>
+            <h3 className="success">Nous avons bien reçu votre demande de contact!<br/> Nous vous répondrons dans les plus brefs délais.</h3>
+          </Wrapper>
+      )
+      }
     </Wrapper>
   );
 };
@@ -153,7 +200,7 @@ const Wrapper = styled.div`
         max-width: 100%;
       }
     
-      .something {
+      .evenement {
         display: flex;
         flex-direction: column;
         margin-bottom: 20px;
@@ -174,6 +221,14 @@ const Wrapper = styled.div`
         cursor: pointer;
       }
     }
+  }
+
+  .success {
+    color: var(--primary-color);
+    padding: 1.5em;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    margin-bottom: 2em;
   }
 
   @media screen and (max-width: 900px) {

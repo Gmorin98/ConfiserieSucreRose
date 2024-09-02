@@ -34,10 +34,6 @@ const Confirmation = ({sac, setSac, setReset}) => {
     setDisplayAvertissement(false);
   };
 
-  useEffect(() => {
-    console.log("State after reset:", sac);
-  }, [sac]);
-
   return (
     <Wrapper>
       {displayAvertissement && <WarningMessage children={`Il vous reste encore ${sac.quantiteMax - sac.quantitePrise}g à choisir!`} /> }
@@ -52,9 +48,9 @@ const Confirmation = ({sac, setSac, setReset}) => {
                 <h3>{sac.nom}</h3>
                 <p>{sac.prix}$</p>
               </div>
-              {sac.bonbonsSelectionne.map((bonbon) => {
+              {sac.bonbonsSelectionne.map((bonbon, id) => {
                 return (
-                  <div className="listeBonbons">                     
+                  <div className="listeBonbons" key={id}>                     
                     <p>{bonbon.nom}</p>
                     <p>{bonbon.quantite}g</p>
                   </div>

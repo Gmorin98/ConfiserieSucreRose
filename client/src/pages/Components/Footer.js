@@ -135,7 +135,6 @@ const Wrapper = styled.div`
     align-items: center;
     img:first-of-type {
       width: 350px;
-      max-width: 100%; // This cause the logo to take 100% of the space available!! NEED TO CHANGE
     }
     .socials {
       display: flex;

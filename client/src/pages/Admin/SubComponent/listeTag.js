@@ -74,7 +74,6 @@ const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtr
           return (
             <section>
               <div key={id} className="filtreTitre">
-                <button className="delete" onClick={() => handleDelete("", section._id)}>X</button>
                 <h3>{section.titre}</h3>
               </div>
               <div> 
@@ -103,6 +102,8 @@ const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtr
 export default ListeTag
 
 const Wrapper = styled.div`
+  display: flex;
+  
   section {
     margin: 1em;
     > div {
