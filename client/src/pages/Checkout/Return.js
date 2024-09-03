@@ -5,6 +5,9 @@ import styled from 'styled-components';
 const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  
+  // Get all the items from the local storage.
+  const panier = JSON.parse(localStorage.getItem('panier')) || [];
 
   useEffect(() => {
     const queryString = window.location.search;
@@ -27,6 +30,7 @@ const Return = () => {
         <Navigate to="/checkout" />
       )
     }
+
     
     if (status === 'complete') {
       // Send the confirmation email to the customer.
@@ -46,6 +50,34 @@ const Return = () => {
           console.error('Error:', error);
         }
       };
+      // Reduce the Inventory
+      const reduceInventory = async () => {
+        const filteredPanier = panier.filter(item => item._id !== undefined);
+        const dataTransfer = filteredPanier.map(item => {
+          return {
+            _id: item._id,
+            quantity: item.quantity
+          };
+        });
+
+        try {
+          // Sending user credentials using POST
+          const response = await fetch(`/pacthUpdateInventory`, {
+            method: "PATCH",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataTransfer)
+          });
+
+          const data = await response.json();
+          console.log('Response data:', data);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+      reduceInventory()
 
       return (
       <Wrapper id="success">

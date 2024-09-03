@@ -5,6 +5,7 @@ const {
   updateFiltre,
   updateInventaire,
   patchAjoutFiltre,
+  pacthUpdateInventory,
   postAdminAuthentification,
   postNouveauProduit,
   postContactBarBonbons,
@@ -25,6 +26,7 @@ router.get("/session-status", getSessionStatus);
 router.patch("/updateFiltre/:section", updateFiltre);
 router.patch("/updateInventaire/:inventaire", updateInventaire);
 router.patch("/ajoutFiltre/:section/:_id/:option", patchAjoutFiltre);
+router.patch("/pacthUpdateInventory", pacthUpdateInventory);
 
 router.post("/nouveauProduit", upload.single('img'), postNouveauProduit);
 router.post("/ajoutFiltre/:_id/:inventaire")

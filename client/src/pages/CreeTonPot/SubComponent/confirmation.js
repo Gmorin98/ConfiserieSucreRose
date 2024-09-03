@@ -27,7 +27,8 @@ const Confirmation = ({sac, setSac, setReset}) => {
       img: "",
       quantitePrise: 0,
       quantiteMax: 0,
-      bonbonsSelectionne: []
+      bonbonsSelectionne: [],
+      quantity: 1,
     });
 
     setReset(true);

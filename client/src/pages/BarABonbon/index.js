@@ -28,6 +28,7 @@ const CarrouselBarBonbons = [
 ]
 
 const BarABonbons = () => {
+  const panier = JSON.parse(localStorage.getItem('panier')) || [];
   // All the info in this object
   const [formData, setFormData] = useState({
     prenom: '',
