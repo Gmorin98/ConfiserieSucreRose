@@ -8,47 +8,53 @@ import BanniereNouveaute from "./BanniereNouveaute";
 const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
   const initialQuantities = vrac.map(() => 0);
   const [quantitesBonbon, setQuantitesBonbon] = useState(initialQuantities);
-
-  const handleQuantiteChange = (index, change, bonbonID, bonbonNom) => {
+  
+  const handleQuantiteChange = (index, change, bonbonsID, bonbonsNom, bonbonsInventaire) => {
     setQuantitesBonbon((prevQuantites) => {
       const newQuantites = [...prevQuantites];
       const currentQuantite = newQuantites[index] || 0;
-      const updatedQuantite = currentQuantite + change;
-
+      let updatedQuantite = currentQuantite + change;
+  
       // Prevent negative quantities.
-      newQuantites[index] = updatedQuantite < 0 ? 0 : updatedQuantite;
-
+      updatedQuantite = updatedQuantite < 0 ? 0 : updatedQuantite;
+  
+      // Ensure the quantity does not exceed the bonbonsInventaire.
+      updatedQuantite = updatedQuantite > bonbonsInventaire ? bonbonsInventaire : updatedQuantite;
+  
+      newQuantites[index] = updatedQuantite;
+  
       if (change > 0) {
         // Ensure the bag doesn't get overfilled.
         if (sac.quantitePrise + change > sac.quantiteMax) return prevQuantites;
       }
-
+  
       // Update the sac state
       setSac((prevSac) => {
         const updatedBonbonsSelectionne = [...prevSac.bonbonsSelectionne];
-        const bonbonIndex = updatedBonbonsSelectionne.findIndex(item => item.id === bonbonID);
-
-        if (bonbonIndex > -1) {
-          updatedBonbonsSelectionne[bonbonIndex].quantite = newQuantites[index];
+        const bonbonsIndex = updatedBonbonsSelectionne.findIndex(item => item.id === bonbonsID);
+  
+        if (bonbonsIndex > -1) {
+          updatedBonbonsSelectionne[bonbonsIndex].quantite = newQuantites[index];
           if (updatedQuantite === 0) {
-            updatedBonbonsSelectionne.splice(bonbonIndex, 1);
+            updatedBonbonsSelectionne.splice(bonbonsIndex, 1);
           }
         } else if (updatedQuantite > 0) {
-          updatedBonbonsSelectionne.push({ id: bonbonID, nom: bonbonNom, quantite: updatedQuantite });
+          updatedBonbonsSelectionne.push({ id: bonbonsID, nom: bonbonsNom, quantite: updatedQuantite });
         }
-
+  
         const totalQuantitePrise = updatedBonbonsSelectionne.reduce((acc, item) => acc + item.quantite, 0);
-
+  
         return {
           ...prevSac,
           quantitePrise: totalQuantitePrise,
           bonbonsSelectionne: updatedBonbonsSelectionne,
         };
       });
-
+  
       return newQuantites;
     });
   };
+  
 
   useEffect(() => {
     if (reset) {
@@ -73,9 +79,9 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
             </div>
           ) : (
             <div className="quantite">
-              <button onClick={() => handleQuantiteChange(id, -25, produit._id, produit.nom)}>-</button>
+              <button onClick={() => handleQuantiteChange(id, -25, produit._id, produit.nom, produit.inventaire)}>-</button>
               {quantitesBonbon[id] || 0} g
-              <button onClick={() => handleQuantiteChange(id, 25, produit._id, produit.nom)}>+</button>
+              <button onClick={() => handleQuantiteChange(id, 25, produit._id, produit.nom, produit.inventaire)}>+</button>
             </div>
           )}
         </Wrapper>

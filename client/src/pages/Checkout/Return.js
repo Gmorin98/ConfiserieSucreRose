@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const [orderNumber, setOrderNumber] = useState('');
   
   // Get all the items from the local storage.
   const panier = JSON.parse(localStorage.getItem('panier')) || [];
@@ -20,8 +21,8 @@ const Return = () => {
       .then((data) => {
         setStatus(data.status);
         setCustomerEmail(data.customer_email);
+        setOrderNumber(data.orderNumber);
       });
-      
     }, []);
 
     
@@ -31,10 +32,42 @@ const Return = () => {
       )
     }
 
-    
+
     if (status === 'complete') {
+      // Send the order to the merchant.
+      const envoieCommande = async () => {
+        const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
+        const data = {
+          panierWithoutImg,
+          customerEmail
+        }
+        try {
+          // Sending user credentials using POST
+          const response = await fetch(`/orderSent`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+  
+          const result = await response.json();
+          console.log(result);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
       // Send the confirmation email to the customer.
       const confirmationEmailCustomer = async () => {
+        const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
+        const data = {
+          panierWithoutImg,
+          customerEmail,
+          orderNumber
+        }
+        console.log(data);
+        
         try {
           // Sending user credentials using POST
           const response = await fetch(`/confirmationEmailCustomer`, {
@@ -42,24 +75,34 @@ const Return = () => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify() // SEND WHAT YOU NEED HERE
+            body: JSON.stringify(data)
           });
 
-          const data = await response.json();
+          const result = await response.json();
+          console.log(result);
+          
         } catch (error) {
           console.error('Error:', error);
         }
       };
+
       // Reduce the Inventory
       const reduceInventory = async () => {
-        const filteredPanier = panier.filter(item => item._id !== undefined);
-        const dataTransfer = filteredPanier.map(item => {
+        const items = panier.flatMap(item => {
+          if (item._id === undefined) {
+            return item.bonbonsSelectionne.map(bonbon => ({
+              _id: bonbon.id,
+              quantity: bonbon.quantite,
+              origin: "Vrac"
+            }));
+          }
           return {
             _id: item._id,
-            quantity: item.quantity
+            quantity: item.quantity,
+            origin: "Produit"
           };
         });
-
+        
         try {
           // Sending user credentials using POST
           const response = await fetch(`/pacthUpdateInventory`, {
@@ -67,9 +110,9 @@ const Return = () => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dataTransfer)
+            body: JSON.stringify(items)
           });
-
+      
           const data = await response.json();
           console.log('Response data:', data);
         } catch (error) {
@@ -77,7 +120,11 @@ const Return = () => {
         }
       };
 
+      envoieCommande()
+      confirmationEmailCustomer()
       reduceInventory()
+      // Empty the localStorage.
+      localStorage.clear();
 
       return (
       <Wrapper id="success">

@@ -20,6 +20,11 @@ const Accueil = () => {
           <h2>Bar à Bonbons & Corpo</h2>
         </Link>
       </section>
+      <section className="boutique">
+        <h2>Venez nous visitez en Boutique</h2>
+        <img src="images/maison_sucre_rose.jpeg"/>
+        <p>Vous trouverez du stationnement au stationnement Municipale sur la rue Dupras</p>
+      </section>
       <section className="promotion">
         <h2>Évènements et Nouveautés</h2>
         <Carrousel children={CarrouselEvenements}/>
@@ -55,6 +60,19 @@ const Wrapper = styled.div`
     }
   }
 
+  .boutique {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > img {
+      max-height: 400px;
+      width: fit-content;
+      border-radius: 25px;
+      border: solid 5px var(--primary-color);
+      margin: 30px 0;
+    }
+  }
+
   .promotion {
     display: flex;
     flex-direction: column;
@@ -68,7 +86,7 @@ const Wrapper = styled.div`
     color: var(--primary-color);
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1200px) {
     .logo {
       display: none;
     }
@@ -89,6 +107,15 @@ const Wrapper = styled.div`
         margin-top: -150px;
         margin-bottom: -150px;
       }
+    }
+
+    .boutique {
+      width: 100%;
+      text-align: center;
+      > p {
+        min-width: 300px;
+        max-width: 50%;
+      } 
     }
 
     .promotion {

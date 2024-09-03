@@ -12,32 +12,46 @@ const SES_CONFIG = {
 const AWS_SES = new AWS.SES(SES_CONFIG);
 
 const postNouvelleCommande= async (req, res) => {
-  const { prenom } = req.body;
+  const { panierWithoutImg, customerEmail } = req.body;
+
+  // Format panier data
+  let htmlBody = '<h1>Détails de la Commande</h1>';
+  let textBody = 'Détails de la Commande:\n';
+
+  panierWithoutImg.forEach(item => {
+    if (item.bonbonsSelectionne) {
+      htmlBody += `<h2>${item.nom} (Quantité: ${item.quantity})</h2><ul>`;
+      textBody += `${item.nom} (Quantité: ${item.quantity}):\n`;
+      
+      item.bonbonsSelectionne.forEach(bonbon => {
+        htmlBody += `<li>${bonbon.nom} - Quantité: ${bonbon.quantite}</li>`;
+        textBody += `  - ${bonbon.nom} - Quantité: ${bonbon.quantite}\n`;
+      });
+      
+      htmlBody += '</ul>';
+    } else {
+      htmlBody += `<p>${item.nom} - Quantité: ${item.quantity}</p>`;
+      textBody += `${item.nom} - Quantité: ${item.quantity}\n`;
+    }
+  });
+
+  // Remove last newline character from textBody
+  textBody = textBody.trim();
   
   const params = {
     Source: 'gabriel.morin98@gmail.com',
     Destination: {
-      ToAddresses: `gabriel.morin98@gmail.com`,
+      ToAddresses: [customerEmail],
     },
     Message: {
       Body: {
         Html: {
           Charset: 'UTF-8',
-          Data: `
-            <p>Prénom: ${prenom}</p>
-          `,
+          Data: htmlBody,
         },
         Text: {
           Charset: 'UTF-8',
-          Data: `
-            Prénom: ${prenom}
-            Nom: ${nom}
-            Email: ${email}
-            Téléphone: ${telephone}
-            Date: ${date}
-            Évènement: ${evenement.join(", ")}
-            Informations supplémentaires: ${extraInfo}
-          `,
+          Data: textBody,
         }
       },
       Subject: {

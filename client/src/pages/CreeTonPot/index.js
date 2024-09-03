@@ -80,6 +80,7 @@ const Wrapper = styled.div`
   // Making the layout.
   .content {
     display: flex;
+    position: relative;
     > section {
       display: flex;
       flex-wrap: wrap;
@@ -87,7 +88,7 @@ const Wrapper = styled.div`
       align-content: flex-start;
     }
   }
-
+  
   // General stuff for the headers.
   .etape, .explication {
     width: 90%;
@@ -105,8 +106,14 @@ const Wrapper = styled.div`
   .etape:not(:first-child) {
     margin-top: 2em;
   }
-
-  @media screen and (max-width: 900px) {
+  
+  @media screen and (max-width: 1200px) {
+    .content {
+      > div {
+        position: absolute;
+        left: 0;
+      }
+    }
     .explication {
       font-size: 1em;
     }

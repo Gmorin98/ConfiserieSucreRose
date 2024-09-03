@@ -39,10 +39,10 @@ const Wrapper = styled.div`
   }
   
   .quantiteSac {
-    width: 70px;
+    width: 80px;
     height: fit-content;
     padding: 5px;
-    margin-right: -70px;
+    margin-right: -80px;
     font-size: 1.5em;
     text-align: center;
     border-radius: 10px;

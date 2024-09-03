@@ -66,43 +66,49 @@ const Checkout = () => {
 
   return (
     <Wrapper>
-      {!agreedPickUp ? (
-        <div className="confirmation">
-          <input
-            type='checkbox'
-            id='confirmationCheckbox'
-          />
-          <p>Ramassage de commande en boutique SEULEMENT, en cochant cette case, vous confirmez avoir pris conscience de cette condition.</p>
-          <button 
-            onClick={confimationPickUp} 
-            disabled={agreedPickUp}
-          >
-            Continuer
-          </button>
-        </div>
-      ) : !commandConfirmer ? (
-        <div className='confimationCommande'>
-          {panierItems.map((produit) => (
-            <div key={produit._id}>
-              <img src={produit.img} alt={produit.nom} />
-              <p>{produit.nom}</p>
-              <p>${produit.prix}</p>
-              <p>
-                Quantité:
-                <button onClick={() => handleQuantityChange(produit._id, -1)} disabled={produit.quantite <= 1 || produit._id === undefined}>-</button>
-                {produit.quantity}
-                <button onClick={() => handleQuantityChange(produit._id, 1)} disabled={produit._id === undefined || produit.quantity === produit.inventaire} >+</button>
-              </p>
-              <button className='removeProduits' onClick={() => handleRemoveItem(produit._id)}>X</button>
+      <div>
+        {!agreedPickUp ? (
+          <div className="confirmation">
+            <div>
+              <input
+                type='checkbox'
+                id='confirmationCheckbox'
+              />
+              <p>Ramassage de commande en boutique SEULEMENT, en cochant cette case, vous confirmez avoir pris conscience de cette condition.</p>
             </div>
-          ))}
-          <button onClick={handleConfirmOrder} disabled={panierItems.length === 0}>Confirmer la commande</button>
-        </div>
-      ) : (
-        <Elements stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}
+            <button 
+              onClick={confimationPickUp} 
+              disabled={agreedPickUp}
+            >
+              Continuer
+            </button>
+          </div>
+        ) : !commandConfirmer ? (
+          <div className='confimationCommande'>
+            {panierItems.map((produit) => (
+              <div key={produit._id}>
+                <button className='removeProduits' onClick={() => handleRemoveItem(produit._id)}>X</button>
+                <img src={produit.img} alt={produit.nom} />
+                <div className='infoGeneral'>
+                  <p>{produit.nom}</p>
+                  <p>${produit.prix}</p>
+                  <p>
+                    Quantité:
+                    <button onClick={() => handleQuantityChange(produit._id, -1)} disabled={produit.quantite <= 1 || produit._id === undefined}>-</button>
+                    {produit.quantity}
+                    <button onClick={() => handleQuantityChange(produit._id, 1)} disabled={produit._id === undefined || produit.quantity === produit.inventaire} >+</button>
+                  </p>
+                </div>
+              </div>
+            ))}
+            <button onClick={handleConfirmOrder} disabled={panierItems.length === 0} className='confirmationButton'>Confirmer la commande</button>
+          </div>
+        ) : (
+          <Elements stripe={stripePromise}>
+            <CheckoutForm className="CheckoutForm"/>
+          </Elements>
+        )}
+      </div>
     </Wrapper>
   );
 };
@@ -110,14 +116,23 @@ const Checkout = () => {
 export default Checkout;
 
 const Wrapper = styled.div`
-  width: 70%;
-  margin: 0 auto 2em;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 80px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: var(--primary-color);
-  background-color: var(--background-color);
+  display: flex;
+  min-height: 60vh;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  
+  > div {
+    margin-bottom: 3em;
+    padding: 20px;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    height: fit-content;
+    min-width: 20%;
+    max-width: 80%;
+  }
 
   button {
     cursor: pointer;
@@ -125,10 +140,114 @@ const Wrapper = styled.div`
 
   .confirmation {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    > div {
+      display: flex;
+      align-items: center;
+      max-width: 750px;
+      > input[type='checkbox'] {
+        min-width: 30px;
+        height: 30px;
+        cursor: pointer;
+        appearance: none; /* Remove default styling */
+        border: 2px solid #B63643;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:checked {
+          background-color: #B63643;
+          border-color: #B63643;
+        }
+
+        &:checked::after {
+          content: '✔'; /* Checkmark symbol */
+          color: white;
+          font-size: 1.5em;
+        }
+      }
+      > p {
+        font-size: 1.25em;
+        text-align: center;
+      }
+    }
+    > button {
+      border: none;
+      color: #FFFFFF;
+      background-color: var(--primary-color);
+      padding: 10px;
+      margin-top: 2em;
+      border-radius: 10px;
+      font-size: 1.25em;
+    }
   }
 
-  img {
-    max-height: 150px;
-    max-width: 150px;
+  .confimationCommande {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    > div {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin: 1em 0;
+      p {
+        font-size: 1.25em;
+      }
+      button:not(.removeProduits) {
+        background-color: #B63643;
+        border: none;
+        border-radius: 10px;
+        height: fit-content;
+        color: #FFFFFF;
+        font-weight: bold;
+        margin: 0 10px
+      }
+      .removeProduits {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        height: fit-content;
+        background-color: crimson;
+        color: #FFFFFF;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+      }
+    }
+
+    img {
+      max-height: 150px;
+      max-width: 150px;
+      padding: 10px;
+      margin-right: 1em;
+      background-color: #FFFFFF;
+      border-radius: 10px;
+    }
+  }
+
+  .confirmationButton {
+    background-color: #B63643;
+    border: none;
+    border-radius: 10px;
+    height: fit-content;
+    font-size: 1.5em;
+    color: #FFFFFF;
+    margin: 0.5em auto 0;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 900px) {
+    margin-top: 3em;
+    max-width: 100%;
+    > div {
+    max-width: 100%;
+  }
   }
 `;

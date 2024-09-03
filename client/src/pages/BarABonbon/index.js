@@ -28,7 +28,6 @@ const CarrouselBarBonbons = [
 ]
 
 const BarABonbons = () => {
-  const panier = JSON.parse(localStorage.getItem('panier')) || [];
   // All the info in this object
   const [formData, setFormData] = useState({
     prenom: '',
@@ -160,7 +159,7 @@ const BarABonbons = () => {
                 onChange={handleChange}
                 required
               />
-              <button type="submit" onClick={handleSubmit}>Soumettre!</button>
+              <button type="submit" onClick={handleSubmit} className="submit">Soumettre!</button>
             </form>
           </div>
         ) : (
@@ -212,6 +211,7 @@ const Wrapper = styled.div`
     
       button {
         width: fit-content;
+        color: var(--primary-color);
         margin: 30px auto;
         padding: 15px 50px;
         font-size: 1.5em;

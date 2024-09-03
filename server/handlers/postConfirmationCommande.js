@@ -12,26 +12,44 @@ const SES_CONFIG = {
 const AWS_SES = new AWS.SES(SES_CONFIG);
 
 const postConfirmationCommande= async (req, res) => {
-  const { prenom } = req.body;
+  const { panierWithoutImg, customerEmail, orderNumber } = req.body;
+
+
+  // Format panier data
+  let htmlBody = `<h1>Numéro de Commande: ${orderNumber}</h1><h1>Détails de la Commande</h1>`;
+  let textBody = `Numéro de Commande: ${orderNumber}\nDétails de la Commande:\n`;
+
+  panierWithoutImg.forEach(item => {
+    if (item.bonbonsSelectionne) {
+      htmlBody += `<h2>${item.nom} (Quantité: ${item.quantity})</h2><ul>`;
+      textBody += `${item.nom} (Quantité: ${item.quantity}):\n`;
+      
+      item.bonbonsSelectionne.forEach(bonbon => {
+        htmlBody += `<li>${bonbon.nom} - Quantité: ${bonbon.quantite}</li>`;
+        textBody += `  - ${bonbon.nom} - Quantité: ${bonbon.quantite}\n`;
+      });
+      
+      htmlBody += '</ul>';
+    } else {
+      htmlBody += `<p>${item.nom} - Quantité: ${item.quantity}</p>`;
+      textBody += `${item.nom} - Quantité: ${item.quantity}\n`;
+    }
+  });
 
   const params = {
     Source: 'gabriel.morin98@gmail.com',
     Destination: {
-      ToAddresses: [email],
+      ToAddresses: [customerEmail],
     },
     Message: {
       Body: {
         Html: {
           Charset: 'UTF-8',
-          Data: `
-            <p>Prénom: ${prenom}</p>
-          `,
+          Data: htmlBody,
         },
         Text: {
           Charset: 'UTF-8',
-          Data: `
-            Prénom: ${prenom}
-          `,
+          Data: textBody,
         }
       },
       Subject: {

@@ -1,4 +1,6 @@
+// Necessary Import
 import React, { useCallback } from "react";
+import styled from 'styled-components';
 import {loadStripe} from '@stripe/stripe-js';
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 
@@ -31,15 +33,19 @@ const CheckoutForm = () => {
   const options = {fetchClientSecret};
 
   return (
-    <div id="checkout">
+    <Wrapper id="checkout">
       <EmbeddedCheckoutProvider
         stripe={stripePromise}
         options={options}
       >
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>
-    </div>
+    </Wrapper>
   )
 }
 
 export default CheckoutForm;
+
+const Wrapper = styled.div`
+  width: 100%;
+`;

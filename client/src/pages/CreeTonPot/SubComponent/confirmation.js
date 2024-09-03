@@ -7,10 +7,16 @@ import WarningMessage from "../../Components/WarningMessage";
 
 const Confirmation = ({sac, setSac, setReset}) => {
   const [displayAvertissement, setDisplayAvertissement] = useState(false);
+  const [avertissementMessage, setAvertissementMessage] = useState("")
 
   const ajouterAuPanier = () => {
-    if(sac.quantitePrise !== sac.quantiteMax) {
+    if(sac.quantitePrise < sac.quantiteMax) {
       setDisplayAvertissement(true);
+      setAvertissementMessage(`Il vous reste encore ${sac.quantiteMax - sac.quantitePrise}g à choisir!`);
+      return;
+    } else if (sac.quantitePrise > sac.quantiteMax) {
+      setDisplayAvertissement(true);
+      setAvertissementMessage(`Vous avez trop de bonbons dans votre sac! S.v.p retirer ${sac.quantiteMax - sac.quantitePrise}g!`);
       return;
     }
 
@@ -37,7 +43,7 @@ const Confirmation = ({sac, setSac, setReset}) => {
 
   return (
     <Wrapper>
-      {displayAvertissement && <WarningMessage children={`Il vous reste encore ${sac.quantiteMax - sac.quantitePrise}g à choisir!`} /> }
+      {displayAvertissement && <WarningMessage children={avertissementMessage} /> }
         {sac.nom !== '' &&
           <div className="resumer">
             <div className="imgContainer">

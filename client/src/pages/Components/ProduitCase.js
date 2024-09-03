@@ -72,7 +72,9 @@ const ProduitCase = ({children}) => {
           <p className="noResult">Aucun produit trouvé</p>
         </NoResult>
       ) : (
-        children.map((produit, id) => (
+        children
+        .filter(produit => produit.actif) // Filter out inactive products
+        .map((produit, id) => (
           <Wrapper key={id}>
             {produit.nouveau && <BanniereNouveaute />}
             <div className="imgContainer">
@@ -175,7 +177,16 @@ const Wrapper = styled.div`
   }
   
   @media screen and (max-width: 900px) {
-    width: 150px;
+    width: 175px;
+    margin: 0em 0 3em;;
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      > p:first-of-type {
+        width: 100%;
+      }
+    }
   }
   
   @keyframes confirmationAdded {

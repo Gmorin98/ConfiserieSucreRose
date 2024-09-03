@@ -40,6 +40,7 @@ const Filtre = ({children, selectedFilters, handleFilterChange}) => {
 export default Filtre;
 
 const Wrapper = styled.div`
+  position: relative;
   padding: 1.5em;
   height: fit-content;
   width: fit-content;
@@ -72,17 +73,24 @@ const Wrapper = styled.div`
     }
   }
 
-  @media screen and (max-width: 900px) {
-    position: relative;
-    z-index: 5;
-    display: none;
-
-    .hidden {
-      display: none;
+  @media screen and (max-width: 1200px) {
+    padding: 0.75em;
+    min-width: 50px;
+    width: fit-content;
+    min-height: 50px;
+    height: fit-content;
+    margin-right: -50px;
+    z-index: 2;
+    button {
+      width: 35px;
+      position: absolute;
+      right: 10px;
     }
-
     .toggleFiltre {
-      display: none;
+      display: block;
+    }
+    div.hidden {
+      display : none;
     }
   }
 `

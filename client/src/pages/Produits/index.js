@@ -65,6 +65,7 @@ const Wrapper = styled.div`
 
   .Content {
     display: flex;
+    position: relative;
     .ProduitsShowcase {
       display: flex;
       height: fit-content;
@@ -74,9 +75,12 @@ const Wrapper = styled.div`
       width: 100%;
     }
   }
-
-  @media screen and (max-width: 900px) {
+  
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 5em;
     .Content {
+      > div {
+      }
       .ProduitsShowcase {
         margin-left: 0;
       }
