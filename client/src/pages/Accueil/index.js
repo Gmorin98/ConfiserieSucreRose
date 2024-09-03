@@ -7,6 +7,19 @@ import { Link } from "react-router-dom";
 import Carrousel from "../Components/Carrousel";
 import { CarrouselEvenements } from "../Components/DataTemp";
 
+export const CarrouselEvenements = [
+  {
+    id: 1,
+    img: "images/Evenements/Chapo.png",
+    info: "Du 13 au 15 septembre 2024! Venez fêtez avec nous!"
+  },
+  {
+    id: 2,
+    img: "images/Evenements/Marmaille.png",
+    info: "5-6 Octobre, au Centre Expo Terrebonne 2475 boulevard des Entreprises Terrebonne, QC J6X 5S5"
+  }
+]
+
 const Accueil = () => {
   return (
     <Wrapper>

@@ -9,7 +9,8 @@ const listSac = [
   {nom: "Grand Cône 225g", prix: "6.75", img: "images/Vrac/Sacs/Grand_Cone_Crop.png", quantite: 225},
   {nom: "Contenant 300g", prix: "7.55", img: "images/Vrac/Sacs/Grand_Format_Crop.png", quantite: 300},
   {nom: "Verre en vitre avec Paille 325g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png", quantite: 325},
-  {nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1000}
+  {nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1000}, // limite 2 
+  {nom: "Plateau 1300g", prix: "36.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1300}  // limite 2
 ]
 
 const SelectionSac = ({setSac}) => {
