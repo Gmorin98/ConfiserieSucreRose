@@ -17,7 +17,6 @@ const {
   deleteProduit,
   deleteFiltre,
 } = require("./handlers");
-const { getConfig } = require("./handlers/getGoogleMapAPI");
 
 const router = require("express").Router();
 

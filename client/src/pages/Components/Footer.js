@@ -1,8 +1,5 @@
-// Necessary Import
 import styled from "styled-components";
 import React, { useEffect, useState } from 'react';
-
-// Components and Other Import
 import { Loader } from "@googlemaps/js-api-loader";
 
 const Footer = () => {
@@ -21,51 +18,58 @@ const Footer = () => {
         console.error('Error fetching API key:', error);
       }
     };
-
     fetchApiKey();
   }, []);
 
   useEffect(() => {
-    const loader = new Loader({
-      apiKey: apiKey,
-      version: "monthly",
-    });
-
-    loader.load().then(() => {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 45.748571, lng: -73.603838 },
-        zoom: 18,
+    if (apiKey) {
+      const loader = new Loader({
+        apiKey: apiKey,
+        version: "weekly",
       });
 
-      new google.maps.Marker({
-        position: { lat: 45.748571, lng: -73.603838 },
-        map: map,
+      loader.load().then(() => {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 45.748571, lng: -73.603838 },
+          zoom: 18,
+        });
+
+        new google.maps.Marker({
+          position: { lat: 45.748571, lng: -73.603838 },
+          map: map,
+        });
+      }).catch((error) => {
+        console.error('Error loading Google Maps:', error);
       });
-    });
-  }, []);
+    }
+  }, [apiKey]);
 
   const toggleVisibilityHoraire = () => {
     setIsHoraireVisible(!isHoraireVisible);
-  }
+  };
 
   const toggleVisibilityEmplacement = () => {
     setIsEmplacementVisible(!isEmplacementVisible);
-  }
-  
+  };
+
   return (
     <Wrapper>
       <section className="logo">
-        <img src="images/Logo_Nom.svg" width="400px"/>
+        <img src="images/Logo_Nom.svg" width="400px" />
         <div className="socials">
-          <a href="https://www.facebook.com/profile.php?id=100085415413271" className="socials"><img src="images/Facebook_Icon.svg" width="40px"/></a>
-          <a href="https://www.instagram.com/confiserie_sucre_rose/" className="socials"><img src="images/Instagram_Icon.svg" width="40px"/></a>
+          <a href="https://www.facebook.com/profile.php?id=100085415413271" className="socials">
+            <img src="images/Facebook_Icon.svg" width="40px" />
+          </a>
+          <a href="https://www.instagram.com/confiserie_sucre_rose/" className="socials">
+            <img src="images/Instagram_Icon.svg" width="40px" />
+          </a>
         </div>
       </section>
-      <img src="images/Seperator.svg" height="250px" className="separateur"/>
+      <img src="images/Seperator.svg" height="250px" className="separateur" />
       <section className="horaire">
         <div className="intro">
           <h3>Heures d'Ouverture</h3>
-          <button onClick={() => {toggleVisibilityHoraire()}}>V</button>
+          <button onClick={toggleVisibilityHoraire}>V</button>
         </div>
         <div className={isHoraireVisible ? "" : "hidden"}>
           <div>
@@ -98,11 +102,11 @@ const Footer = () => {
           </div>
         </div>
       </section>
-      <img src="images/Seperator.svg" height="250px" className="separateur"/>
+      <img src="images/Seperator.svg" height="250px" className="separateur" />
       <section className="emplacement">
         <div className="intro">
           <h3>Contactez-nous</h3>
-          <button onClick={() => toggleVisibilityEmplacement()}>V</button>
+          <button onClick={toggleVisibilityEmplacement}>V</button>
         </div>
         <div className={isEmplacementVisible ? "" : "hidden"}>
           <div id="map" className="map" />
@@ -115,8 +119,8 @@ const Footer = () => {
         <p>Site web fait par Gabriel</p>
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 
 export default Footer;
 
