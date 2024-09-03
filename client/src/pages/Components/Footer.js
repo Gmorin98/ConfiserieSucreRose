@@ -8,11 +8,27 @@ import { Loader } from "@googlemaps/js-api-loader";
 const Footer = () => {
   const [isHoraireVisible, setIsHoraireVisible] = useState(false);
   const [isEmplacementVisible, setIsEmplacementVisible] = useState(false);
+  const [apiKey, setApiKey] = useState('');
+
+  useEffect(() => {
+    // Fetch the API key from the backend
+    const fetchApiKey = async () => {
+      try {
+        const response = await fetch('/api/config');
+        const data = await response.json();
+        setApiKey(data.googleMapsApiKey);
+      } catch (error) {
+        console.error('Error fetching API key:', error);
+      }
+    };
+
+    fetchApiKey();
+  }, []);
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: "AIzaSyBtGTMjV3WLKZfsOijFvH95g6MvzeYgfTg", // GOTTA MOVE THAT
-      version: "weekly",
+      apiKey: apiKey,
+      version: "monthly",
     });
 
     loader.load().then(() => {

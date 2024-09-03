@@ -1,6 +1,7 @@
 const getFiltre = require("./handlers/getFiltre");
 const getAllProduits = require("./handlers/getAllProduits");
 const getSessionStatus = require("./handlers/getSessionStatus");
+const { getConfig } = require("./handlers/getGoogleMapAPI");
 const postAdminAuthentification = require("./handlers/postAdminAuthentification");
 const updateFiltre = require("./handlers/updateFiltre");
 const updateInventaire = require("./handlers/updateInventaire");
@@ -18,6 +19,7 @@ module.exports = {
     getFiltre,
     getAllProduits,
     getSessionStatus,
+    getConfig,
     postAdminAuthentification,
     updateFiltre,
     updateInventaire,

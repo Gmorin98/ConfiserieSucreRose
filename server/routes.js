@@ -2,6 +2,7 @@ const {
   getFiltre,
   getAllProduits,
   getSessionStatus,
+  getConfig,
   updateFiltre,
   updateInventaire,
   patchAjoutFiltre,
@@ -16,12 +17,14 @@ const {
   deleteProduit,
   deleteFiltre,
 } = require("./handlers");
+const { getConfig } = require("./handlers/getGoogleMapAPI");
 
 const router = require("express").Router();
 
 router.get("/getFiltre/:section", getFiltre);
 router.get("/getAllProduits/:section", getAllProduits);
 router.get("/session-status", getSessionStatus);
+router.get("/api/config", getConfig);
 
 router.patch("/updateFiltre/:section", updateFiltre);
 router.patch("/updateInventaire/:inventaire", updateInventaire);
