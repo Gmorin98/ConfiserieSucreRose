@@ -69,22 +69,24 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
   return (
     <>
       {vrac.map((produit, id) => (
-        <Wrapper key={id}>
-          {produit.nouveau && <BanniereNouveaute />}
-          <img src={produit.img} alt={produit.nom} />
-          <p className="nom">{produit.nom}</p>
-          {produit.inventaire === 0 ? (
-            <div className="quantite">
-              <p className="rupture">Rupture de Stock</p>
-            </div>
-          ) : (
-            <div className="quantite">
-              <button onClick={() => handleQuantiteChange(id, -25, produit._id, produit.nom, produit.inventaire)}>-</button>
-              {quantitesBonbon[id] || 0} g
-              <button onClick={() => handleQuantiteChange(id, 25, produit._id, produit.nom, produit.inventaire)}>+</button>
-            </div>
-          )}
-        </Wrapper>
+        produit.actif && (  // Only render if produit.actif is true
+          <Wrapper key={id}>
+            {produit.nouveau && <BanniereNouveaute />}
+            <img src={produit.img} alt={produit.nom} />
+            <p className="nom">{produit.nom}</p>
+            {produit.inventaire === 0 ? (
+              <div className="quantite">
+                <p className="rupture">Rupture de Stock</p>
+              </div>
+            ) : (
+              <div className="quantite">
+                <button onClick={() => handleQuantiteChange(id, -25, produit._id, produit.nom, produit.inventaire)}>-</button>
+                {quantitesBonbon[id] || 0} g
+                <button onClick={() => handleQuantiteChange(id, 25, produit._id, produit.nom, produit.inventaire)}>+</button>
+              </div>
+            )}
+          </Wrapper>
+        )
       ))}
     </>
   );

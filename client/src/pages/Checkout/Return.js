@@ -52,7 +52,6 @@ const Return = () => {
           });
   
           const result = await response.json();
-          console.log(result);
         } catch (error) {
           console.error('Error:', error);
         }
@@ -66,7 +65,6 @@ const Return = () => {
           customerEmail,
           orderNumber
         }
-        console.log(data);
         
         try {
           // Sending user credentials using POST
@@ -79,8 +77,6 @@ const Return = () => {
           });
 
           const result = await response.json();
-          console.log(result);
-          
         } catch (error) {
           console.error('Error:', error);
         }
@@ -114,7 +110,6 @@ const Return = () => {
           });
       
           const data = await response.json();
-          console.log('Response data:', data);
         } catch (error) {
           console.error('Error:', error);
         }
@@ -133,8 +128,8 @@ const Return = () => {
         </div>
         <div className='information'>
           <p>Nous avons bien reçu votre commande!</p>
-          <p>Votre commande sera prête dans un délai de 24 à 48 heures.</p>
-          <p>Un email de confirmation sera envoyé à l'address suivante : {customerEmail}</p>
+          <p>Elle sera prête dans un délai de 24 à 48 heures</p>
+          <p>Une confirmation vous sera envoyée à l'adresse suivante: {customerEmail}</p>
         </div>
       </Wrapper>
     )

@@ -88,10 +88,11 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       body: JSON.stringify({
         _id: editedOption._id,
         nom: editedOption.nom,
-        tag: editedOption.tag,
         inventaire: editedOption.inventaire,
+        prix: editedOption.prix,
         nouveau: editedOption.nouveau,
-
+        actif: editedOption.actif,
+        tag: editedOption.tag,
       })
     })
     .then(response => response.json())
@@ -215,7 +216,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                 : (option.nouveau ? "OUI" : "NON")}</p>
               <p>ACTIF: {isEditing ?
                 <input type="checkbox" checked={editedOption.actif} onChange={(e) => handleChangeProduits(e, 'actif')} /> 
-                : (option.nouveau ? "OUI" : "NON")}</p>
+                : (option.actif ? "OUI" : "NON")}</p>
               <p>TAG: {(option.tag ? option.tag.join(', ') : '')}</p>
             </section>
             <div className="editButton">

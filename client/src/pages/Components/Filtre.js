@@ -16,7 +16,7 @@ const Filtre = ({children, selectedFilters, handleFilterChange}) => {
     <Wrapper>
       <button onClick={() => toggleVisibility()} className="toggleFiltre"><img src="images/Filter_Icon.svg"/></button>
       <div className={isVisible ? "" : "hidden"}>
-        <h2>Filtre</h2>
+        <h2>Filtres</h2>
         {children.map(element => {return (
             <section key={element.titre}>
               <h3>{element.titre}</h3>

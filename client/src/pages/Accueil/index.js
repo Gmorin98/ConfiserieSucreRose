@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 
 // Component and Other Import
 import Carrousel from "../Components/Carrousel";
-import { CarrouselEvenements } from "../Components/DataTemp";
 
-export const CarrouselEvenements = [
+const CarrouselEvenements = [
   {
     id: 1,
     img: "images/Evenements/Chapo.png",
@@ -26,20 +25,22 @@ const Accueil = () => {
       <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%" className="logo"/>
       <section className="redirection">
         <Link to={"/creer-ton-pot"}>
-          <h2>Créer ton pot à Bonbons!</h2>
+          <h2>Crée ton pot à bonbons!</h2>
         </Link>
         <img src="images/Seperator.svg" height="400px" />
         <Link to={"/bar-a-bonbons"}>
-          <h2>Bar à Bonbons & Corpo</h2>
+          <h2>Bar à bonbons & Corpo</h2>
         </Link>
       </section>
       <section className="boutique">
-        <h2>Venez nous visitez en Boutique</h2>
+        <h2>Venez nous visiter en Boutique</h2>
+        <p>Confiserie chaleureuse et conviviale située au cœur du Vieux-Mascouche.</p>
+        <p>Une visite à la Sucre Rose c'est un délice pour les yeux et les papilles!</p>
         <img src="images/maison_sucre_rose.jpeg"/>
-        <p>Vous trouverez du stationnement au stationnement Municipale sur la rue Dupras</p>
+        <p className="information">*Vous trouverez du stationnement au stationnement Municipal rue Dupras</p>
       </section>
       <section className="promotion">
-        <h2>Évènements et Nouveautés</h2>
+        <h2>Événements et nouveautés</h2>
         <Carrousel children={CarrouselEvenements}/>
       </section>
     </Wrapper>
@@ -91,6 +92,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
+  }
+
+  .information {
+    font-size: 0.75em;
   }
 
   a,

@@ -24,6 +24,8 @@ const deleteFiltre = async (req, res) => {
     if(result.modifiedCount === 1) {
       // Fetch the updated document after the addition
       const updatedFiltreList = await collection.findOne(filterID);
+      console.log(updatedFiltreList);
+      
       res.status(200).json({
         status: 200,
         data: updatedFiltreList, //Doesnt send back the new list. Fix this

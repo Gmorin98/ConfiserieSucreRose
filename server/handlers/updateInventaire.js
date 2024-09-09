@@ -20,9 +20,11 @@ const updateInventaire = async (req, res) => {
       {
         $set: {
           nom: produit.nom,
-          tag: produit.tag,
           inventaire: produit.inventaire,
+          prix: produit.prix,
           nouveau: produit.nouveau,
+          actif: produit.actif,
+          tag: produit.tag,
         },
       }
     );

@@ -56,14 +56,14 @@ const CreerTonPot = () => {
         <Filtre children={filtreVracInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
         <section>
           <h2 className="etape">Étape 1</h2>
-          <p className="explication">Sélectionné le contenant que vous voulez.</p>
-          <p className="explication">Pour six items ou plus, commander via le bar à bonbons!</p>
+          <p className="explication">Sélectionnez le contenant que vous voulez.</p>
+          <p className="explication">Pour six items ou plus, commandez via le bar à bonbons!</p>
           <SelectionSac setSac={setSac} />
           <h2 className="etape">Étape 2</h2>
-          <p className="explication">Sélectionné les bonbons qui vous intéressent!</p>
+          <p className="explication">Faites votre choix parmi cette vaste sélection de bonbons!</p>
           <VracShowcase vrac={filteredVrac} setSac={setSac} sac={sac} setReset={setReset} reset={reset} />
           <h2 className="etape">Étape 3</h2>
-          <p className="explication">Confirmé que vous avez les bons bonbons.</p>
+          <p className="explication">Validez votre/vos choix.</p>
           <Confirmation sac={sac} setSac={setSac} setReset={setReset}/>
         </section>
       </div>
@@ -84,8 +84,8 @@ const Wrapper = styled.div`
     > section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      align-content: flex-start;
+      flex-direction: column;
+      align-items: center;
     }
   }
   

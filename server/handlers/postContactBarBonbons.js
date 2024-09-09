@@ -26,7 +26,7 @@ const postContactBarBonbons= async (req, res) => {
           Data: `
             <p>Prénom: ${prenom}</p>
             <p>Nom: ${nom}</p>
-            <p>Email: ${email}</p>
+            <p>Courriel: ${email}</p>
             <p>Téléphone: ${telephone}</p>
             <p>Date: ${date}</p>
             <p>Évènement: ${evenement.join(", ")}</p>
@@ -38,7 +38,7 @@ const postContactBarBonbons= async (req, res) => {
           Data: `
             Prénom: ${prenom}
             Nom: ${nom}
-            Email: ${email}
+            Courriel: ${email}
             Téléphone: ${telephone}
             Date: ${date}
             Évènement: ${evenement.join(", ")}

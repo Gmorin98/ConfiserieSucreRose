@@ -31,7 +31,7 @@ const NavigationBar = () => {
         <MenuLinks menuOpen={menuOpen}>
           <NavLink to="/produits" className="options" onClick={closeMenu}>Produits</NavLink>
           <NavLink to="/bar-a-bonbons" className="options" onClick={closeMenu}>Bar à Bonbons</NavLink>
-          <NavLink to="/creer-ton-pot" className="options" onClick={closeMenu}>Créer ton Pot</NavLink>
+          <NavLink to="/creer-ton-pot" className="options" onClick={closeMenu}>Crée ton Pot</NavLink>
           <NavLink to="/checkout" className="options" onClick={closeMenu}><PanierCheckout /></NavLink>
         </MenuLinks>
       </NavWrapper>

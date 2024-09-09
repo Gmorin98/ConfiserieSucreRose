@@ -17,7 +17,11 @@ const VracShowcase = ({vrac, setSac, sac, setReset, reset}) => {
           </div>
         </div>
       }
-      <VracCase vrac={vrac} setSac={setSac} sac={sac} setReset={setReset} reset={reset} />
+      {vrac.length === 0 ? ( 
+        <p className="information">Aucun bonbons trouvé</p> 
+      ) : (
+        <VracCase vrac={vrac} setSac={setSac} sac={sac} setReset={setReset} reset={reset} />
+      )}
     </Wrapper>
   )
 }
@@ -51,5 +55,10 @@ const Wrapper = styled.div`
     p:first-of-type {
       border-bottom: 1px solid;
     }
+  }
+
+  .information {
+    margin-top: 1em;
+    font-size: 2em;
   }
 `

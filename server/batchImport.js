@@ -3,21 +3,12 @@
 const fs = require('node:fs');
 const path = require('path');
 const { MongoClient } = require("mongodb");
+const { v4: uuidv4 } = require('uuid');
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
-// const allProducts = [
-//   {
-//     nom: "Mike & Ike Original",
-//     prix: 3.79,
-//     img: "./produits/0.png",
-//     tag: ["Exotique"],
-//     inventaire: 0,
-//     nouveau: false,
-//     actif: true
-//   },
-// ]
+const allProducts = []
 
 const convertImageToBase64 = (filePath) => {
   const image = fs.readFileSync(filePath); // Read the file as binary
@@ -32,13 +23,13 @@ const batchImport = async (req, res) => {
     console.log("Connected to MongoDB");
 
     // CHANGE THIS TO THE CORRECT DATABASE ( Produits / Vrac )
-    const db = client.db('Produits');
-    const collection = db.collection("Produits");
+    const db = client.db('Vrac');
+    const collection = db.collection("Vrac");
 
     for (let produitIndex = 0; produitIndex < allProducts.length; produitIndex++) {
       try {
         const product = allProducts[produitIndex];
-        const imagePath = path.join(__dirname, 'produits', `${produitIndex}.png`);
+        const imagePath = path.join(__dirname, 'Vrac', `${produitIndex}.png`);
 
         // Convert image to Base64 data URL
         product.img = convertImageToBase64(imagePath);

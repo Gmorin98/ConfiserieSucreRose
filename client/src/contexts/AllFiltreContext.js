@@ -35,6 +35,7 @@ const AllFiltreProvider = ({children}) => {
 
     fetchFiltreVracInfo();
     fetchFiltreProduitsInfo();
+
   }, []);
 
   return (

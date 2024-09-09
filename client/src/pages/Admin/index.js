@@ -75,7 +75,7 @@ const Admin = () => {
               </div>
             }
           </aside>
-          {currentInventaire !== "Filtre" && 
+          {(currentInventaire !== "" && currentInventaire !== "Filtre") && 
             <ProduitsInventaire 
               currentInventaire={currentInventaire} 
               optionSelectionne={optionSelectionne} 

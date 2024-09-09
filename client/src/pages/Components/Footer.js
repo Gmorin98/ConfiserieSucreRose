@@ -110,13 +110,13 @@ const Footer = () => {
         </div>
         <div className={isEmplacementVisible ? "" : "hidden"}>
           <div id="map" className="map" />
-          <p>Addresse : 2918 Ch Sainte-Marie, Mascouche, QC J7K 1N7</p>
+          <p>Adresse : 2918 Ch Sainte-Marie, Mascouche, QC J7K 1N7</p>
           <p>Téléphone : (514) 730-0259</p>
-          <p>Email : confiseriesucrerose@gmail.com</p>
+          <p>Courriel : confiseriesucrerose@gmail.com</p>
         </div>
       </section>
       <div className="credit">
-        <p>Site web fait par Gabriel</p>
+        <p>Site Web conçu par Gabriel Morin</p>
       </div>
     </Wrapper>
   );

@@ -113,7 +113,7 @@ const BarABonbons = () => {
                 onChange={handleChange}
                 required
               />
-              <label htmlFor="email">Email*</label>
+              <label htmlFor="email">Courriel*</label>
               <input
                 name="email"
                 id="email"
@@ -131,7 +131,7 @@ const BarABonbons = () => {
                 onChange={handleChange}
                 required
               />
-              <label htmlFor="date">Date de l'Évènement</label>
+              <label htmlFor="date">Date de l'Événement</label>
               <input
                 name="date"
                 id="date"
@@ -140,7 +140,7 @@ const BarABonbons = () => {
                 onChange={handleChange}
               />
               <div className="evenement">
-                <label>Type d'Évènement</label>
+                <label>Type d'Événement</label>
                 {typeEvenement.map((option, id) => (
                   <Checkbox
                     key={id}
@@ -151,7 +151,7 @@ const BarABonbons = () => {
                   />
                 ))}
               </div>
-              <label htmlFor="extraInfo">Information Pertinente*</label>
+              <label htmlFor="extraInfo">Informations Pertinentes*</label>
               <textarea
                 name="extraInfo"
                 id="extraInfo"

@@ -74,7 +74,7 @@ const Checkout = () => {
                 type='checkbox'
                 id='confirmationCheckbox'
               />
-              <p>Ramassage de commande en boutique SEULEMENT, en cochant cette case, vous confirmez avoir pris conscience de cette condition.</p>
+              <p>Récupération de votre commande en boutique SEULEMENT, en cochant cette case, vous confirmez avoir pris connaissance de cette condition</p>
             </div>
             <button 
               onClick={confimationPickUp} 
@@ -92,16 +92,20 @@ const Checkout = () => {
                 <div className='infoGeneral'>
                   <p>{produit.nom}</p>
                   <p>${produit.prix}</p>
-                  <p>
-                    Quantité:
-                    <button onClick={() => handleQuantityChange(produit._id, -1)} disabled={produit.quantite <= 1 || produit._id === undefined}>-</button>
-                    {produit.quantity}
-                    <button onClick={() => handleQuantityChange(produit._id, 1)} disabled={produit._id === undefined || produit.quantity === produit.inventaire} >+</button>
-                  </p>
+                  {produit._id === undefined ? (
+                    <p>Quantité: {produit.quantity}</p>
+                  ) : (
+                    <p>
+                      Quantité:
+                      <button onClick={() => handleQuantityChange(produit._id, -1)} disabled={produit.quantite <= 1 || produit._id === undefined}>-</button>
+                      {produit.quantity}
+                      <button onClick={() => handleQuantityChange(produit._id, 1)} disabled={produit._id === undefined || produit.quantity === produit.inventaire} >+</button>
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
-            <button onClick={handleConfirmOrder} disabled={panierItems.length === 0} className='confirmationButton'>Confirmer la commande</button>
+            <button onClick={handleConfirmOrder} disabled={panierItems.length === 0} className='confirmationButton'>Confirmez la commande</button>
           </div>
         ) : (
           <Elements stripe={stripePromise}>

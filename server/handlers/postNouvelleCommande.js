@@ -20,12 +20,12 @@ const postNouvelleCommande= async (req, res) => {
 
   panierWithoutImg.forEach(item => {
     if (item.bonbonsSelectionne) {
-      htmlBody += `<h2>${item.nom} (Quantité: ${item.quantity})</h2><ul>`;
-      textBody += `${item.nom} (Quantité: ${item.quantity}):\n`;
+      htmlBody += `<h2>${item.nom}</h2><ul>`;
+      textBody += `${item.nom}:\n`;
       
       item.bonbonsSelectionne.forEach(bonbon => {
-        htmlBody += `<li>${bonbon.nom} - Quantité: ${bonbon.quantite}</li>`;
-        textBody += `  - ${bonbon.nom} - Quantité: ${bonbon.quantite}\n`;
+        htmlBody += `<li>${bonbon.nom} - Quantité: ${bonbon.quantite}g</li>`;
+        textBody += `  - ${bonbon.nom} - Quantité: ${bonbon.quantite}g\n`;
       });
       
       htmlBody += '</ul>';
