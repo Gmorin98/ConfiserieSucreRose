@@ -64,7 +64,7 @@ const ProduitCase = ({children}) => {
       }));
     }, 2000);  // Adjust the duration to match your animation
   };
-
+  
   return (
     <>
       {children.length === 0 ? (
@@ -73,32 +73,35 @@ const ProduitCase = ({children}) => {
         </NoResult>
       ) : (
         children
-        .filter(produit => produit.actif) // Filter out inactive products
-        .map((produit, id) => (
-          <Wrapper key={id}>
-            {produit.nouveau && <BanniereNouveaute />}
-            <div className="imgContainer">
-              <img src={produit.img} alt={produit.nom} />
-            </div>
-            <div className="info">
-              <p>{produit.nom}</p>
-              <p>{produit.prix}$</p>
-            </div>
-            {produit.inventaire === 0 ? (
-              <button disabled className="disableButton">Rupture de Stock</button>
-            ) : (
-              <button 
-                onClick={() => addToCart(produit, id)} 
-                className={`addToCart ${clickedButtons[id] ? 'transform-active' : ''}`}
-              >
-                Ajouter au Panier
-              </button>
-            )}
-          </Wrapper>
-        ))
+          .filter(produit => produit.actif) // Filter out inactive products
+          .map((produit, id) => (
+            <Wrapper key={id}>
+              {produit.nouveau && <BanniereNouveaute />}
+              <div className="imgContainer">
+                <img src={produit.img} alt={produit.nom} />
+              </div>
+              <div className="info">
+                <p>{produit.nom}</p>
+                <p>{`${produit.prix}$`}</p>
+              </div>
+              {produit.boutique ? ( 
+                <button disabled className="disableButton">En boutique seulement</button>
+              ) : produit.inventaire === 0 ? (
+                <button disabled className="disableButton">Rupture de Stock</button>
+              ) : (
+                <button 
+                  onClick={() => addToCart(produit, id)} 
+                  className={`addToCart ${clickedButtons[id] ? 'transform-active' : ''}`}
+                >
+                  Ajouter au Panier
+                </button>
+              )}
+            </Wrapper>
+          ))
       )}
     </>
   );
+  
 }
 
 export default ProduitCase;

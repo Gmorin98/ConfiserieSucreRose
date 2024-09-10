@@ -7,6 +7,7 @@ if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 const pacthUpdateInventory = async (req, res) => {
   const items = req.body;
   const client = new MongoClient(MONGO_URI);
+  console.log(items);
 
   try {
     await client.connect();

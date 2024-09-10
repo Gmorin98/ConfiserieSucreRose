@@ -12,32 +12,52 @@ const storage = multer.memoryStorage(); // Stores the file in memory as a buffer
 const upload = multer({ storage: storage });
 
 const postNouveauProduit = async (req, res) => {
-  const { nom, stock, prix, actif, nouveau, tag, inventaire } = req.body; // Receive the new product
+  const { nom, stock, prix, actif, nouveau, tag, inventaire, boutique } = req.body; // Receive the new product
   const client = new MongoClient(MONGO_URI);
-  
+
   try {
     const imgBase64 = req.file.buffer.toString("base64");
     const nouveauProduit = {
-      _id: uuidv4(),
+      id: uuidv4(),
       nom,
       img: `data:image/png;base64,${imgBase64}`,
       prix,
-      tag: Array.isArray(tag) ? tag : [tag],
+      tag,
       inventaire: stock,
       nouveau,
-      actif
-    }
-    
-    await client.connect();
-    const db = client.db(`${inventaire}`); // Use your actual DB name
-    const collection = db.collection(`${inventaire}`); // Use your actual collection name
-    const ajoutProduit = await collection.insertOne(nouveauProduit);
+      actif,
+      boutique
+    };
 
-    res.status(201).json({
-      status: 201,
-      data: nouveauProduit,
-      message: ajoutProduit
-    })
+    await client.connect();
+    const db = client.db(inventaire); // Use your actual DB name
+    const collection = db.collection(inventaire); // Use your actual collection name
+
+    // Insert the new product
+    const result = await collection.insertOne(nouveauProduit);
+
+    if (result.acknowledged) {
+      // Find the newly added product
+      const updatedFiltreList = await collection.findOne({ _id: nouveauProduit._id });
+      
+      if (updatedFiltreList) {
+        res.status(200).json({
+          status: 200,
+          data: updatedFiltreList,
+          message: "Product added successfully.",
+        });
+      } else {
+        res.status(404).json({
+          status: 404,
+          message: "Product not found after insertion.",
+        });
+      }
+    } else {
+      res.status(500).json({
+        status: 500,
+        message: "Failed to add the product.",
+      });
+    }
   } catch (error) {
     console.error(error);
     res.status(502).json({

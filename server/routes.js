@@ -27,7 +27,7 @@ router.get("/api/config", getConfig);
 
 router.patch("/updateFiltre/:section", updateFiltre);
 router.patch("/updateInventaire/:inventaire", updateInventaire);
-router.patch("/ajoutFiltre/:section/:_id/:option", patchAjoutFiltre);
+router.patch("/ajoutFiltre/:sectionFiltre/:sectionID/:filtreOption", patchAjoutFiltre);
 router.patch("/pacthUpdateInventory", pacthUpdateInventory);
 
 router.post("/nouveauProduit", upload.single('img'), postNouveauProduit);
@@ -38,7 +38,7 @@ router.post("/create-checkout-session", postCreateCheckoutSession);
 router.post("/confirmationEmailCustomer", postConfirmationCommande);
 router.post("/orderSent", postNouvelleCommande);
 
-router.delete("/deleteProduit/:_id/:inventaire", deleteProduit);
-router.delete("/deleteFiltre/:section/:_id/:option", deleteFiltre);
+router.delete("/deleteProduit/:id/:inventaire", deleteProduit);
+router.delete("/deleteFiltre/:sectionFiltre/:sectionID/:filtreOption", deleteFiltre);
 
 module.exports = router;

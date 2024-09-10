@@ -6,7 +6,7 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const deleteProduit = async (req, res) => {
-  const { _id, inventaire } = req.params
+  const { id, inventaire } = req.params
   const client = new MongoClient(MONGO_URI);
   
   try {
@@ -14,10 +14,10 @@ const deleteProduit = async (req, res) => {
     const db = client.db(`${inventaire}`); // Use your actual DB name
     const collection = db.collection(`${inventaire}`); // Use your actual collection name
 
-    const findProduit = await collection.findOne({_id})
+    const findProduit = await collection.findOne({ id });
 
     if(findProduit) {
-      const result = await collection.deleteOne({ _id });
+      const result = await collection.deleteOne({ id });
 
       if (result.deletedCount === 1) {
         res.status(200).json({

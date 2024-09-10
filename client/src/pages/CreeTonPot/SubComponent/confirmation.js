@@ -7,7 +7,7 @@ import WarningMessage from "../../Components/WarningMessage";
 
 const Confirmation = ({sac, setSac, setReset}) => {
   const [displayAvertissement, setDisplayAvertissement] = useState(false);
-  const [avertissementMessage, setAvertissementMessage] = useState("")
+  const [avertissementMessage, setAvertissementMessage] = useState("");
 
   const ajouterAuPanier = () => {
     if(sac.quantitePrise < sac.quantiteMax) {

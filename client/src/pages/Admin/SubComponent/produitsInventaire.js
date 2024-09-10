@@ -12,14 +12,14 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleChangeProduits = (e, field) => {
     let value = e.target.value;
-    if (field === ("nouveau")) {
-      value = e.target.checked; // Handle checkbox toggle
-    } else if (field === ("actif")){
+    if (field === "nouveau" || field === "actif" || field === "boutique") {
       value = e.target.checked; // Handle checkbox toggle
     } else if (field === "tag") {
-      value = value.split(',').map(tag => tag.trim()); // Ensure the tags are stored as an array
+      value = value.split(',').map(tag => tag.trim()).filter(tag => tag); // Ensure the tags are stored as an array
     } else if (field === "inventaire") {
       value = Math.max(0, Number(value)); // Ensure the inventory is a positive number
+    } else if (field === "prix") {
+      value = value.trim() === "" ? null : Number(value); // Set to NaN if empty
     }
 
     setEditedOption({
@@ -32,12 +32,14 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     let value = e.target.value;
     if (field === "img") {
       value = e.target.files[0]; // Handle file input
-    } else if (field === "nouveau" || field === "actif") {
+    } else if (field === "nouveau" || field === "actif" || field === "boutique") {
       value = e.target.checked;
     } else if (field === "tag") {
       value = value.split(',').map(tag => tag.trim());
     } else if (field === "inventaire") {
       value = Math.max(0, Number(value));
+    } else if (field === "prix") {
+      value = value.trim() === "" ? null : Number(value); // Set to NaN if empty
     }
 
     setNouveauProduit({
@@ -58,10 +60,11 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       formData.append('img', nouveauProduit.img);
       formData.append('nom', nouveauProduit.nom);
       formData.append('stock', nouveauProduit.stock);
-      formData.append('prix', nouveauProduit.prix);
+      formData.append('prix', nouveauProduit.prix );
       formData.append('actif', nouveauProduit.actif);
       formData.append('nouveau', nouveauProduit.nouveau);
-      formData.append('tag', nouveauProduit.tag);
+      formData.append('boutique', nouveauProduit.boutique);
+      formData.append('tag', []);
       formData.append('inventaire', currentInventaire);
   
     // ↓ Handeling the Fetch ↓
@@ -86,26 +89,41 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
         "Content-type" : "application/json"
       },
       body: JSON.stringify({
-        _id: editedOption._id,
+        id: editedOption.id,
         nom: editedOption.nom,
         inventaire: editedOption.inventaire,
         prix: editedOption.prix,
         nouveau: editedOption.nouveau,
         actif: editedOption.actif,
+        boutique: editedOption.boutique,
         tag: editedOption.tag,
       })
     })
     .then(response => response.json())
-    .then(data => setTrackError(data))
+    .then(data => {
+      // Check if the server response status is 200
+      if (data.status === 200) {
+        // Update the product in the optionSelectionne state with the new data
+        const newOptions = optionSelectionne.map((option, index) =>
+          index === editingIndex ? { ...option, ...data.data } : option
+        );
+  
+        setOptionSelectionne(newOptions);
+        setEditingIndex(null); // Exit editing mode
+      } else {
+        // Handle errors or unsuccessful response
+        setTrackError(data);
+      }
+    })
 
     setOptionSelectionne(updatedOptions);
     setEditingIndex(null);
   };
 
+  // IT WORKS, NO NEED TO CHANGE ANYTHING
   const handleDelete = () => {
-
     // ↓ Handeling the Fetch ↓
-    fetch(`/deleteProduit/${editedOption._id}/${currentInventaire}`, {
+    fetch(`/deleteProduit/${editedOption.id}/${currentInventaire}`, {
       method: "DELETE"
     })
     .then(response => response.json())
@@ -126,10 +144,10 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const updateList = (newData) => {
-    if(currentInventaire === "Vrac") {
-      allVrac.push(newData);
+    if (currentInventaire === "Vrac") {
+      setAllVrac(prev => [...prev, newData]);
     } else {
-      allProduits.push(newData);
+      setAllProduits(prev => [...prev, newData]);
     }
   };
 
@@ -170,6 +188,10 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
               <div>
                 <label>Nouveauté :</label>
                 <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'nouveau')} required />
+              </div>
+              <div>
+                <label>Boutique Seulement :</label>
+                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'boutique')} required />
               </div>
               <div>
                 <label>Tag :</label>
@@ -217,7 +239,10 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
               <p>ACTIF: {isEditing ?
                 <input type="checkbox" checked={editedOption.actif} onChange={(e) => handleChangeProduits(e, 'actif')} /> 
                 : (option.actif ? "OUI" : "NON")}</p>
-              <p>TAG: {(option.tag ? option.tag.join(', ') : '')}</p>
+              <p>BOUTIQUE SEULEMENT: {isEditing ?
+                <input type="checkbox" checked={editedOption.boutique} onChange={(e) => handleChangeProduits(e, 'boutique')} /> 
+                : (option.boutique ? "OUI" : "NON")}</p>
+              <p>TAG: {Array.isArray(option.tag) ? option.tag.join(', ') : ''}</p>
             </section>
             <div className="editButton">
               {isEditing ? (

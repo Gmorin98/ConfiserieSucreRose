@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -7,22 +7,28 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchAjoutFiltre = async (req, res) => {
-  const { section, _id, option } = req.params;
+  const { sectionFiltre, sectionID, filtreOption } = req.params;
+
+  if (!sectionFiltre || !sectionID || !filtreOption) {
+    return res.status(400).json({
+      status: 400,
+      message: "Missing sectionFiltre, sectionID, or filtreOption.",
+    });
+  }
+
   const client = new MongoClient(MONGO_URI);
 
   try {
     await client.connect();
-    const db = client.db(section); // Use your actual DB name
-    const collection = db.collection('Filtre'); // Use your actual collection name
-    const filterID = { _id: new ObjectId(_id) };
+    const db = client.db(sectionFiltre);
+    const collection = db.collection("Filtre");
 
-    // Add the specific option to the options array
-    const optionToAdd = { $addToSet: { options: option } };
+    const filterID = { _id: sectionID };
+    const optionToAdd = { $addToSet: { options: filtreOption } };
 
     const result = await collection.updateOne(filterID, optionToAdd);
 
     if (result.modifiedCount === 1) {
-      // Fetch the updated document after the addition
       const updatedFiltreList = await collection.findOne(filterID);
       
       res.status(200).json({

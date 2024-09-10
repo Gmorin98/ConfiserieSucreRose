@@ -1,12 +1,14 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
+import { Link } from "react-router-dom";
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import { AllProduitsContext } from "../../contexts/AllProduitsContext";
 
 // Component and Other Import
-import WarningMessage from "../Components/WarningMessage";
 import Filtre from "../Components/Filtre";
+import WarningMessage from "../Components/WarningMessage";
 import SelectionSac from "./SubComponent/selectionSac";
 import VracShowcase from "./SubComponent/vracShowcase";
 import Confirmation from "./SubComponent/confirmation";
@@ -16,7 +18,8 @@ const CreerTonPot = () => {
   const { filtreVracInfo } = useContext(AllFiltreContext);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [reset, setReset] = useState(false);
-
+  const [quantiteContenant, setQuantiteContenant] = useState(0);
+  
   // Selection Variable.
   const [sac, setSac] = useState({
     nom: '',
@@ -36,38 +39,49 @@ const CreerTonPot = () => {
     );
   };
 
-  const filterVrac = () => {
-    if (selectedFilters.length === 0) {
-      return allVrac; // No filter selected, send back the entire catalog.
-    }
-
-    return allVrac.filter(vrac => {
-      // Filter vrac by ensurin all selected filters match the product's tags.
-      return selectedFilters.some(filter => vrac.tag.includes(filter)); // Some is partly and every is EVERYSINGLEONE
-    });
-  };
-
-  const filteredVrac = filterVrac();
+  const filteredVrac = useMemo(() => {
+    if (selectedFilters.length === 0) return allVrac;
+    return allVrac.filter(vrac => 
+      selectedFilters.some(filter => vrac.tag.includes(filter))
+    );
+  }, [selectedFilters, allVrac]);
 
   return (
-    <Wrapper>
-      <WarningMessage children={"Plus de produits en Boutique!"}/>
-      <div className="content">
-        <Filtre children={filtreVracInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
-        <section>
-          <h2 className="etape">Étape 1</h2>
-          <p className="explication">Sélectionnez le contenant que vous voulez.</p>
-          <p className="explication">Pour six items ou plus, commandez via le bar à bonbons!</p>
-          <SelectionSac setSac={setSac} />
-          <h2 className="etape">Étape 2</h2>
-          <p className="explication">Faites votre choix parmi cette vaste sélection de bonbons!</p>
-          <VracShowcase vrac={filteredVrac} setSac={setSac} sac={sac} setReset={setReset} reset={reset} />
-          <h2 className="etape">Étape 3</h2>
-          <p className="explication">Validez votre/vos choix.</p>
-          <Confirmation sac={sac} setSac={setSac} setReset={setReset}/>
-        </section>
-      </div>
-    </Wrapper>
+    <>
+      <Helmet>
+        <title>Créez votre pot personnalisé</title>
+        <meta name="description" content="Créez votre mélange de bonbons personnalisé avec notre sélection de bonbons en vrac de qualité supérieure!" />
+        <meta name="keywords" content="bonbons, friandises, gourmandises, sucettes, vrac, sucre, confiserie, mélange de bonbons personnalisé" />
+        <meta name="author" content="Confiserie Sucre Rose" />
+      </Helmet>
+      <Wrapper>
+        <WarningMessage children={"Plus de produits en Boutique!"}/>
+        <div className="content">
+          <Filtre children={filtreVracInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
+          <section>
+            <h2 className="etape">Étape 1</h2>
+            <p className="explication">Sélectionnez le contenant que vous voulez.</p>
+            <p className="explication">Pour six items ou plus, commandez via le bar à bonbons!</p>
+            {quantiteContenant >= 6 && 
+              <p className="explication avertissement">
+                Votre panier contient déjà la quantitée de 6 contenants vrac. Si vous avez besoin de plus, nous vous invitons à faire une commande via le&nbsp;
+                <Link to={"/bar-a-bonbons"}>
+                  Bar à bonbons
+                </Link>
+                .
+              </p>
+            }
+            <SelectionSac setSac={setSac} setQuantiteContenant={setQuantiteContenant} />
+            <h2 className="etape">Étape 2</h2>
+            <p className="explication">Faites votre choix parmi cette vaste sélection de bonbons!</p>
+            <VracShowcase vrac={filteredVrac} setSac={setSac} sac={sac} reset={reset} setReset={setReset} />
+            <h2 className="etape">Étape 3</h2>
+            <p className="explication">Validez votre/vos choix.</p>
+            <Confirmation sac={sac} setSac={setSac} setReset={setReset}/>
+          </section>
+        </div>
+      </Wrapper>
+    </>
   );
 }
 
@@ -97,6 +111,16 @@ const Wrapper = styled.div`
     font-size: 1.5em;
     text-align: center;
     font-family: var(--font-primary);
+  }
+
+  .explication.avertissement {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    border-radius: 10px;
+    padding: 0.5em;
+    > a {
+      color: white;
+    }
   }
   
   .etape {

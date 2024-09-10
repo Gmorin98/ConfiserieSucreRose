@@ -6,7 +6,6 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const updateFiltre = async (req, res) => {
-  const filtre = req.body; // Receive the updated product data
   const { inventaire } = req.params;
   const client = new MongoClient(MONGO_URI);
 

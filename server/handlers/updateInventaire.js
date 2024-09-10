@@ -12,22 +12,23 @@ const updateInventaire = async (req, res) => {
 
   try {
     await client.connect();
-    const db = client.db(`${inventaire}`); // Use your actual DB name
-    const collection = db.collection(`${inventaire}`); // Use your actual collection name
-
+    const db = client.db(inventaire); // Use your actual DB name
+    const collection = db.collection(inventaire); // Use your actual collection name
+    
     const result = await collection.updateOne(
-      { _id: new ObjectId(produit._id) },
+      { id: produit.id },
       {
         $set: {
           nom: produit.nom,
-          inventaire: produit.inventaire,
-          prix: produit.prix,
-          nouveau: produit.nouveau,
-          actif: produit.actif,
-          tag: produit.tag,
+          prix: parseFloat(produit.prix), // Ensure it's a number
+          tag: produit.tag, // Ensure this is an array
+          inventaire: parseInt(produit.inventaire, 10), // Ensure it's an integer
+          nouveau: produit.nouveau, // Boolean value
+          actif: produit.actif, // Boolean value
+          boutique: produit.boutique,
         },
       }
-    );
+    )
 
     if (result.matchedCount === 0) {
       res.status(404).json({

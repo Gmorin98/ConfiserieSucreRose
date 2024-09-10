@@ -14,17 +14,10 @@ const Checkout = () => {
 
   // Get items from local storage and aggregate quantities
   const panier = JSON.parse(localStorage.getItem('panier')) || [];
-  const panierMap = panier.reduce((acc, produit) => {
-    const existingProduit = acc.find(p => p._id === produit._id);
-    if (existingProduit) {
-      existingProduit.quantite += produit.quantite;
-    } else {
-      acc.push({ ...produit });
-    }
-    return acc;
-  }, []);
+  console.log(panier);
+  
 
-  const [panierItems, setPanierItems] = useState(panierMap);
+  const [panierItems, setPanierItems] = useState(panier);
 
   const confimationPickUp = () => {
     const confimationCheckbox = document.getElementById("confirmationCheckbox");
@@ -51,18 +44,22 @@ const Checkout = () => {
     localStorage.setItem('panier', JSON.stringify(updatedItems));
   };
 
-  const handleRemoveItem = (id) => {
-    const updatedItems = panierItems.filter(item => item._id !== id);
-    setPanierItems(updatedItems);
+  const handleRemoveItem = (id, index) => {
+    const updatedItems = panierItems.filter((item, i) => {
+      if (item._id) {
+        // If the item has an _id, filter based on that
+        return item._id !== id;
+      } else {
+        // If the item doesn't have an _id, filter based on index
+        return i !== index;
+      }
+    });
     
+    setPanierItems(updatedItems);
+  
     // Update local storage
     localStorage.setItem('panier', JSON.stringify(updatedItems));
-  };
-
-  const handleConfirmOrder = () => {
-    // Update local storage or backend as needed
-    setCommandeConfirmer(true);
-  };
+  }
 
   return (
     <Wrapper>
@@ -85,9 +82,9 @@ const Checkout = () => {
           </div>
         ) : !commandConfirmer ? (
           <div className='confimationCommande'>
-            {panierItems.map((produit) => (
-              <div key={produit._id}>
-                <button className='removeProduits' onClick={() => handleRemoveItem(produit._id)}>X</button>
+            {panierItems.map((produit, index) => (
+              <div key={produit._id || index}>
+                <button className='removeProduits' onClick={() => handleRemoveItem(produit._id, index)}>X</button>
                 <img src={produit.img} alt={produit.nom} />
                 <div className='infoGeneral'>
                   <p>{produit.nom}</p>
@@ -105,7 +102,7 @@ const Checkout = () => {
                 </div>
               </div>
             ))}
-            <button onClick={handleConfirmOrder} disabled={panierItems.length === 0} className='confirmationButton'>Confirmez la commande</button>
+            <button onClick={() => setCommandeConfirmer(true)} disabled={panierItems.length === 0} className='confirmationButton'>Confirmez la commande</button>
           </div>
         ) : (
           <Elements stripe={stripePromise}>

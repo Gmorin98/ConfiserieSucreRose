@@ -13,10 +13,19 @@ const listSac = [
   {nom: "Plateau 1300g", prix: "36.50", img: "images/Vrac/Sacs/Plateau_Crop.png", quantite: 1300}  // limite 2
 ]
 
-const SelectionSac = ({setSac}) => {
+const SelectionSac = ({setSac, setQuantiteContenant}) => {
   const [clickedButtons, setClickedButtons] = useState({}); // Track which buttons were clicked
-
+  const panierOnlyContenant = JSON.parse(localStorage.getItem('panier')).filter(item => item._id === undefined) || [];
+  let quantiteContenant = 0;
+  
   const handleSacSelection = (sac, index) => {
+    panierOnlyContenant.forEach(contenant => {
+      if (contenant.quantiteMax > 500) {quantiteContenant += 3}
+      else {quantiteContenant += 1}
+    });
+    setQuantiteContenant(quantiteContenant)
+    if(quantiteContenant >= 6) return
+
     setSac((prevState) => ({
       ...prevState,
       nom: sac.nom,
