@@ -23,6 +23,10 @@ const CarrouselBarBonbons = [
   },
   {
     id: 4,
+    img: "images/BarABonbons/Meuble_Bonbons_Haut.jpg",
+  },
+  {
+    id: 5,
     img: "images/BarABonbons/Meuble_Vide.jpg",
   }
 ]

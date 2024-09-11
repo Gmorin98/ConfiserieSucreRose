@@ -16,6 +16,11 @@ const CarrouselEvenements = [
     id: 2,
     img: "images/Evenements/Marmaille.png",
     info: "5-6 Octobre, au Centre Expo Terrebonne 2475 boulevard des Entreprises Terrebonne, QC J6X 5S5"
+  },
+  {
+    id: 3,
+    img: "images/Evenements/Recolte.png",
+    info: "Fête des Recoltes à Mascouche le 28 Septembre de 10h à 16h! 33 Hectares (1440, chemin de la Côte-Georges, Mascouche)"
   }
 ]
 
@@ -37,7 +42,7 @@ const Accueil = () => {
         <p>Confiserie chaleureuse et conviviale située au cœur du Vieux-Mascouche.</p>
         <p>Une visite à la Sucre Rose c'est un délice pour les yeux et les papilles!</p>
         <img src="images/maison_sucre_rose.jpeg"/>
-        <p className="information">*Vous trouverez du stationnement au stationnement Municipal rue Dupras</p>
+        <p className="information">*Accès au stationnement municipal par la rue Dupras</p>
       </section>
       <section className="promotion">
         <h2>Événements et nouveautés</h2>
@@ -133,6 +138,7 @@ const Wrapper = styled.div`
       > p {
         min-width: 300px;
         max-width: 50%;
+        font-size: 0.5em;
       } 
     }
 

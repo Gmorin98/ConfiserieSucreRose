@@ -73,7 +73,7 @@ const Wrapper = styled.div`
 const CarouselContainer = styled.div`
   display: flex;
   position: relative;
-  width: 99.1vw;
+  width: 100vw;
   height: fit-content;
   justify-content: center;
   margin-bottom: 2em;

@@ -15,7 +15,7 @@ const postContactBarBonbons= async (req, res) => {
   const { prenom, nom, email, telephone, date, evenement, extraInfo } = req.body;
 
   const params = {
-    Source: 'gabriel.morin98@gmail.com',
+    Source: 'confiseriesucrerose@gmail.com',
     Destination: {
       ToAddresses: [email],
     },

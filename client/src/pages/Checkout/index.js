@@ -61,6 +61,8 @@ const Checkout = () => {
     localStorage.setItem('panier', JSON.stringify(updatedItems));
   }
 
+  console.log(panierItems);
+  
   return (
     <Wrapper>
       <div>
@@ -71,7 +73,7 @@ const Checkout = () => {
                 type='checkbox'
                 id='confirmationCheckbox'
               />
-              <p>Récupération de votre commande en boutique SEULEMENT, en cochant cette case, vous confirmez avoir pris connaissance de cette condition</p>
+              <p>Ramassage de votre commande en boutique SEULEMENT, en cochant cette case, vous confirmez avoir pris connaissance de cette condition.</p>
             </div>
             <button 
               onClick={confimationPickUp} 
@@ -84,22 +86,37 @@ const Checkout = () => {
           <div className='confimationCommande'>
             {panierItems.map((produit, index) => (
               <div key={produit._id || index}>
-                <button className='removeProduits' onClick={() => handleRemoveItem(produit._id, index)}>X</button>
-                <img src={produit.img} alt={produit.nom} />
-                <div className='infoGeneral'>
-                  <p>{produit.nom}</p>
-                  <p>${produit.prix}</p>
-                  {produit._id === undefined ? (
-                    <p>Quantité: {produit.quantity}</p>
-                  ) : (
-                    <p>
-                      Quantité:
-                      <button onClick={() => handleQuantityChange(produit._id, -1)} disabled={produit.quantite <= 1 || produit._id === undefined}>-</button>
-                      {produit.quantity}
-                      <button onClick={() => handleQuantityChange(produit._id, 1)} disabled={produit._id === undefined || produit.quantity === produit.inventaire} >+</button>
-                    </p>
-                  )}
+                <div className='infoProduit'>
+                  <button className='removeProduits' onClick={() => handleRemoveItem(produit._id, index)}>X</button>
+                  <img src={produit.img} alt={produit.nom} />
+                  <div className='infoGeneral'>
+                    <p>{produit.nom}</p>
+                    <p>${produit.prix}</p>
+                    {produit._id === undefined ? (
+                      <p>Quantité: {produit.quantity}</p>
+                    ) : (
+                      <p>
+                        Quantité:
+                        <button onClick={() => handleQuantityChange(produit._id, -1)} disabled={produit.quantite <= 1 || produit._id === undefined}>-</button>
+                        {produit.quantity}
+                        <button onClick={() => handleQuantityChange(produit._id, 1)} disabled={produit._id === undefined || produit.quantity === produit.inventaire} >+</button>
+                      </p>
+                    )}
+                  </div>
                 </div>
+                  {produit.bonbonsSelectionne ? 
+                <div className='bonbonsSelection'>
+                  {produit.bonbonsSelectionne.map(bonbon => {
+                    return (
+                      <div key={bonbon.nom} className='infoBonbons'>
+                        <p>{bonbon.nom}</p>
+                        <p>{bonbon.quantite}g</p>
+                      </div>
+                    )
+                  })}
+                </div> 
+              : 
+                null}
               </div>
             ))}
             <button onClick={() => setCommandeConfirmer(true)} disabled={panierItems.length === 0} className='confirmationButton'>Confirmez la commande</button>
@@ -131,8 +148,6 @@ const Wrapper = styled.div`
     color: var(--primary-color);
     background-color: var(--background-color);
     height: fit-content;
-    min-width: 20%;
-    max-width: 80%;
   }
 
   button {
@@ -147,6 +162,7 @@ const Wrapper = styled.div`
     > div {
       display: flex;
       align-items: center;
+      justify-content: space-evenly;
       max-width: 750px;
       > input[type='checkbox'] {
         min-width: 30px;
@@ -175,6 +191,7 @@ const Wrapper = styled.div`
       > p {
         font-size: 1.25em;
         text-align: center;
+        max-width: 70%;
       }
     }
     > button {
@@ -188,16 +205,22 @@ const Wrapper = styled.div`
     }
   }
 
+  
   .confimationCommande {
-    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
     > div {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       position: relative;
+      flex-wrap: wrap;
       margin: 1em 0;
+      padding: 1em;
+      flex-direction: column;
+      .infoProduit {
+        display: flex;
+      }
       p {
         font-size: 1.25em;
       }
@@ -220,6 +243,27 @@ const Wrapper = styled.div`
         font-weight: bold;
         border: none;
         border-radius: 10px;
+      }
+    }
+    
+    .bonbonsSelection {
+      .infoBonbons {
+        display: flex;
+        justify-content: space-between;
+        background-color: hsla(354,67%, 90%, 1);
+        padding: 0 1em;
+        p:first-of-type {
+          padding-right: 1em;
+        }
+      }
+      .infoBonbons:nth-child(2n) {
+        background-color: var(--background-color);
+      }
+      .infoBonbons:last-of-type {
+        border-radius: 0 0 1em 1em;
+      }
+      .infoBonbons:first-of-type {
+        border-radius: 1em 1em 0 0;
       }
     }
 
@@ -246,9 +290,5 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 900px) {
     margin-top: 3em;
-    max-width: 100%;
-    > div {
-    max-width: 100%;
-  }
   }
 `;

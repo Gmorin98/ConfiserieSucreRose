@@ -116,7 +116,7 @@ const Footer = () => {
         </div>
       </section>
       <div className="credit">
-        <p>Site Web conçu par Gabriel Morin</p>
+        <p>Site Web conçu par <a href="https://www.linkedin.com/in/gabrielmorin98/">Gabriel Morin</a></p>
       </div>
     </Wrapper>
   );
@@ -193,6 +193,10 @@ const Wrapper = styled.div`
     align-items: center;
     padding-top: 3em;
     width: 100%;
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 
   @media screen and (max-width: 900px) {
