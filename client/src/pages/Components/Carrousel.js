@@ -46,12 +46,12 @@ export default Carrousel;
 
 const Wrapper = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 2em 0em;
   height: fit-content;
+  width: 100%;
 
   img {
     border-radius: 35px;
@@ -73,7 +73,7 @@ const Wrapper = styled.div`
 const CarouselContainer = styled.div`
   display: flex;
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: fit-content;
   justify-content: center;
   margin-bottom: 2em;

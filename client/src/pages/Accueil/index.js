@@ -95,8 +95,8 @@ const Wrapper = styled.div`
   .promotion {
     display: flex;
     flex-direction: column;
-    width: 100%;
     align-items: center;
+    width: 100%;
   }
 
   .information {
