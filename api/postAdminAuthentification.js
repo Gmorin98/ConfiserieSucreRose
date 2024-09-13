@@ -1,12 +1,16 @@
 const { MongoClient } = require("mongodb");
 const bcrypt = require('bcrypt');
 
-require("dotenv").config();
-const { MONGO_URI } = process.env;
+//require("dotenv").config();
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const postAdminAuthentification = async (req, res) => {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
+
   const client = new MongoClient(MONGO_URI);
   const { username, password } = req.body;
   
@@ -45,5 +49,3 @@ const postAdminAuthentification = async (req, res) => {
     client.close();
   }
 };
-
-module.exports = postAdminAuthentification;

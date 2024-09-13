@@ -1,6 +1,6 @@
 const AWS = require('@aws-sdk/client-ses');
-require("dotenv").config();
 
+//require("dotenv").config();
 const SES_CONFIG = {
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -9,13 +9,15 @@ const SES_CONFIG = {
   region: process.env.AWS_SES_REGION,
 };
 
+// Might need to use SESClient instead, test it.
 const AWS_SES = new AWS.SES(SES_CONFIG);
+//const AWS_SES = new SESClient(SES_CONFIG);
 
-const postContactBarBonbons= async (req, res) => {
+export default async function handler(req, res) {
   const { prenom, nom, email, telephone, date, evenement, extraInfo } = req.body;
 
   const params = {
-    Source: 'gabriel.morin98@gmail.com',
+    Source: 'confiseriesucrerose@gmail.com',
     Destination: {
       ToAddresses: [email],
     },
@@ -55,11 +57,9 @@ const postContactBarBonbons= async (req, res) => {
   
   try {
     const result = await AWS_SES.sendEmail(params);
-    res.status(200).json({ status: 200, message: "Email sent successfully!" });
+    res.status(200).json({ status: 200, message: "Email sent successfully!", result });
   } catch (error) {
     console.error("Error sending email:", error);
     res.status(500).json({ status: 500, message: "Failed to send email.", error });
   }
 };
-
-module.exports = postContactBarBonbons;

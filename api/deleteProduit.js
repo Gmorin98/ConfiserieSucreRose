@@ -1,18 +1,18 @@
 const { MongoClient } = require("mongodb");
 
-require("dotenv").config();
-const { MONGO_URI } = process.env;
+//require("dotenv").config();
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const deleteProduit = async (req, res) => {
-  const { id, inventaire } = req.params
+export default async function handler(req, res) {
+  const { id, inventaire } = req.query;
   const client = new MongoClient(MONGO_URI);
   
   try {
     await client.connect();
-    const db = client.db(`${inventaire}`); // Use your actual DB name
-    const collection = db.collection(`${inventaire}`); // Use your actual collection name
+    const db = client.db(inventaire); // Use your actual DB name
+    const collection = db.collection(inventaire); // Use your actual collection name
 
     const findProduit = await collection.findOne({ id });
 
@@ -46,5 +46,3 @@ const deleteProduit = async (req, res) => {
     await client.close();
   }
 };
-
-module.exports = deleteProduit;

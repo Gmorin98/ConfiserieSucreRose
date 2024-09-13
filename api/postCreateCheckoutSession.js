@@ -1,8 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
-const stripe = require('stripe')('sk_test_51PuHHbGP8twVSmcRc3IjvLT3wIKm4DI6qYVo5YKzWPUZxw0dLDciuY04Sujq2tJk7gxtTdjqBJ37N6Js1uTAzGDw00oORMHU95');
-const YOUR_DOMAIN = 'http://localhost:3000';
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const YOUR_DOMAIN = 'http://confiseriesucrerose.ca';
 
-const postCreateCheckoutSession = async (req, res) => {
+export default async function handler(req, res) {
   const { items } = req.body || []; // Assuming you're sending the items from the client in the request body
   
   const orderNumber = uuidv4(); // Generate a unique order ID
@@ -41,5 +41,3 @@ const postCreateCheckoutSession = async (req, res) => {
   const response = { clientSecret: session.client_secret, orderNumber };
   res.send(response);
 };
-
-module.exports = postCreateCheckoutSession;

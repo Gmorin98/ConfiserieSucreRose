@@ -1,12 +1,12 @@
 const { MongoClient, ObjectId } = require("mongodb");
 
-require("dotenv").config();
-const { MONGO_URI } = process.env;
+//require("dotenv").config();
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const updateFiltre = async (req, res) => {
-  const { inventaire } = req.params;
+export default async function handler(req, res) {
+  const { inventaire } = req.query;
   const client = new MongoClient(MONGO_URI);
 
   try {
@@ -47,5 +47,3 @@ const updateFiltre = async (req, res) => {
     await client.close();
   }
 };
-
-module.exports = updateFiltre;

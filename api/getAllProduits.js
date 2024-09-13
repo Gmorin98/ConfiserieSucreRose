@@ -1,25 +1,25 @@
 const { MongoClient } = require("mongodb");
 
-require("dotenv").config();
-const { MONGO_URI } = process.env;
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const getAllProduits = async (req, res) => {
-  const { section } = req.params;
+export default async function handler(req, res) {
+  const { section } = req.query;  // Use req.query for URL parameters in Vercel
   const client = new MongoClient(MONGO_URI);
   
   try {
-		await client.connect();
+    await client.connect();
     const db = client.db(section);
     const produitsInfo = await db.collection(section).find().toArray();
+
     if (produitsInfo.length === 0) {
       res.status(404).json({
         status: 404,
         message: "Erreur, aucune information pour le filtre n'a été trouvée.",
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: 200,
         produitsInfo,
       });
@@ -33,6 +33,4 @@ const getAllProduits = async (req, res) => {
   } finally {
     client.close();
   }
-};
-
-module.exports = getAllProduits;
+}

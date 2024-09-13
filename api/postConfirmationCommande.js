@@ -1,6 +1,6 @@
 const AWS = require('@aws-sdk/client-ses');
-require("dotenv").config();
 
+//require("dotenv").config();
 const SES_CONFIG = {
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -9,23 +9,25 @@ const SES_CONFIG = {
   region: process.env.AWS_SES_REGION,
 };
 
+// Might need to use SESClient instead, test it.
 const AWS_SES = new AWS.SES(SES_CONFIG);
+//const AWS_SES = new SESClient(SES_CONFIG);
 
-const postNouvelleCommande= async (req, res) => {
-  const { panierWithoutImg, customerEmail } = req.body;
+export default async function handler(req, res) {
+  const { panierWithoutImg, customerEmail, orderNumber } = req.body;
 
   // Format panier data
-  let htmlBody = '<h1>Détails de la Commande</h1>';
-  let textBody = 'Détails de la Commande:\n';
+  let htmlBody = `<h1>Numéro de Commande: ${orderNumber}</h1><h1>Détails de la Commande</h1>`;
+  let textBody = `Numéro de Commande: ${orderNumber}\nDétails de la Commande:\n`;
 
   panierWithoutImg.forEach(item => {
     if (item.bonbonsSelectionne) {
-      htmlBody += `<h2>${item.nom}</h2><ul>`;
-      textBody += `${item.nom}:\n`;
+      htmlBody += `<h2>${item.nom} (Quantité: ${item.quantity})</h2><ul>`;
+      textBody += `${item.nom} (Quantité: ${item.quantity}):\n`;
       
       item.bonbonsSelectionne.forEach(bonbon => {
-        htmlBody += `<li>${bonbon.nom} - Quantité: ${bonbon.quantite}g</li>`;
-        textBody += `  - ${bonbon.nom} - Quantité: ${bonbon.quantite}g\n`;
+        htmlBody += `<li>${bonbon.nom} - Quantité: ${bonbon.quantite}</li>`;
+        textBody += `  - ${bonbon.nom} - Quantité: ${bonbon.quantite}\n`;
       });
       
       htmlBody += '</ul>';
@@ -35,11 +37,8 @@ const postNouvelleCommande= async (req, res) => {
     }
   });
 
-  // Remove last newline character from textBody
-  textBody = textBody.trim();
-  
   const params = {
-    Source: 'gabriel.morin98@gmail.com',
+    Source: 'confiseriesucrerose@gmail.com',
     Destination: {
       ToAddresses: [customerEmail],
     },
@@ -56,18 +55,16 @@ const postNouvelleCommande= async (req, res) => {
       },
       Subject: {
         Charset: 'UTF-8',
-        Data: 'Nouvelle Commande En Ligne',
+        Data: 'Confirmation de Commande Confiserie Sucre Rose',
       },
     },
   };
   
   try {
     const result = await AWS_SES.sendEmail(params);
-    res.status(200).json({ status: 200, message: "Email sent successfully!" });
+    res.status(200).json({ status: 200, message: "Email sent successfully!", result });
   } catch (error) {
     console.error("Error sending email:", error);
     res.status(500).json({ status: 500, message: "Failed to send email.", error });
   }
 };
-
-module.exports = postNouvelleCommande;

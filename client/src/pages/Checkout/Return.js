@@ -16,7 +16,7 @@ const Return = () => {
     const sessionId = urlParams.get('session_id');
 
     // Get the session ID
-    fetch(`/session-status?session_id=${sessionId}`)
+    fetch(`/api/session-status?session_id=${sessionId}`)
       .then((res) => res.json())
       .then((data) => {
         setStatus(data.status);
@@ -43,7 +43,7 @@ const Return = () => {
         }
         try {
           // Sending user credentials using POST
-          const response = await fetch(`/orderSent`, {
+          const response = await fetch(`/api/orderSent`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ const Return = () => {
         
         try {
           // Sending user credentials using POST
-          const response = await fetch(`/confirmationEmailCustomer`, {
+          const response = await fetch(`/api/confirmationEmailCustomer`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ const Return = () => {
         
         try {
           // Sending user credentials using POST
-          const response = await fetch(`/pacthUpdateInventory`, {
+          const response = await fetch(`/api/pacthUpdateInventory`, {
             method: "PATCH",
             headers: {
               'Content-Type': 'application/json'

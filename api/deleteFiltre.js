@@ -1,13 +1,12 @@
 const { MongoClient } = require("mongodb");
-const { ObjectId } = require('mongodb');
 
-require("dotenv").config();
-const { MONGO_URI } = process.env;
+//require("dotenv").config();
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const deleteFiltre = async (req, res) => {
-  const { sectionFiltre, sectionID, filtreOption } = req.params
+export default async function handler(req, res) {
+  const { sectionFiltre, sectionID, filtreOption } = req.query
 
   if (!sectionFiltre || !sectionID || !filtreOption) {
     return res.status(400).json({
@@ -54,5 +53,3 @@ const deleteFiltre = async (req, res) => {
     await client.close();
   }
 };
-
-module.exports = deleteFiltre;

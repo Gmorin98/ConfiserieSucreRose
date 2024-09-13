@@ -9,7 +9,7 @@ const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtr
 
   const handleDelete = (filtreOption, sectionID) => {
     // ↓ Handeling the Fetch ↓
-    fetch(`/deleteFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
+    fetch(`/api/deleteFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
       method: "DELETE"
     })
     .then(response => response.json())
@@ -19,7 +19,7 @@ const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtr
 
   const handleAjout = (filtreOption, sectionID) => {
     // ↓ Handeling the Fetch ↓
-    fetch(`/ajoutFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
+    fetch(`/api/ajoutFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
       method: "PATCH",
       headers: {
         "Content-type" : "application/json"

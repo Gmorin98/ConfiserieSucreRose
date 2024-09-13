@@ -1,12 +1,12 @@
 const { MongoClient } = require("mongodb");
 
-require("dotenv").config();
-const { MONGO_URI } = process.env;
+//require("dotenv").config();
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const getFiltre = async (req, res) => {
-  const { section } = req.params;
+export default async function handler(req, res) {
+  const { section } = req.query;
   const client = new MongoClient(MONGO_URI);
   
   try {
@@ -34,5 +34,3 @@ const getFiltre = async (req, res) => {
     client.close();
   }
 };
-
-module.exports = getFiltre;
