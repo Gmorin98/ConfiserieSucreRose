@@ -6,7 +6,11 @@ const PORT = 8000;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://confiserie-sucre-rose.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // If you're using credentials like cookies or tokens
+}));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(require('./routes'));
