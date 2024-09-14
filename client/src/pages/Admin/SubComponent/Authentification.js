@@ -20,7 +20,7 @@ const Authentification = ({setIsLoggedIn}) => {
   const handleAuthentification = async () => {
     try {
       // Sending user credentials using POST
-      const response = await fetch(`/api/postAdminAuthentification`, {
+      const response = await fetch(`/postAdminAuthentification`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

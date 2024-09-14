@@ -71,7 +71,7 @@ const BarABonbons = () => {
   
     try {
       // Sending user credentials using POST
-      const response = await fetch(`/api/contactBarBonbon`, {
+      const response = await fetch(`/contactBarBonbon`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

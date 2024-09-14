@@ -68,7 +68,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       formData.append('inventaire', currentInventaire);
   
     // ↓ Handeling the Fetch ↓
-    fetch(`/api/nouveauProduit`, {
+    fetch(`/nouveauProduit`, {
       method: "POST",
       body: formData
     })
@@ -83,7 +83,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     );
 
     // ↓ Handeling the Fetch ↓
-    fetch(`/api/updateInventaire/${currentInventaire}`, {
+    fetch(`/updateInventaire/${currentInventaire}`, {
       method: "PATCH",
       headers: {
         "Content-type" : "application/json"
@@ -123,7 +123,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   // IT WORKS, NO NEED TO CHANGE ANYTHING
   const handleDelete = () => {
     // ↓ Handeling the Fetch ↓
-    fetch(`/api/deleteProduit/${editedOption.id}/${currentInventaire}`, {
+    fetch(`/deleteProduit/${editedOption.id}/${currentInventaire}`, {
       method: "DELETE"
     })
     .then(response => response.json())

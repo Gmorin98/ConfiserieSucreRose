@@ -11,7 +11,7 @@ const Footer = () => {
     // Fetch the API key from the backend
     const fetchApiKey = async () => {
       try {
-        const response = await fetch('/api/api/config');
+        const response = await fetch(`/api/config`);
         const data = await response.json();
         setApiKey(data.googleMapsApiKey);
       } catch (error) {
