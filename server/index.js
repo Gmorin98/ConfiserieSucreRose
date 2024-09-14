@@ -16,4 +16,8 @@ app.use('*', (req, res) => {
   res.status(404).json({status: 404, message: "Désolé, vous ne trouverez pas de bonbons ici!"});
 });
 
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 module.exports = app;

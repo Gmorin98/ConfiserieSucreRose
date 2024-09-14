@@ -19,7 +19,7 @@ const CheckoutForm = () => {
 
   const fetchClientSecret = useCallback(() => {
     // Create a Checkout Session
-    return fetch(`/create-checkout-session`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/create-checkout-session`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

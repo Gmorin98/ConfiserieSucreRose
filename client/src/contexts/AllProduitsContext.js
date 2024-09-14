@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 
 export const AllProduitsContext = React.createContext();
 
-const AllProduitsProvider = ({children}) => {
-  // Context pour page Cree ton Pot
+const AllProduitsProvider = ({ children }) => {
+  // Context for "Cree ton Pot" page
   const [allVrac, setAllVrac] = useState([]);
-  // Context pour page Produits
+  // Context for "Produits" page
   const [allProduits, setAllProduits] = useState([]);
 
-  // ↓ Products Functions ↓
   // Fetch all the products.
-	useEffect(()=>{
+  useEffect(() => {
     const fetchVracInfo = async () => {
       try {
-        const response = await fetch(`/getAllProduits/Vrac`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getAllProduits/Vrac`);
         if (!response.ok) {
           throw new Error("Failed to fetch Vrac");
         }
@@ -22,10 +21,11 @@ const AllProduitsProvider = ({children}) => {
       } catch (error) {
         console.error(error);
       }
-    }
+    };
+
     const fetchProduitsInfo = async () => {
       try {
-        const response = await fetch(`/getAllProduits/Produits`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getAllProduits/Produits`);
         if (!response.ok) {
           throw new Error("Failed to fetch Products");
         }
@@ -34,17 +34,17 @@ const AllProduitsProvider = ({children}) => {
       } catch (error) {
         console.error(error);
       }
-    }
+    };
 
-		fetchVracInfo();
+    fetchVracInfo();
     fetchProduitsInfo();
-	},[])
-  
+  }, []);
+
   return (
-    <AllProduitsContext.Provider value={{allProduits, setAllProduits, allVrac, setAllVrac}}>
+    <AllProduitsContext.Provider value={{ allProduits, setAllProduits, allVrac, setAllVrac }}>
       {children}
     </AllProduitsContext.Provider>
-  )
-}
+  );
+};
 
-export default AllProduitsProvider
+export default AllProduitsProvider;

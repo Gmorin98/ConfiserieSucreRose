@@ -1,7 +1,6 @@
 {
   "name": "Confiserie-Sucre-Rose",
   "version": "1.0.0",
-  "proxy": "confiserie-sucre-rose-backend-7a5a5woe0-gmorin98s-projects.vercel.app",
   "main": "index.js",
   "repository": "https://github.com/Gmorin98/ConfiserieSucreRose",
   "author": "Gabriel Morin <gabriel.morin98@gmail.com>",
