@@ -26,9 +26,7 @@ const AllFiltreProvider = ({children}) => {
         if (!response.ok) {
           throw new Error("Failed to fetch Produits Filtre");
         }
-        const produitsFiltreData = await response.json();
-        console.log(produitsFiltreData);
-        
+        const produitsFiltreData = await response.json();  
         setFiltreProduitInfo(produitsFiltreData.filtreInfo);
       } catch (error) {
         console.error(error);

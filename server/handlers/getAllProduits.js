@@ -8,9 +8,7 @@ if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 const getAllProduits = async (req, res) => {
   const { section } = req.params;  // Use req.query for URL parameters in Vercel
   const client = new MongoClient(MONGO_URI);
-  console.log("Hello!");
-  
-  
+
   try {
     await client.connect();
     const db = client.db(section);
