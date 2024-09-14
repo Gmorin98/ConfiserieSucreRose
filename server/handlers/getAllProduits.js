@@ -8,6 +8,8 @@ if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 const getAllProduits = async (req, res) => {
   const { section } = req.params;  // Use req.query for URL parameters in Vercel
   const client = new MongoClient(MONGO_URI);
+  console.log("Hello!");
+  
   
   try {
     await client.connect();
@@ -20,6 +22,8 @@ const getAllProduits = async (req, res) => {
         message: "Erreur, aucune information pour le filtre n'a été trouvée.",
       });
     } else {
+      console.log(produitsInfo);
+      
       res.status(200).json({
         status: 200,
         produitsInfo,
