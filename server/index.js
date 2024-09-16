@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const routes = require('./routes');
+const bodyParser = require("body-parser");
 
 const PORT = 8000;
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(require('./routes'));
 app.use('/api', routes);
+app.use(bodyParser.json())
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
