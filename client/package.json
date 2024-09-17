@@ -2,7 +2,6 @@
   "name": "Confiserie-Sucre-Rose",
   "version": "1.0.0",
   "main": "index.js",
-  "proxy": "http://localhost:8000",
   "repository": "https://github.com/Gmorin98/ConfiserieSucreRose",
   "author": "Gabriel Morin <gabriel.morin98@gmail.com>",
   "license": "MIT",
