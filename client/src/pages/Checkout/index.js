@@ -14,8 +14,6 @@ const Checkout = () => {
 
   // Get items from local storage and aggregate quantities
   const panier = JSON.parse(localStorage.getItem('panier')) || [];
-  console.log(panier);
-  
 
   const [panierItems, setPanierItems] = useState(panier);
 
@@ -61,8 +59,6 @@ const Checkout = () => {
     localStorage.setItem('panier', JSON.stringify(updatedItems));
   }
 
-  console.log(panierItems);
-  
   return (
     <Wrapper>
       <div>

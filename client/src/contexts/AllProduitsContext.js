@@ -12,7 +12,7 @@ const AllProduitsProvider = ({ children }) => {
   useEffect(() => {
     const fetchVracInfo = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/getAllProduits/Vrac`);
+        const response = await fetch(`https://confiserie-sucre-rose.vercel.app/getAllProduits/Vrac`);
         if (!response.ok) {
           throw new Error("Failed to fetch Vrac");
         }
@@ -25,7 +25,7 @@ const AllProduitsProvider = ({ children }) => {
 
     const fetchProduitsInfo = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/getAllProduits/Produits`);
+        const response = await fetch(`https://confiserie-sucre-rose.vercel.app/getAllProduits/Produits`);
         if (!response.ok) {
           throw new Error("Failed to fetch Products");
         }

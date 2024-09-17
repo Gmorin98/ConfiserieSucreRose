@@ -9,7 +9,13 @@ const AllFiltreProvider = ({children}) => {
   useEffect(() => {
     const fetchFiltreVracInfo = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/getFiltre/Vrac`);
+        const response = await fetch(`https://confiserie-sucre-rose.vercel.app/getFiltre/Vrac`, {
+          method: 'GET',
+          credentials: 'include', // Ensures credentials like cookies are sent
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch Vrac Filtre");
         }
@@ -22,7 +28,7 @@ const AllFiltreProvider = ({children}) => {
 
     const fetchFiltreProduitsInfo = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/getFiltre/Produits`);
+        const response = await fetch(`https://confiserie-sucre-rose.vercel.app/getFiltre/Produits`);
         if (!response.ok) {
           throw new Error("Failed to fetch Produits Filtre");
         }
