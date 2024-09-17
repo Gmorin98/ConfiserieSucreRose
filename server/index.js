@@ -7,24 +7,12 @@ const PORT = 8000;
 
 const app = express();
 
-const whitelist = ['https://confiserie-sucre-rose-frontend.vercel.app', 'https://confiserie-sucre-rose-backend.vercel.app'];
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-  credentials: true
-}
-
-// const corsOptions = {
-//   origin: ['https://confiserie-sucre-rose-frontend.vercel.app', 'https://confiserie-sucre-rose-backend.vercel.app', 'http://localhost:8000'],
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   credentials: true, // If you need to include credentials like cookies
-// };
+  origin: ['https://confiserie-sucre-rose-frontend.vercel.app', 'https://confiserie-sucre-rose-backend.vercel.app', 'http://localhost:8000'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // If you need to include credentials like cookies
+};
 
 app.use(cors(corsOptions));
 
