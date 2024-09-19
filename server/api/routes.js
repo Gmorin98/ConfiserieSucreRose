@@ -1,3 +1,5 @@
+const router = require("express").Router();
+
 const {
   getFiltre,
   getAllProduits,
@@ -17,8 +19,6 @@ const {
   deleteProduit,
   deleteFiltre,
 } = require("../handlers");
-
-const router = require("express").Router();
 
 router.get("/getFiltre/:section", getFiltre);
 router.get("/getAllProduits/:section", getAllProduits);
