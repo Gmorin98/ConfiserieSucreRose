@@ -1,19 +1,19 @@
-const getFiltre = require("./api/getFiltre");
-const getAllProduits = require("./api/getAllProduits");
-const getSessionStatus = require("./api/getSessionStatus");
-const { getConfig } = require("./api/getGoogleMapAPI");
-const postAdminAuthentification = require("./api/postAdminAuthentification");
-const updateFiltre = require("./api/updateFiltre");
-const updateInventaire = require("./api/updateInventaire");
-const patchAjoutFiltre = require("./api/patchAjoutFiltre");
-const pacthUpdateInventory = require("./api/patchUpdateInventory")
-const {postNouveauProduit, upload} = require("./api/postNouveauProduit");
-const postContactBarBonbons = require("./api/postContactBarBonbons");
-const postCreateCheckoutSession = require("./api/postCreateCheckoutSession");
-const postConfirmationCommande = require("./api/postConfirmationCommande");
-const postNouvelleCommande = require("./api/postNouvelleCommande");
-const deleteProduit = require("./api/deleteProduit");
-const deleteFiltre = require("./api/deleteFiltre");
+const getFiltre = require("./handlers/getFiltre");
+const getAllProduits = require("./handlers/getAllProduits");
+const getSessionStatus = require("./handlers/getSessionStatus");
+const { getConfig } = require("./handlers/getGoogleMapAPI");
+const postAdminAuthentification = require("./handlers/postAdminAuthentification");
+const updateFiltre = require("./handlers/updateFiltre");
+const updateInventaire = require("./handlers/updateInventaire");
+const patchAjoutFiltre = require("./handlers/patchAjoutFiltre");
+const pacthUpdateInventory = require("./handlers/patchUpdateInventory")
+const {postNouveauProduit, upload} = require("./handlers/postNouveauProduit");
+const postContactBarBonbons = require("./handlers/postContactBarBonbons");
+const postCreateCheckoutSession = require("./handlers/postCreateCheckoutSession");
+const postConfirmationCommande = require("./handlers/postConfirmationCommande");
+const postNouvelleCommande = require("./handlers/postNouvelleCommande");
+const deleteProduit = require("./handlers/deleteProduit");
+const deleteFiltre = require("./handlers/deleteFiltre");
 
 module.exports = {
     getFiltre,

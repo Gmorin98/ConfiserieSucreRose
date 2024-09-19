@@ -1,13 +1,16 @@
 const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
-const routes = require('./routes');
+const routes = require("./routes")
 
 const PORT = 8000;
 
 const app = express();
 
-const whitelist = ['https://confiserie-sucre-rose-frontend.vercel.app', 'https://confiserie-sucre-rose-backend.vercel.app'];
+const whitelist = [
+  'https://confiserie-sucre-rose-frontend.vercel.app', 
+  'https://confiserie-sucre-rose-backend.vercel.app'
+];
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -29,7 +32,6 @@ const corsOptions = {
 // };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(routes);
@@ -39,8 +41,8 @@ app.use('*', (req, res) => {
   res.status(404).json({status: 404, message: "Désolé, vous ne trouverez pas de bonbons ici!"});
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
 module.exports = app;

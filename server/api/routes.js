@@ -16,7 +16,7 @@ const {
   upload,
   deleteProduit,
   deleteFiltre,
-} = require("./handlers");
+} = require("../handlers");
 
 const router = require("express").Router();
 
