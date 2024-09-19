@@ -1,4 +1,4 @@
-const stripe = require('stripe')('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');
+const stripe = require('stripe')(`${process.env.STRIPE_KEY}`);
 
 const getSessionStatus = async (req, res) => {
   try {
