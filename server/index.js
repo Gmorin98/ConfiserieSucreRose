@@ -8,10 +8,10 @@ const PORT = 8000;
 const app = express();
 
 const whitelist = [
-  'https://api.confiseriesucrerose.ca/',
-  'https://www.confiseriesucrerose.ca/',
+  'https://api.confiseriesucrerose.ca',
+  'https://www.confiseriesucrerose.ca',
   'https://confiserie-sucre-rose-frontend.vercel.app', 
-  'https://confiserie-sucre-rose-backend.vercel.app/'
+  'https://confiserie-sucre-rose-backend.vercel.app'
 ];
 const corsOptions = {
   origin: function (origin, callback) {
