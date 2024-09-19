@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const { MongoClient } = require("mongodb");
 const multer = require("multer");
+const { upload: blobUpload } = require('@vercel/blob/client');
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -26,20 +27,24 @@ const postNouveauProduit = async (req, res) => {
     // Extract product details from the request body
     const { nom, stock, prix, actif, nouveau, tag, inventaire, boutique } = req.body;
 
-    // Convert the uploaded image to base64
-    const imgBase64 = req.file ? req.file.buffer.toString("base64") : null;
-    if (!imgBase64) {
+    // Ensure the file exists
+    if (!req.file) {
       return res.status(400).json({
         status: 400,
         message: "No image uploaded or image processing failed.",
       });
     }
 
-    // Create a new product object
+    // Upload the image to Vercel Blob
+    const result = await blobUpload(req.file.originalname, req.file.buffer, {
+      access: 'public', // Publicly accessible URL
+    });
+
+    // Create a new product object with the image URL from Vercel Blob
     const nouveauProduit = {
       id: uuidv4(),
       nom,
-      img: `data:image/png;base64,${imgBase64}`,
+      img: result.url, // Use the URL from the blob upload
       prix,
       tag,
       inventaire: stock,
@@ -54,9 +59,9 @@ const postNouveauProduit = async (req, res) => {
     const collection = db.collection(inventaire); // Use your actual collection name
 
     // Insert the new product into the collection
-    const result = await collection.insertOne(nouveauProduit);
+    const dbResult = await collection.insertOne(nouveauProduit);
 
-    if (result.acknowledged) {
+    if (dbResult.acknowledged) {
       // Return the newly added product data
       res.status(200).json({
         status: 200,

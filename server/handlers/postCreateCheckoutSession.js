@@ -1,8 +1,11 @@
 const { v4: uuidv4 } = require('uuid');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const YOUR_DOMAIN = 'http://confiseriesucrerose.ca';
+const YOUR_DOMAIN = 'http://www.confiseriesucrerose.ca';
 
 const postCreateCheckoutSession = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.confiseriesucrerose.ca');  // Adjust to your front-end domain
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   const { items } = req.body || []; // Assuming you're sending the items from the client in the request body
   
   const orderNumber = uuidv4(); // Generate a unique order ID
