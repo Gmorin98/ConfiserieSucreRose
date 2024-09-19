@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_test_51PuHHbGP8twVSmcRc3IjvLT3wIKm4DI6qYVo5YKzWPUZxw0dLDciuY04Sujq2tJk7gxtTdjqBJ37N6Js1uTAzGDw00oORMHU95');
+const stripe = require('stripe')('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');
 
 const getSessionStatus = async (req, res) => {
   try {

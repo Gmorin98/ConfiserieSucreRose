@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {loadStripe} from '@stripe/stripe-js';
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 
-const stripePromise = loadStripe("pk_test_51PuHHbGP8twVSmcReNgv6D58s87HWZMA79MrqPl5cThkGmxQKgClIJby7rzsbl0iqNsTisOf9pNzMg2qxlizxL5q00FxoMhckX");
+const stripePromise = loadStripe("pk_live_51Pv3PZEK95c21YRdzCarcCRd8ESlOjQOuf9qWkpBZdUVpxEJjWzRv9IYeenVrn6wTKDd36jUirARUs0clsvVCY9a00RRJBi2ZQ");
 
 const CheckoutForm = () => {
     // Retrieve the "panier" array from local storage
