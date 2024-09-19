@@ -1,7 +1,7 @@
-const stripe = require('stripe')(`${process.env.STRIPE_KEY}`);
 
 const getSessionStatus = async (req, res) => {
   try {
+    const stripe = require('stripe')(`${process.env.STRIPE_KEY}`);
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
 
     res.send({
