@@ -18,7 +18,7 @@ const {
   upload,
   deleteProduit,
   deleteFiltre,
-} = require("../handlers");
+} = require("./handlers");
 
 router.get("/getFiltre/:section", getFiltre);
 router.get("/getAllProduits/:section", getAllProduits);
