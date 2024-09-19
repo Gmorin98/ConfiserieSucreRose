@@ -8,6 +8,7 @@ const PORT = 8000;
 const app = express();
 
 const whitelist = [
+  'https://api.confiseriesucrerose.ca/',
   'https://www.confiseriesucrerose.ca/',
   'https://confiserie-sucre-rose-frontend.vercel.app', 
   'https://confiserie-sucre-rose-backend.vercel.app/'
@@ -47,3 +48,4 @@ app.use('*', (req, res) => {
 // });
 
 module.exports = app;
+
