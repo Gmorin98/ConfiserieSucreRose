@@ -16,7 +16,7 @@ const Return = () => {
     const sessionId = urlParams.get('session_id');
 
     // Get the session ID
-    fetch(`${process.env.REACT_APP_API_URL}/session-status?session_id=${sessionId}`)
+    fetch(`${process.env.REACT_APP_API_URL}session-status?session_id=${sessionId}`)
       .then((res) => res.json())
       .then((data) => {
         setStatus(data.status);
@@ -43,7 +43,7 @@ const Return = () => {
         }
         try {
           // Sending user credentials using POST
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/orderSent`, {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}orderSent`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ const Return = () => {
         
         try {
           // Sending user credentials using POST
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/confirmationEmailCustomer`, {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}confirmationEmailCustomer`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ const Return = () => {
         
         try {
           // Sending user credentials using POST
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/pacthUpdateInventory`, {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}pacthUpdateInventory`, {
             method: "PATCH",
             headers: {
               'Content-Type': 'application/json'
