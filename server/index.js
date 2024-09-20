@@ -8,7 +8,7 @@ const PORT = 8000;
 const app = express();
 
 const corsOptions = {
-  origin: ['https://www.confiseriesucrerose.ca', ''],
+  origin: 'https://www.confiseriesucrerose.ca',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

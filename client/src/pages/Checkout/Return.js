@@ -16,7 +16,12 @@ const Return = () => {
     const sessionId = urlParams.get('session_id');
 
     // Get the session ID
-    fetch(`${process.env.REACT_APP_API_URL}session-status?session_id=${sessionId}`)
+    fetch(`${process.env.REACT_APP_API_URL}session-status?session_id=${sessionId}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         setStatus(data.status);
