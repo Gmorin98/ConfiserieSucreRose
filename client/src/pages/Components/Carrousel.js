@@ -87,6 +87,7 @@ const CarouselContainer = styled.div`
     width: fit-content;
     margin: 0em 0.5em;
     font-size: 5em;
+    width: fit-content;
     z-index: 5;
     background-color: transparent;
     cursor: pointer;

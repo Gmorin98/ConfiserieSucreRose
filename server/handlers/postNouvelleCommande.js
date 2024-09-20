@@ -1,5 +1,5 @@
-// Might need to use import instead, test it.
 const AWS = require('@aws-sdk/client-ses');
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
 require("dotenv").config();
 const SES_CONFIG = {
@@ -10,9 +10,7 @@ const SES_CONFIG = {
   region: process.env.AWS_SES_REGION,
 };
 
-//  Might need to use SESClient instead, test it.
 const AWS_SES = new AWS.SES(SES_CONFIG);
-//  const AWS_SES = new SESClient(SES_CONFIG);
 
 const postNouvelleCommande = async (req, res) => {
   const { panierWithoutImg, customerEmail, customerName, orderNumber, sessionId } = req.body;
