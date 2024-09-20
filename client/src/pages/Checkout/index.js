@@ -144,6 +144,8 @@ const Wrapper = styled.div`
     color: var(--primary-color);
     background-color: var(--background-color);
     height: fit-content;
+    max-width: 1100px;
+    width: 100%;
   }
 
   button {
