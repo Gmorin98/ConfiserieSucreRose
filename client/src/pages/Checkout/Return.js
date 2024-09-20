@@ -1,4 +1,3 @@
-// Necessary Import
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -8,143 +7,136 @@ const Return = () => {
   const [orderNumber, setOrderNumber] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
-  
-  // Get all the items from the local storage.
+  const [sessionId, setSessionId] = useState(''); // Add state for sessionId
+
   const panier = JSON.parse(localStorage.getItem('panier')) || [];
 
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const sessionId = urlParams.get('session_id');
+    const sessionIdFromUrl = urlParams.get('session_id'); // Get sessionId from URL
 
-    // Get the session ID
-    fetch(`${process.env.REACT_APP_API_URL}session-status?session_id=${sessionId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        {console.log(data);}
-        setStatus(data.status);
-        setCustomerEmail(data.customer_email);
-        setCustomerName(data.customer_name);
-        setCustomerPhone(data.customer_phone);
-        setOrderNumber(data.orderNumber);
-      });
-    }, []);
+    console.log("Session ID from URL:", sessionIdFromUrl); // Log to check
 
-    
-    if (status === 'open') {
-      return (
-        <Navigate to="/checkout" />
-      )
-    }
+    if (sessionIdFromUrl) {
+      setSessionId(sessionIdFromUrl); // Store sessionId in state
 
-
-    if (status === 'complete') {
-      const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
-      // Customer info
-      const data = {
-        panierWithoutImg,
-        customerEmail,
-        customerName,
-        customerPhone,
-        orderNumber,
-        sessionId
-      }
-
-      // Send the order to the merchant.
-      const envoieCommande = async () => {
-        try {
-          // Sending user credentials using POST
-          const response = await fetch(`${process.env.REACT_APP_API_URL}orderSent`, {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-  
-          const result = await response.json();
-        } catch (error) {
-          console.error('Error:', error);
+      // Fetch session data from backend
+      fetch(`${process.env.REACT_APP_API_URL}session-status?session_id=${sessionIdFromUrl}`, {
+        headers: {
+          'Content-Type': 'application/json',
         }
-      }
-
-      // Send the confirmation email to the customer.
-      const confirmationEmailCustomer = async () => {
-        try {
-          // Sending user credentials using POST
-          const response = await fetch(`${process.env.REACT_APP_API_URL}confirmationEmailCustomer`, {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-
-          const result = await response.json();
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-
-      // Reduce the Inventory
-      const reduceInventory = async () => {
-        const items = panier.flatMap(item => {
-          if (item._id === undefined) {
-            return item.bonbonsSelectionne.map(bonbon => ({
-              _id: bonbon.id,
-              quantity: bonbon.quantite,
-              origin: "Vrac"
-            }));
-          }
-          return {
-            _id: item._id,
-            quantity: item.quantity,
-            origin: "Produit"
-          };
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data); // Log response
+          setStatus(data.status);
+          setCustomerEmail(data.customer_email);
+          setCustomerName(data.customer_name);
+          setCustomerPhone(data.customer_phone);
+          setOrderNumber(data.orderNumber);
         });
-        
-        try {
-          // Sending user credentials using POST
-          const response = await fetch(`${process.env.REACT_APP_API_URL}pacthUpdateInventory`, {
-            method: "PATCH",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(items)
-          });
-      
-          const data = await response.json();
-        } catch (error) {
-          console.error('Error:', error);
+    }
+  }, []); // Dependency array left empty to run only on mount
+
+  if (status === 'open') {
+    return (
+      <Navigate to="/checkout" />
+    );
+  }
+
+  if (status === 'complete') {
+    const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
+    const data = {
+      panierWithoutImg,
+      customerEmail,
+      customerName,
+      customerPhone,
+      orderNumber,
+      sessionId, // Now using the sessionId from state
+    };
+
+    const envoieCommande = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}orderSent`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    const confirmationEmailCustomer = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}confirmationEmailCustomer`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    const reduceInventory = async () => {
+      const items = panier.flatMap(item => {
+        if (item._id === undefined) {
+          return item.bonbonsSelectionne.map(bonbon => ({
+            _id: bonbon.id,
+            quantity: bonbon.quantite,
+            origin: "Vrac",
+          }));
         }
-      };
+        return {
+          _id: item._id,
+          quantity: item.quantity,
+          origin: "Produit",
+        };
+      });
 
-      envoieCommande()
-      confirmationEmailCustomer()
-      reduceInventory()
-      // Empty the localStorage.
-      localStorage.clear();
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}pacthUpdateInventory`, {
+          method: "PATCH",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(items),
+        });
+        const data = await response.json();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
-      return (
+    envoieCommande();
+    confirmationEmailCustomer();
+    reduceInventory();
+    localStorage.clear();
+
+    return (
       <Wrapper id="success">
         <div className="contenantCheckmark">
           <p className="checkmark">&#10004;</p>
         </div>
-        <div className='information'>
+        <div className="information">
           <p>Nous avons bien reçu votre commande!</p>
           <p>Elle sera prête dans un délai de 24 à 48 heures</p>
           <p>Une confirmation vous sera envoyée à l'adresse suivante: {customerEmail}</p>
         </div>
       </Wrapper>
-    )
+    );
   }
 
   return null;
-}
+};
 
 export default Return;
 
@@ -182,4 +174,4 @@ const Wrapper = styled.section`
       font-size: 1.25em;
     }
   }
-`
+`;

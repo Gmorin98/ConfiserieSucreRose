@@ -5,11 +5,13 @@ const getSessionStatus = async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
 
+    const phoneNumber = session.metadata.phone_number || 'N/A';
+
     res.send({
       status: session.status,
       customer_email: session.customer_details.email,
       customer_name: session.customer_details.name,
-      customer_phone: session.customer_details.phone,
+      customer_phone: phoneNumber,
       orderNumber: session.metadata.order_number
     });
   } catch (error) {
