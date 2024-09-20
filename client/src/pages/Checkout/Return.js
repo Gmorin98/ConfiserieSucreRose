@@ -50,7 +50,8 @@ const Return = () => {
         customerEmail,
         customerName,
         customerPhone,
-        orderNumber
+        orderNumber,
+        sessionId
       }
 
       // Send the order to the merchant.
