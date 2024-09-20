@@ -18,7 +18,6 @@ const Return = () => {
     // Get the session ID
     fetch(`${process.env.REACT_APP_API_URL}session-status?session_id=${sessionId}`, {
       headers: {
-        'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`,
         'Content-Type': 'application/json',
       }
     })

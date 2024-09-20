@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 const YOUR_DOMAIN = 'http://www.confiseriesucrerose.ca';
 
 const postCreateCheckoutSession = async (req, res) => {

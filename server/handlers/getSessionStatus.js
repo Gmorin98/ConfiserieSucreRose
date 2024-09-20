@@ -1,5 +1,5 @@
 require("dotenv").config();
-const stripe = require('stripe')(`${process.env.STRIPE_KEY}`);
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 const getSessionStatus = async (req, res) => {
   try {
