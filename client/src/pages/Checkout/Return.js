@@ -6,6 +6,8 @@ const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
   const [orderNumber, setOrderNumber] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
   
   // Get all the items from the local storage.
   const panier = JSON.parse(localStorage.getItem('panier')) || [];
@@ -23,8 +25,11 @@ const Return = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        {console.log(data);}
         setStatus(data.status);
         setCustomerEmail(data.customer_email);
+        setCustomerName(data.customer_name);
+        setCustomerPhone(data.customer_phone);
         setOrderNumber(data.orderNumber);
       });
     }, []);
@@ -38,13 +43,18 @@ const Return = () => {
 
 
     if (status === 'complete') {
+      const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
+      // Customer info
+      const data = {
+        panierWithoutImg,
+        customerEmail,
+        customerName,
+        customerPhone,
+        orderNumber
+      }
+
       // Send the order to the merchant.
       const envoieCommande = async () => {
-        const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
-        const data = {
-          panierWithoutImg,
-          customerEmail
-        }
         try {
           // Sending user credentials using POST
           const response = await fetch(`${process.env.REACT_APP_API_URL}orderSent`, {
@@ -63,13 +73,6 @@ const Return = () => {
 
       // Send the confirmation email to the customer.
       const confirmationEmailCustomer = async () => {
-        const panierWithoutImg = panier.map(({ img, ...rest }) => rest);
-        const data = {
-          panierWithoutImg,
-          customerEmail,
-          orderNumber
-        }
-        
         try {
           // Sending user credentials using POST
           const response = await fetch(`${process.env.REACT_APP_API_URL}confirmationEmailCustomer`, {

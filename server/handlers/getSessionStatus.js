@@ -8,6 +8,8 @@ const getSessionStatus = async (req, res) => {
     res.send({
       status: session.status,
       customer_email: session.customer_details.email,
+      customer_name: session.customer_details.name,
+      customer_phone: session.customer_details.phone,
       orderNumber: session.metadata.order_number
     });
   } catch (error) {

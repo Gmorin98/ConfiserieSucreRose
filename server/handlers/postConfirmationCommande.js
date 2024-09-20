@@ -14,11 +14,11 @@ const AWS_SES = new AWS.SES(SES_CONFIG);
 //const AWS_SES = new SESClient(SES_CONFIG);
 
 const postConfirmationCommande = async (req, res) => {
-  const { panierWithoutImg, customerEmail, orderNumber } = req.body;
+  const { panierWithoutImg, customerName, orderNumber } = req.body;
 
-  // Format panier data
-  let htmlBody = `<h1>Numéro de Commande: ${orderNumber}</h1><h1>Détails de la Commande</h1>`;
-  let textBody = `Numéro de Commande: ${orderNumber}\nDétails de la Commande:\n`;
+  // Format panier data with greeting and footer
+  let htmlBody = `<h1>Bonjour ${customerName},</h1><h1>Numéro de Commande: ${orderNumber}</h1><h1>Détails de la Commande</h1>`;
+  let textBody = `Bonjour ${customerName},\n\nNuméro de Commande: ${orderNumber}\nDétails de la Commande:\n`;
 
   panierWithoutImg.forEach(item => {
     if (item.bonbonsSelectionne) {
@@ -36,6 +36,10 @@ const postConfirmationCommande = async (req, res) => {
       textBody += `${item.nom} - Quantité: ${item.quantity}\n`;
     }
   });
+
+  // Add footer
+  htmlBody += `<p><strong>Toute commande sera prête dans un délai de 24 à 48 heures.</strong></p>`;
+  textBody += `\nToute commande sera prête dans un délai de 24 à 48 heures.\n`;
 
   const params = {
     Source: 'confiseriesucrerose@gmail.com',

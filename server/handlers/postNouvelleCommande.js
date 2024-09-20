@@ -15,11 +15,26 @@ const AWS_SES = new AWS.SES(SES_CONFIG);
 //  const AWS_SES = new SESClient(SES_CONFIG);
 
 const postNouvelleCommande = async (req, res) => {
-  const { panierWithoutImg, customerEmail } = req.body;
+  const { panierWithoutImg, customerEmail, customerName, customerPhone, orderNumber } = req.body;
 
   // Format panier data
-  let htmlBody = '<h1>Détails de la Commande</h1>';
-  let textBody = 'Détails de la Commande:\n';
+  let htmlBody = '<h1>Nouvelle Commande en Ligne</h1>';
+  let textBody = 'Nouvelle Commande en Ligne:\n';
+
+  htmlBody += `<h2>Information Commande</h2>`;
+  textBody += `Information Commande:\n`;
+
+  htmlBody += `<p>Numéro de Commande: ${orderNumber}</p>`;
+  textBody += `Numéro de Commande: ${orderNumber}\n`;
+
+  htmlBody += `<p>Nom: ${customerName}</p>`;
+  textBody += `Nom: ${customerName}:\n`;
+
+  htmlBody += `<p>Courriel: ${customerEmail}</p>`;
+  textBody += `Courriel: ${customerEmail}\n`;
+
+  htmlBody += `<p>Numéro de Téléphone: ${customerPhone}</p>`;
+  textBody += `Numéro de Téléphone: ${customerPhone}\n`;
 
   panierWithoutImg.forEach(item => {
     if (item.bonbonsSelectionne) {
