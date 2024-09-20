@@ -40,7 +40,7 @@ const postConfirmationCommande = async (req, res) => {
   const params = {
     Source: 'confiseriesucrerose@gmail.com',
     Destination: {
-      ToAddresses: 'confiseriesucrerose@gmail.com',
+      ToAddresses: ['confiseriesucrerose@gmail.com'],
     },
     Message: {
       Body: {
