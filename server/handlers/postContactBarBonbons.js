@@ -9,8 +9,6 @@ const SES_CONFIG = {
   region: process.env.AWS_SES_REGION,
 };
 
-console.log(SES_CONFIG);
-
 // Might need to use SESClient instead, test it.
 const AWS_SES = new AWS.SES(SES_CONFIG);
 //const AWS_SES = new SESClient(SES_CONFIG);
@@ -59,6 +57,7 @@ const postContactBarBonbons = async (req, res) => {
   
   try {
     const result = await AWS_SES.sendEmail(params);
+    console.log("Email sent successfully:", result)
     res.status(200).json({ status: 200, message: "Email sent successfully!", result });
   } catch (error) {
     console.error("Error sending email:", error);
