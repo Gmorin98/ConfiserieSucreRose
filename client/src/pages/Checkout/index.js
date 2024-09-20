@@ -144,8 +144,7 @@ const Wrapper = styled.div`
     color: var(--primary-color);
     background-color: var(--background-color);
     height: fit-content;
-    max-width: 1100px;
-    width: 100%;
+    width: fit-content;
   }
 
   button {
@@ -288,5 +287,11 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 900px) {
     margin-top: 3em;
+  }
+
+  @media screen and (min-width: 1350px) {
+    .CheckoutForm {
+      width: 1100px;
+    }
   }
 `;

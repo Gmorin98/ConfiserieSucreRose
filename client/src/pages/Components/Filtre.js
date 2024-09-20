@@ -88,6 +88,10 @@ const Wrapper = styled.div`
     }
     .toggleFiltre {
       display: block;
+      width: fit-content;
+      > img {
+        width: 30px;
+      }
     }
     div.hidden {
       display : none;

@@ -27,7 +27,10 @@ const postCreateCheckoutSession = async (req, res) => {
     mode: 'payment',
     return_url: `${YOUR_DOMAIN}/return?session_id={CHECKOUT_SESSION_ID}`,
     automatic_tax: {enabled: true},
-    metadata: { order_number: orderNumber},
+    metadata: { 
+      order_number: orderNumber,
+      phone_number: req.body.phone_number
+    },
     custom_fields: [
         {
           key: 'phone_number',
