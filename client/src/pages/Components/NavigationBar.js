@@ -32,8 +32,8 @@ const NavigationBar = () => {
           <NavLink to="/produits" className="options" onClick={closeMenu}>Produits</NavLink>
           <NavLink to="/bar-a-bonbons" className="options" onClick={closeMenu}>Bar à Bonbons</NavLink>
           <NavLink to="/creer-ton-pot" className="options" onClick={closeMenu}>Crée ton Pot</NavLink>
-          <NavLink to="/checkout" className="options" onClick={closeMenu}><PanierCheckout /></NavLink>
         </MenuLinks>
+        <NavLink to="/checkout" className="options" onClick={closeMenu}><PanierCheckout /></NavLink>
       </NavWrapper>
     </>
   );
@@ -44,7 +44,7 @@ export default NavigationBar;
 const NavWrapper = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 100px;
   background-color: var(--background-color);
   border-radius: 0 0 35px 35px;
@@ -59,6 +59,7 @@ const NavWrapper = styled.nav`
   }
 
   @media screen and (max-width: 1200px) {
+    display: flex;
     position: sticky;
     top: 0;
     z-index: 50;
@@ -76,7 +77,6 @@ const NavWrapper = styled.nav`
 const HamburgerMenu = styled.div`
   cursor: pointer;
   display: flex;
-  position: absolute;
   align-items: center;
   padding-left: 20px;
   z-index: 3; /* Ensure the hamburger icon is always clickable */
@@ -89,7 +89,7 @@ const HamburgerMenu = styled.div`
 
 const MenuLinks = styled.div`
   display: flex;
-  width: 80%;
+  width: 60%;
   a, a:visited {
     margin: auto;
     text-decoration: none;

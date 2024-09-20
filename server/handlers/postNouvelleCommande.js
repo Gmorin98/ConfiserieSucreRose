@@ -44,7 +44,7 @@ const postNouvelleCommande = async (req, res) => {
   const params = {
     Source: 'confiseriesucrerose@gmail.com',
     Destination: {
-      ToAddresses: [customerEmail],
+      ToAddresses: 'confiseriesucrerose@gmail.com',
     },
     Message: {
       Body: {

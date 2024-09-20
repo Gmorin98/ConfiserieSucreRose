@@ -35,6 +35,7 @@ const Wrapper = styled.div`
   img {
     width: 60px;
   }
+  margin-right: 1em;
 `;
 
 const Badge = styled.div`
@@ -51,4 +52,5 @@ const Badge = styled.div`
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
+  font-family: var(--font-secondary);
 `;
