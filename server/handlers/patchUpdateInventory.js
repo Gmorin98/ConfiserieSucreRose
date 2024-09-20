@@ -6,7 +6,7 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchUpdateInventory = async (req, res) => {
-  if (req.method !== "POST") {
+  if (req.method !== "PATCH") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
   
