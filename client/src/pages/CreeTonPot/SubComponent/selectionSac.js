@@ -98,7 +98,6 @@ const Wrapper = styled.div`
 
     img {
       max-height: 150px;
-      width:fit-content;
       padding: 1em;
     }
   }

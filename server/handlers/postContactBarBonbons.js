@@ -9,6 +9,8 @@ const SES_CONFIG = {
   region: process.env.AWS_SES_REGION,
 };
 
+console.log(SES_CONFIG);
+
 // Might need to use SESClient instead, test it.
 const AWS_SES = new AWS.SES(SES_CONFIG);
 //const AWS_SES = new SESClient(SES_CONFIG);
