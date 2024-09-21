@@ -16,8 +16,6 @@ const Return = () => {
     const urlParams = new URLSearchParams(queryString);
     const sessionIdFromUrl = urlParams.get('session_id'); // Get sessionId from URL
 
-    console.log("Session ID from URL:", sessionIdFromUrl); // Log to check
-
     if (sessionIdFromUrl) {
       setSessionId(sessionIdFromUrl); // Store sessionId in state
 
@@ -29,7 +27,6 @@ const Return = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data); // Log response
           setStatus(data.status);
           setCustomerEmail(data.customer_email);
           setCustomerName(data.customer_name);
