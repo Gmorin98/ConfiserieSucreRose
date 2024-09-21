@@ -127,6 +127,7 @@ const Return = () => {
           <p>Nous avons bien reçu votre commande!</p>
           <p>Elle sera prête dans un délai de 24 à 48 heures</p>
           <p>Une confirmation vous sera envoyée à l'adresse suivante: {customerEmail}</p>
+          <p>Veuillez noter que ce site est nouvellement en ligne, si vous ne recevez pas votre confirmation de commande par courriel, veuillez contacter la confiserie au 514-730-0259</p>
         </div>
       </Wrapper>
     );
