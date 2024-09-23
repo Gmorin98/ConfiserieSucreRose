@@ -39,7 +39,7 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
             updatedBonbonsSelectionne.splice(bonbonsIndex, 1);
           }
         } else if (updatedQuantite > 0) {
-          updatedBonbonsSelectionne.push({ id: bonbonsID, nom: bonbonsNom, quantite: updatedQuantite });
+          updatedBonbonsSelectionne.push({ _id: bonbonsID, nom: bonbonsNom, quantite: updatedQuantite });
         }
   
         const totalQuantitePrise = updatedBonbonsSelectionne.reduce((acc, item) => acc + item.quantite, 0);
