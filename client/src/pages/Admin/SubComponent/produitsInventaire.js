@@ -75,6 +75,8 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleConfirmNouveau = async (event) => {
     event.preventDefault();
+    console.log(nouveauProduit);
+    
 
     // Verification
     if (nouveauProduit.prix === undefined) {
