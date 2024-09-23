@@ -21,7 +21,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   });
 
   const handleChangeProduits = (e, field) => {
-    console.log('handleChangeProduits called, e:', e, 'field:', field);
     let value = e.target.value;
     switch (field) {
       case "nouveau":
@@ -47,7 +46,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const nouveauProduitInformation = (e, field) => {
-    console.log('nouveauProduitInformation called, e:', e, 'field:', field);
     let value = e.target.value;
     switch (field) {
       case "img":
@@ -82,7 +80,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleConfirmNouveau = async (event) => {
     event.preventDefault();
-    console.log('handleConfirmNouveau called, event:', event);
 
     // Ensure 'img' is properly handled and exists
     if (!nouveauProduit.img) {
@@ -100,13 +97,11 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       boutique: nouveauProduit.boutique ?? false,
       origine: currentInventaire,
     };
-    console.log('data :', data);
 
     const formData = new FormData();
       formData.append('img', nouveauProduit.img);
       formData.append('data', JSON.stringify(data));
-    console.log('FormData :', formData);
-    
+
     // ↓ Handeling the Fetch ↓
     fetch(`${process.env.REACT_APP_API_URL}nouveauProduit`, {
       method: "POST",

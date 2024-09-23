@@ -16,17 +16,6 @@ const postNouveauProduit = async (req, res) => {
   const client = new MongoClient(MONGO_URI);
 
   try {
-    // Handle the file upload using multer
-    await new Promise((resolve, reject) => {
-      upload.single("img")(req, res, (err) => {
-        if (err) return reject(err);
-        resolve();
-      });
-    });
-
-    // Extract product details from the request body
-    const data = JSON.parse(req.body.data);
-
     // Ensure the file exists
     if (!req.file) {
       return res.status(400).json({
@@ -34,6 +23,9 @@ const postNouveauProduit = async (req, res) => {
         message: "No image uploaded or image processing failed.",
       });
     }
+
+    // Extract product details from the request body
+    const data = JSON.parse(req.body.data);
     
     // Construct the file path (e.g., "Produits/image.jpg" or "Vrac/image.jpg")
     const filePath = `${data.origine}/${req.file.originalname}`;
