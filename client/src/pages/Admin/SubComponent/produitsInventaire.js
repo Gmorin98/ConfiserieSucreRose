@@ -9,18 +9,19 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   const { setAllVrac, setAllProduits } = useContext(AllProduitsContext);
   const [formNouveauBonbons, setFormNouveauBonbons] = useState(false);
   const [nouveauProduit, setNouveauProduit] = useState({
-    'img': null,
     'nom': "",
-    'stock': 0,
+    'img': null,
     'prix': null,
+    'stock': 0,
+    'tag': [],
     'actif': false,
     'nouveau': false,
     'boutique': false,
-    'tag': [],
     'inventaire': `${currentInventaire}`,
   });
 
   const handleChangeProduits = (e, field) => {
+    console.log('handleChangeProduits called, e:', e, 'field:', field);
     let value = e.target.value;
     switch (field) {
       case "nouveau":
@@ -46,20 +47,21 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const nouveauProduitInformation = (e, field) => {
+    console.log('nouveauProduitInformation called, e:', e, 'field:', field);
     let value = e.target.value;
     switch (field) {
       case "img":
         value = e.target.files[0]; // Handle file input
         break;
-      case "nouveau":
       case "actif":
+      case "nouveau":
       case "boutique":
         value = e.target.checked; // Handle checkbox inputs
         break;
       case "tag":
         value = value.split(',').map(tag => tag.trim()); // Handle tag as an array
         break;
-      case "inventaire":
+      case "stock":
         value = Math.max(0, Number(value)); // Ensure inventory is at least 0
         break;
       case "prix":
@@ -79,6 +81,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const handleConfirmNouveau = async (event) => {
+    console.log('handleConfirmNouveau called, event:', event);
     event.preventDefault();
     const data = {
       nom: nouveauProduit.nom ?? "",
@@ -185,7 +188,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       {currentInventaire !== "" && (
         !formNouveauBonbons ? 
           <button className="ajoutBonbonButton" onClick={() => setFormNouveauBonbons(true)}>+</button> 
-          : 
+          :
           <div className="ajoutBonbonsWrapper">
             <form className="ajoutBonbonsForm" onSubmit={handleConfirmNouveau}>
               <div>
