@@ -31,7 +31,7 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
       // Update the sac state
       setSac((prevSac) => {
         const updatedBonbonsSelectionne = [...prevSac.bonbonsSelectionne];
-        const bonbonsIndex = updatedBonbonsSelectionne.findIndex(item => item.id === bonbonsID);
+        const bonbonsIndex = updatedBonbonsSelectionne.findIndex(item => item._id === bonbonsID);
   
         if (bonbonsIndex > -1) {
           updatedBonbonsSelectionne[bonbonsIndex].quantite = newQuantites[index];

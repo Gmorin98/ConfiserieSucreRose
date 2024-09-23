@@ -7,27 +7,26 @@ if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const updateInventaire = async (req, res) => {
   const produit = req.body; // Receive the updated product data
-  const { inventaire } = req.query;
   const client = new MongoClient(MONGO_URI);
 
   try {
     await client.connect();
-    const db = client.db(inventaire); // Use your actual DB name
-    const collection = db.collection(inventaire); // Use your actual collection name
+    const db = client.db(produit.origine); // Would need to change to the produit.origine
+    const collection = db.collection(produit.origine); // Would need to change to the produit.origine
+
+    const updatedProduit = {
+      nom: produit.nom,
+      prix: produit.prix ? parseFloat(produit.prix) : null,
+      inventaire: produit.inventaire ? parseInt(produit.inventaire, 10) : 0,
+      tag: Array.isArray(produit.tag) ? produit.tag : produit.tag.split(',').map(tag => tag.trim()),
+      actif: produit.actif,
+      nouveau: produit.nouveau,
+      boutique: produit.boutique,
+    };
     
     const result = await collection.updateOne(
-      { id: produit.id },
-      {
-        $set: {
-          nom: produit.nom,
-          prix: parseFloat(produit.prix), // Ensure it's a number
-          tag: produit.tag, // Ensure this is an array
-          inventaire: parseInt(produit.inventaire, 10), // Ensure it's an integer
-          nouveau: produit.nouveau, // Boolean value
-          actif: produit.actif, // Boolean value
-          boutique: produit.boutique,
-        },
-      }
+      { _id: produit._id.toString() },
+      { $set: updatedProduit }
     )
 
     if (result.matchedCount === 0) {

@@ -29,19 +29,11 @@ const postCreateCheckoutSession = async (req, res) => {
     automatic_tax: {enabled: true},
     metadata: { 
       order_number: orderNumber,
-      phone_number: req.body.phone_number
     },
-    custom_fields: [
-        {
-          key: 'phone_number',
-          label: {
-            type: 'custom',
-            custom: 'Numéro de téléphone',
-          },
-          type: 'numeric',
-        },
-      ],
-      locale: 'fr'
+    locale: 'fr',
+    phone_number_collection: {
+      enabled: true,
+    },
   });
 
   const response = { clientSecret: session.client_secret, orderNumber };

@@ -6,10 +6,6 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchUpdateInventory = async (req, res) => {
-  if (req.method !== "PATCH") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
-  
   const items = req.body;
   const client = new MongoClient(MONGO_URI);
 
@@ -25,25 +21,22 @@ const patchUpdateInventory = async (req, res) => {
     const collectionVrac = dbVrac.collection("Vrac");
 
     for (const item of items) {
-      const { _id, quantity, origin } = item;
+      const { _id, quantity, origine } = item;
       
       // Determine which collection to update based on the origin
       let collection;
-      if (origin === "Produit") {
+      if (origine === "Produits") {
         collection = collectionProduits;
-      } else if (origin === "Vrac") {
+      } else if (origine === "Vrac") {
         collection = collectionVrac;
       } else {
-        console.warn(`Unknown origin: ${origin} for item with _id: ${_id}`);
+        console.warn(`Unknown origin: ${origine} for item with _id: ${_id} with quantity of: ${quantity}`);
         continue; // Skip this item if origin is not recognized
       }
 
-      // Convert the string _id to ObjectId
-      const objectId = new ObjectId(_id);
-
       // Update the inventory for the matched _id
       const result = await collection.updateOne(
-        { _id: objectId }, 
+        { _id }, 
         { $inc: { inventaire: -quantity } }
       );
 

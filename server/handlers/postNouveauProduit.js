@@ -25,7 +25,7 @@ const postNouveauProduit = async (req, res) => {
     });
 
     // Extract product details from the request body
-    const { nom, stock, prix, actif, nouveau, tag, inventaire, boutique } = req.body;
+    const data = JSON.parse(req.body.data);
 
     // Ensure the file exists
     if (!req.file) {
@@ -34,29 +34,33 @@ const postNouveauProduit = async (req, res) => {
         message: "No image uploaded or image processing failed.",
       });
     }
+    
+    // Construct the file path (e.g., "Produits/image.jpg" or "Vrac/image.jpg")
+    const filePath = `${data.origine}/${req.file.originalname}`;
 
     // Upload the image to Vercel Blob
-    const result = await blobUpload(req.file.originalname, req.file.buffer, {
+    const result = await blobUpload(filePath, req.file.buffer, {
       access: 'public', // Publicly accessible URL
     });
 
-    // Create a new product object with the image URL from Vercel Blob
+    // Create a new product object
     const nouveauProduit = {
-      id: uuidv4(),
-      nom,
+      _id: uuidv4(),
+      nom: data.nom,
       img: result.url, // Use the URL from the blob upload
-      prix,
-      tag,
-      inventaire: stock,
-      nouveau,
-      actif,
-      boutique,
+      prix: data.prix,
+      inventaire: data.stock,
+      tag: data.tag,
+      actif: data.actif,
+      nouveau: data.nouveau,
+      boutique: data.boutique,
+      origine: data.origine
     };
 
     // Connect to MongoDB
     await client.connect();
-    const db = client.db(inventaire); // Use your actual DB name
-    const collection = db.collection(inventaire); // Use your actual collection name
+    const db = client.db(nouveauProduit.origine); // Produits or Vrac
+    const collection = db.collection(nouveauProduit.origine); // Produits or Vrac
 
     // Insert the new product into the collection
     const dbResult = await collection.insertOne(nouveauProduit);

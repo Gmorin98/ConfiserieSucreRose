@@ -85,17 +85,10 @@ const Return = () => {
 
     const reduceInventory = async () => {
       const items = panier.flatMap(item => {
-        if (item._id === undefined) {
-          return item.bonbonsSelectionne.map(bonbon => ({
-            _id: bonbon.id,
-            quantity: bonbon.quantite,
-            origin: "Vrac",
-          }));
-        }
         return {
           _id: item._id,
           quantity: item.quantity,
-          origin: "Produit",
+          origin: item.origine,
         };
       });
 

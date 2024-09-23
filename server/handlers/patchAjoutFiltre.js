@@ -6,7 +6,7 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchAjoutFiltre = async (req, res) => {
-  const { sectionFiltre, sectionID, filtreOption } = req.params;
+  const { sectionFiltre, sectionID, filtreOption } = req.body;
 
   if (!sectionFiltre || !sectionID || !filtreOption) {
     return res.status(400).json({
@@ -25,14 +25,16 @@ const patchAjoutFiltre = async (req, res) => {
     const filterID = { _id: sectionID };
     const optionToAdd = { $addToSet: { options: filtreOption } };
 
-    const result = await collection.updateOne(filterID, optionToAdd);
+    const result = await collection.findOneAndUpdate(
+      filterID,
+      optionToAdd,
+      { returnOriginal: false }  // Ensure it returns the updated document
+    );
 
-    if (result.modifiedCount === 1) {
-      const updatedFiltreList = await collection.findOne(filterID);
-      
+    if (result.value) {
       res.status(200).json({
         status: 200,
-        data: updatedFiltreList,
+        data: result.value,
         message: "Option added to Filtre.",
       });
     } else {

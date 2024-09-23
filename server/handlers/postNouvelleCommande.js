@@ -20,7 +20,7 @@ const postNouvelleCommande = async (req, res) => {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     const amountPaid = (session.amount_total / 100).toFixed(2); // Stripe amount is in cents
-    const phoneNumber = session.metadata.phone_number; // Retrieve the phone number.
+    const phoneNumber = session.customer_details.phone; // Retrieve the phone number.
 
     // Format panier data
     let htmlBody = '<h1>Nouvelle Commande en Ligne</h1>';

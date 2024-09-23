@@ -13,7 +13,7 @@ const SES_CONFIG = {
 const AWS_SES = new AWS.SES(SES_CONFIG);
 
 const postConfirmationCommande = async (req, res) => {
-  const { panierWithoutImg, customerName, orderNumber, sessionId } = req.body;
+  const { panierWithoutImg, customerName, orderNumber, sessionId, customerEmail } = req.body;
   
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);

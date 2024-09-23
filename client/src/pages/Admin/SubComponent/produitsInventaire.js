@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 // Component and Other Import
 import { AllProduitsContext } from "../../../contexts/AllProduitsContext";
@@ -11,13 +11,13 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   const [nouveauProduit, setNouveauProduit] = useState({
     'img': null,
     'nom': "",
-    'inventaire': 0,
+    'stock': 0,
     'prix': null,
     'actif': false,
     'nouveau': false,
     'boutique': false,
-    'tag': null,
-    'inventaire': null,
+    'tag': [],
+    'inventaire': `${currentInventaire}`,
   });
 
   const handleChangeProduits = (e, field) => {
@@ -28,7 +28,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       case "boutique":
         value = e.target.checked; // Handle checkbox toggle
         break;
-      case "inventaire":
+      case "stock":
         value = Math.max(0, Number(value)); // Ensure the inventory is a positive number
         break;
       case "prix":
@@ -37,8 +37,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       case "tag":
         value = value.split(',').map(tag => tag.trim()).filter(tag => tag); // Ensure the tags are stored as an array
         break;
-      default:
-        return; // If none of the cases match, just return and do nothing
     }
 
     setEditedOption({
@@ -67,9 +65,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       case "prix":
         value = value.trim() === "" ? null : Number(value); // Set to null if empty
         break;
-      default:
-        // If none of the cases match, just return and do nothing
-        return;
     }
 
     setNouveauProduit({
@@ -85,46 +80,20 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleConfirmNouveau = async (event) => {
     event.preventDefault();
-    console.log(nouveauProduit);
-    
-
-    // Verification
-    if (nouveauProduit.prix === undefined) {
-      setNouveauProduit({
-        ...nouveauProduit,
-        [prix]: null,
-      });
-    }
-    if (nouveauProduit.actif === undefined) {
-      setNouveauProduit({
-        ...nouveauProduit,
-        [actif]: false,
-      });
-    }
-    if (nouveauProduit.nouveau === undefined) {
-      setNouveauProduit({
-        ...nouveauProduit,
-        [nouveau]: false,
-      });
-    }
-    if (nouveauProduit.boutique === undefined) {
-      setNouveauProduit({
-        ...nouveauProduit,
-        [boutique]: false,
-      });
-    }
+    const data = {
+      nom: nouveauProduit.nom ?? "",
+      prix: nouveauProduit.prix ?? null,
+      stock: nouveauProduit.stock ?? 0,
+      tag: nouveauProduit.tag ?? [],
+      actif: nouveauProduit.actif ?? false,
+      nouveau: nouveauProduit.nouveau ?? false,
+      boutique: nouveauProduit.boutique ?? false,
+      origine: currentInventaire,
+    };
 
     const formData = new FormData();
       formData.append('img', nouveauProduit.img);
-      formData.append('nom', nouveauProduit.nom);
-      formData.append('stock', nouveauProduit.stock);
-      formData.append('prix', nouveauProduit.prix );
-      formData.append('actif', nouveauProduit.actif);
-      formData.append('nouveau', nouveauProduit.nouveau);
-      formData.append('boutique', nouveauProduit.boutique);
-      formData.append('tag', []);
-      formData.append('inventaire', currentInventaire);
-      console.log(formData);
+      formData.append('data', JSON.stringify(data));
 
     // ↓ Handeling the Fetch ↓
     fetch(`${process.env.REACT_APP_API_URL}nouveauProduit`, {
@@ -137,25 +106,22 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const handleConfirmUpdate = () => {
-    const updatedOptions = optionSelectionne.map((option, index) =>
-      index === editingIndex ? editedOption : option
-    );
-
     // ↓ Handeling the Fetch ↓
-    fetch(`${process.env.REACT_APP_API_URL}updateInventaire/${currentInventaire}`, {
+    fetch(`${process.env.REACT_APP_API_URL}updateInventaire`, {
       method: "PATCH",
       headers: {
         "Content-type" : "application/json"
       },
       body: JSON.stringify({
-        id: editedOption.id,
+        _id: editedOption._id,
         nom: editedOption.nom,
-        inventaire: editedOption.inventaire,
         prix: editedOption.prix,
-        nouveau: editedOption.nouveau,
-        actif: editedOption.actif,
-        boutique: editedOption.boutique,
+        inventaire: editedOption.inventaire,
         tag: editedOption.tag,
+        actif: editedOption.actif,
+        nouveau: editedOption.nouveau,
+        boutique: editedOption.boutique,
+        origine: editedOption.origine,
       })
     })
     .then(response => response.json())
@@ -174,16 +140,12 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
         setTrackError(data);
       }
     })
-
-    setOptionSelectionne(updatedOptions);
-    setEditingIndex(null);
   };
 
-  // IT WORKS, NO NEED TO CHANGE ANYTHING
   const handleDelete = () => {
     // ↓ Handeling the Fetch ↓
-    fetch(`${process.env.REACT_APP_API_URL}deleteProduit/${editedOption.id}/${currentInventaire}`, {
-      method: "DELETE"
+    fetch(`${process.env.REACT_APP_API_URL}deleteProduit/${editedOption._id}/${editedOption.origine}`, {
+      method: "DELETE",
     })
     .then(response => response.json())
     .then(data => {
@@ -210,11 +172,13 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     }
   };
 
-  if(currentInventaire === "Vrac") {
-    setOptionSelectionne(allVrac);
-  } else {
-    setOptionSelectionne(allProduits);
-  }
+  useEffect(() => {
+    if (currentInventaire === "Vrac") {
+      setOptionSelectionne(allVrac);
+    } else {
+      setOptionSelectionne(allProduits);
+    }
+  }, [currentInventaire, allVrac, allProduits]);
 
   return (
     <Wrapper>

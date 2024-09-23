@@ -6,18 +6,25 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const deleteProduit = async (req, res) => {
-  const { id, inventaire } = req.params;
+  const { _id, origine } = req.params;
   const client = new MongoClient(MONGO_URI);
-  
+
+  if (!_id || !origine) {
+    return res.status(400).json({
+      status: 400,
+      message: "Missing required fields: _id or origine",
+    });
+  }
+
   try {
     await client.connect();
-    const db = client.db(inventaire); // Use your actual DB name
-    const collection = db.collection(inventaire); // Use your actual collection name
+    const db = client.db(origine); // Use your actual DB name
+    const collection = db.collection(origine); // Use your actual collection name
 
-    const findProduit = await collection.findOne({ id });
+    const findProduit = await collection.findOne({ _id });
 
     if(findProduit) {
-      const result = await collection.deleteOne({ id });
+      const result = await collection.deleteOne({ _id });
 
       if (result.deletedCount === 1) {
         res.status(200).json({

@@ -9,9 +9,7 @@ const SES_CONFIG = {
   region: process.env.AWS_SES_REGION,
 };
 
-// Might need to use SESClient instead, test it.
 const AWS_SES = new AWS.SES(SES_CONFIG);
-//const AWS_SES = new SESClient(SES_CONFIG);
 
 const postContactBarBonbons = async (req, res) => {
   const { prenom, nom, email, telephone, date, evenement, extraInfo } = req.body;

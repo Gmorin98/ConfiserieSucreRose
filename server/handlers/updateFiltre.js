@@ -15,7 +15,7 @@ const updateFiltre = async (req, res) => {
     const collection = db.collection(`${inventaire}`); // Use your actual collection name
 
     const result = await collection.updateOne(
-      { _id: new ObjectId(produit._id) },
+      { _id },
       {
         $set: {
           nom: produit.nom,
