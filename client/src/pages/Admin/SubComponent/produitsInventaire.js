@@ -81,8 +81,15 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   };
 
   const handleConfirmNouveau = async (event) => {
-    console.log('handleConfirmNouveau called, event:', event);
     event.preventDefault();
+    console.log('handleConfirmNouveau called, event:', event);
+
+    // Ensure 'img' is properly handled and exists
+    if (!nouveauProduit.img) {
+      console.error('No image selected');
+      return;
+    }
+
     const data = {
       nom: nouveauProduit.nom ?? "",
       prix: nouveauProduit.prix ?? null,
@@ -93,11 +100,13 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       boutique: nouveauProduit.boutique ?? false,
       origine: currentInventaire,
     };
+    console.log('data :', data);
 
     const formData = new FormData();
       formData.append('img', nouveauProduit.img);
       formData.append('data', JSON.stringify(data));
-
+    console.log('FormData :', formData);
+    
     // ↓ Handeling the Fetch ↓
     fetch(`${process.env.REACT_APP_API_URL}nouveauProduit`, {
       method: "POST",
