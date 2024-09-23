@@ -8,7 +8,17 @@ import { AllProduitsContext } from "../../../contexts/AllProduitsContext";
 const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, currentInventaire, setEditingIndex, setTrackError, allProduits, allVrac}) => {
   const { setAllVrac, setAllProduits } = useContext(AllProduitsContext);
   const [formNouveauBonbons, setFormNouveauBonbons] = useState(false);
-  const [nouveauProduit, setNouveauProduit] = useState({});
+  const [nouveauProduit, setNouveauProduit] = useState({
+    'img': null,
+    'nom': "",
+    'inventaire': 0,
+    'prix': null,
+    'actif': false,
+    'nouveau': false,
+    'boutique': false,
+    'tag': null,
+    'inventaire': null,
+  });
 
   const handleChangeProduits = (e, field) => {
     let value = e.target.value;
@@ -107,7 +117,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     const formData = new FormData();
       formData.append('img', nouveauProduit.img);
       formData.append('nom', nouveauProduit.nom);
-      formData.append('inventaire', nouveauProduit.stock);
+      formData.append('stock', nouveauProduit.stock);
       formData.append('prix', nouveauProduit.prix );
       formData.append('actif', nouveauProduit.actif);
       formData.append('nouveau', nouveauProduit.nouveau);
