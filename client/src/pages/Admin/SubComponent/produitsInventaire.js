@@ -12,14 +12,23 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleChangeProduits = (e, field) => {
     let value = e.target.value;
-    if (field === "nouveau" || field === "actif" || field === "boutique") {
-      value = e.target.checked; // Handle checkbox toggle
-    } else if (field === "tag") {
-      value = value.split(',').map(tag => tag.trim()).filter(tag => tag); // Ensure the tags are stored as an array
-    } else if (field === "inventaire") {
-      value = Math.max(0, Number(value)); // Ensure the inventory is a positive number
-    } else if (field === "prix") {
-      value = value.trim() === "" ? null : Number(value); // Set to NaN if empty
+    switch (field) {
+      case "nouveau":
+      case "actif":
+      case "boutique":
+        value = e.target.checked; // Handle checkbox toggle
+        break;
+      case "inventaire":
+        value = Math.max(0, Number(value)); // Ensure the inventory is a positive number
+        break;
+      case "prix":
+        value = value.trim() === "" ? null : Number(value); // Set to NaN if empty
+        break;
+      case "tag":
+        value = value.split(',').map(tag => tag.trim()).filter(tag => tag); // Ensure the tags are stored as an array
+        break;
+      default:
+        return; // If none of the cases match, just return and do nothing
     }
 
     setEditedOption({
@@ -30,16 +39,27 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const nouveauProduitInformation = (e, field) => {
     let value = e.target.value;
-    if (field === "img") {
-      value = e.target.files[0]; // Handle file input
-    } else if (field === "nouveau" || field === "actif" || field === "boutique") {
-      value = e.target.checked;
-    } else if (field === "tag") {
-      value = value.split(',').map(tag => tag.trim());
-    } else if (field === "inventaire") {
-      value = Math.max(0, Number(value));
-    } else if (field === "prix") {
-      value = value.trim() === "" ? null : Number(value); // Set to NaN if empty
+    switch (field) {
+      case "img":
+        value = e.target.files[0]; // Handle file input
+        break;
+      case "nouveau":
+      case "actif":
+      case "boutique":
+        value = e.target.checked; // Handle checkbox inputs
+        break;
+      case "tag":
+        value = value.split(',').map(tag => tag.trim()); // Handle tag as an array
+        break;
+      case "inventaire":
+        value = Math.max(0, Number(value)); // Ensure inventory is at least 0
+        break;
+      case "prix":
+        value = value.trim() === "" ? null : Number(value); // Set to null if empty
+        break;
+      default:
+        // If none of the cases match, just return and do nothing
+        return;
     }
 
     setNouveauProduit({
@@ -56,17 +76,44 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
   const handleConfirmNouveau = async (event) => {
     event.preventDefault();
 
+    // Verification
+    if (nouveauProduit.prix === undefined) {
+      setNouveauProduit({
+        ...nouveauProduit,
+        [prix]: null,
+      });
+    }
+    if (nouveauProduit.actif === undefined) {
+      setNouveauProduit({
+        ...nouveauProduit,
+        [actif]: false,
+      });
+    }
+    if (nouveauProduit.nouveau === undefined) {
+      setNouveauProduit({
+        ...nouveauProduit,
+        [nouveau]: false,
+      });
+    }
+    if (nouveauProduit.boutique === undefined) {
+      setNouveauProduit({
+        ...nouveauProduit,
+        [boutique]: false,
+      });
+    }
+
     const formData = new FormData();
       formData.append('img', nouveauProduit.img);
       formData.append('nom', nouveauProduit.nom);
-      formData.append('stock', nouveauProduit.stock);
+      formData.append('inventaire', nouveauProduit.stock);
       formData.append('prix', nouveauProduit.prix );
       formData.append('actif', nouveauProduit.actif);
       formData.append('nouveau', nouveauProduit.nouveau);
       formData.append('boutique', nouveauProduit.boutique);
       formData.append('tag', []);
       formData.append('inventaire', currentInventaire);
-  
+      console.log(formData);
+
     // ↓ Handeling the Fetch ↓
     fetch(`${process.env.REACT_APP_API_URL}nouveauProduit`, {
       method: "POST",
@@ -183,15 +230,15 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
               </div>
               <div>
                 <label>Actif :</label>
-                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'actif')} required />
+                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'actif')} />
               </div>
               <div>
                 <label>Nouveauté :</label>
-                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'nouveau')} required />
+                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'nouveau')} />
               </div>
               <div>
                 <label>Boutique Seulement :</label>
-                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'boutique')} required />
+                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'boutique')} />
               </div>
               <div>
                 <label>Tag :</label>
