@@ -82,6 +82,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleConfirmNouveau = async (event) => {
     console.log('handleConfirmNouveau called, event:', event);
+    event.preventDefault();
     const data = {
       nom: nouveauProduit.nom ?? "",
       prix: nouveauProduit.prix ?? null,
