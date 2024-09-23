@@ -221,7 +221,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                 <input type="text" onChange={(e) => nouveauProduitInformation(e, 'tag')} />
               </div>
               <div>
-                <button className="confirmer" onClick={handleConfirmNouveau} type="">CONFIRM</button>
+                <button className="confirmer" type="submit">CONFIRM</button>
                 <button className="cancel" onClick={() => setFormNouveauBonbons(false)}>CANCEL</button>
               </div>
             </form>
