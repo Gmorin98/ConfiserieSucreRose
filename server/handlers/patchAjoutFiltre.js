@@ -34,6 +34,7 @@ const patchAjoutFiltre = async (req, res) => {
       res.status(200).json({
         status: 200,
         message: "Option added to Filtre.",
+        data: result
       });
     } else {
       res.status(404).json({
