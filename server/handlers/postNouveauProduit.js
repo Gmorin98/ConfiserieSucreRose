@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const { MongoClient } = require("mongodb");
 const multer = require("multer");
-const { upload: blobUpload } = require('@vercel/blob/client');
+const { put: blobUpload } = require('@vercel/blob');
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -31,8 +31,10 @@ const postNouveauProduit = async (req, res) => {
     const filePath = `${data.origine}/${req.file.originalname}`;
 
     // Upload the image to Vercel Blob
-    const result = await blobUpload(filePath, req.file.buffer, {
-      access: 'public', // Publicly accessible URL
+    const result = await blobUpload(req.file.buffer, {
+      access: 'public', // 'public' or 'private'
+      contentType: req.file.mimetype, // Ensure the correct MIME type is set
+      path: filePath, // Optional: specify the path
     });
 
     // Create a new product object
