@@ -47,7 +47,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const nouveauProduitInformation = (e, field) => {
     let value = e.target.value;
-    console.log(value);
     
     switch (field) {
       case "img":

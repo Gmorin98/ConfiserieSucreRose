@@ -9,13 +9,6 @@ const deleteProduit = async (req, res) => {
   const { _id, origine } = req.params;
   const client = new MongoClient(MONGO_URI);
 
-  if (!_id || !origine) {
-    return res.status(400).json({
-      status: 400,
-      message: "Missing required fields: _id or origine",
-    });
-  }
-
   try {
     await client.connect();
     const db = client.db(origine); // Use your actual DB name

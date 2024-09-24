@@ -37,7 +37,7 @@ router.post("/create-checkout-session", postCreateCheckoutSession);
 router.post("/confirmationEmailCustomer", postConfirmationCommande);
 router.post("/orderSent", postNouvelleCommande);
 
-router.delete("/deleteProduit/:_id/:inventaire", deleteProduit);
+router.delete("/deleteProduit/:_id/:origine", deleteProduit);
 router.delete("/deleteFiltre/:sectionFiltre/:sectionID/:filtreOption", deleteFiltre);
 
 module.exports = router;
