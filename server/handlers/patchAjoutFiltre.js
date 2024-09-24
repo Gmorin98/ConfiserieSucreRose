@@ -7,9 +7,6 @@ if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchAjoutFiltre = async (req, res) => {
   const { sectionFiltre, sectionID, filtreOption } = req.params;
-  console.log(sectionFiltre); //Vrac
-  console.log(sectionID); //_id
-  console.log(filtreOption); //Poire
 
   if (!sectionFiltre || !sectionID || !filtreOption) {
     return res.status(400).json({
@@ -32,9 +29,8 @@ const patchAjoutFiltre = async (req, res) => {
       filterID,
       optionToAdd,
     );
-    console.log(result);
 
-    if (result.value) {
+    if (result) {
       res.status(200).json({
         status: 200,
         message: "Option added to Filtre.",
