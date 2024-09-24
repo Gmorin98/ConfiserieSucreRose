@@ -31,11 +31,8 @@ const postNouveauProduit = async (req, res) => {
     const filePath = `${data.origine}/${req.file.originalname}`;
 
     // Upload the image to Vercel Blob
-    const result = await blobUpload(req.file.buffer, {
-      access: 'public', // 'public' or 'private'
-      contentType: req.file.mimetype, // Ensure the correct MIME type is set
-      path: filePath, // Optional: specify the path
-    });
+    const result = await blobUpload(filePath, req.file.buffer, { access: 'public' });
+    console.log(result);
 
     // Create a new product object
     const nouveauProduit = {
