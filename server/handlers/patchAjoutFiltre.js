@@ -31,10 +31,13 @@ const patchAjoutFiltre = async (req, res) => {
     );
 
     if (result) {
+      // Fetch the updated document after the addition
+      const updatedFiltreList = await collection.findOne(filterID);
+
       res.status(200).json({
         status: 200,
         message: "Option added to Filtre.",
-        data: result
+        data: updatedFiltreList
       });
     } else {
       res.status(404).json({

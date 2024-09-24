@@ -23,7 +23,6 @@ const deleteFiltre = async (req, res) => {
     const collection = db.collection(`Filtre`); // Use your actual collection name
     
     const filterID = { _id: sectionID };
-    // Remove the specific option from the options array
     const optionToDelete = { $pull: { options: filtreOption } };
 
     const result = await collection.updateOne(filterID, optionToDelete);
@@ -34,8 +33,8 @@ const deleteFiltre = async (req, res) => {
       
       res.status(200).json({
         status: 200,
-        data: updatedFiltreList,
         message: "Filtre Deleted.",
+        data: updatedFiltreList
       });
     } else {
       res.status(404).json({
