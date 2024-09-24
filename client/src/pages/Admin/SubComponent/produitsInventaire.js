@@ -47,6 +47,8 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const nouveauProduitInformation = (e, field) => {
     let value = e.target.value;
+    console.log(value);
+    
     switch (field) {
       case "img":
         value = e.target.files[0]; // Handle file input
@@ -80,12 +82,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
 
   const handleConfirmNouveau = async (event) => {
     event.preventDefault();
-
-    // Ensure 'img' is properly handled and exists
-    if (!nouveauProduit.img) {
-      console.error('No image selected');
-      return;
-    }
 
     const data = {
       nom: nouveauProduit.nom ?? "",

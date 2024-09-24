@@ -43,6 +43,7 @@ const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtr
   };
 
   const updateList = (newData) => {
+    console.log(newData);
     if(sectionFiltre === "Vrac") {
       setFiltreVracInfo((prevInfo) => 
         prevInfo.map((item) => 
