@@ -263,12 +263,12 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                     :<p>&nbsp;{`${option.prix}$`}</p>}
                 </div>
               )}
-              <p>NOUVEAUTÉ: {isEditing ?
-                <input type="checkbox" checked={editedOption.nouveau} onChange={(e) => handleChangeProduits(e, 'nouveau')} /> 
-                : (option.nouveau ? "OUI" : "NON")}</p>
               <p>ACTIF: {isEditing ?
                 <input type="checkbox" checked={editedOption.actif} onChange={(e) => handleChangeProduits(e, 'actif')} /> 
                 : (option.actif ? "OUI" : "NON")}</p>
+              <p>NOUVEAUTÉ: {isEditing ?
+                <input type="checkbox" checked={editedOption.nouveau} onChange={(e) => handleChangeProduits(e, 'nouveau')} /> 
+                : (option.nouveau ? "OUI" : "NON")}</p>
               <p>BOUTIQUE SEULEMENT: {isEditing ?
                 <input type="checkbox" checked={editedOption.boutique} onChange={(e) => handleChangeProduits(e, 'boutique')} /> 
                 : (option.boutique ? "OUI" : "NON")}</p>

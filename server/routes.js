@@ -27,7 +27,7 @@ router.get("/api/config", getConfig);
 
 router.patch("/updateFiltre/:section", updateFiltre);
 router.patch("/updateInventaire", updateInventaire);
-router.patch("/ajoutFiltre", patchAjoutFiltre);
+router.patch("/ajoutFiltre/:sectionFiltre/:sectionID/:filtreOption", patchAjoutFiltre);
 router.patch("/pacthUpdateInventory", pacthUpdateInventory);
 
 router.post("/nouveauProduit", upload.single('img'), postNouveauProduit);

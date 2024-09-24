@@ -6,7 +6,7 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchAjoutFiltre = async (req, res) => {
-  const { sectionFiltre, sectionID, filtreOption } = req.body;
+  const { sectionFiltre, sectionID, filtreOption } = req.params;
 
   if (!sectionFiltre || !sectionID || !filtreOption) {
     return res.status(400).json({

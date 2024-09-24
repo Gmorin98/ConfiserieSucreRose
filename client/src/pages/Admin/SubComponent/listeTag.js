@@ -18,19 +18,12 @@ const ListeTag = ({optionSelectionne, setOptionSelectionne, sectionFiltre, filtr
   }
 
   const handleAjout = (filtreOption, sectionID) => {
-    const item = {
-      sectionFiltre,
-      sectionID,
-      filtreOption,
-    }
-
     // ↓ Handeling the Fetch ↓
-    fetch(`${process.env.REACT_APP_API_URL}ajoutFiltre`, {
+    fetch(`${process.env.REACT_APP_API_URL}ajoutFiltre/${sectionFiltre}/${sectionID}/${filtreOption}`, {
       method: "PATCH",
       headers: {
         "Content-type" : "application/json"
-      },
-      body: JSON.stringify(item),
+      }
     })
     .then(response => response.json())
     .then(data => updateList(data.data))
