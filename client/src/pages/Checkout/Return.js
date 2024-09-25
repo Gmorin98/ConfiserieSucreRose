@@ -84,13 +84,13 @@ const Return = () => {
     };
 
     const reduceInventory = async () => {
-      const items = panier.flatMap(item => {
-        return {
-          _id: item._id,
-          quantity: item.quantity,
-          origine: item.origine,
-        };
-      });
+      // const items = panier.flatMap(item => {
+      //   return {
+      //     _id: item._id,
+      //     quantity: item.quantity,
+      //     origine: item.origine,
+      //   };
+      // });
 
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}pacthUpdateInventory`, {
@@ -98,7 +98,7 @@ const Return = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(items),
+          body: JSON.stringify(panier),
         });
         const data = await response.json();
       } catch (error) {
