@@ -1,61 +1,41 @@
-const AWS = require('@aws-sdk/client-ses');
-
+import { Resend } from 'resend';
 require("dotenv").config();
-const SES_CONFIG = {
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-  region: process.env.AWS_SES_REGION,
-};
 
-const AWS_SES = new AWS.SES(SES_CONFIG);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const postContactBarBonbons = async (req, res) => {
   const { prenom, nom, email, telephone, date, evenement, extraInfo } = req.body;
 
-  const params = {
-    Source: 'confiseriesucrerose@gmail.com',
-    Destination: {
-      ToAddresses: ['confiseriesucrerose@gmail.com'],
-    },
-    Message: {
-      Body: {
-        Html: {
-          Charset: 'UTF-8',
-          Data: `
-            <p>Prénom: ${prenom}</p>
-            <p>Nom: ${nom}</p>
-            <p>Courriel: ${email}</p>
-            <p>Téléphone: ${telephone}</p>
-            <p>Date: ${date}</p>
-            <p>Évènement: ${evenement.join(", ")}</p>
-            <p>Informations supplémentaires: ${extraInfo}</p>
-          `,
-        },
-        Text: {
-          Charset: 'UTF-8',
-          Data: `
-            Prénom: ${prenom}
-            Nom: ${nom}
-            Courriel: ${email}
-            Téléphone: ${telephone}
-            Date: ${date}
-            Évènement: ${evenement.join(", ")}
-            Informations supplémentaires: ${extraInfo}
-          `,
-        }
-      },
-      Subject: {
-        Charset: 'UTF-8',
-        Data: 'Contact Pour Bar a Bonbons',
-      },
-    },
-  };
+  const htmlContent = `
+    <p>Prénom: ${prenom}</p>
+    <p>Nom: ${nom}</p>
+    <p>Courriel: ${email}</p>
+    <p>Téléphone: ${telephone}</p>
+    <p>Date: ${date}</p>
+    <p>Évènement: ${evenement.join(", ")}</p>
+    <p>Informations supplémentaires: ${extraInfo}</p>
+  `;
+
+  const textContent = `
+    Prénom: ${prenom}
+    Nom: ${nom}
+    Courriel: ${email}
+    Téléphone: ${telephone}
+    Date: ${date}
+    Évènement: ${evenement.join(", ")}
+    Informations supplémentaires: ${extraInfo}
+  `;
   
   try {
-    const result = await AWS_SES.sendEmail(params);
-    console.log("Email sent successfully:", result)
+    const result = await resend.emails.send({
+      from: 'no-reply@confiseriesucrerose.ca',
+      to: `${email}`,
+      subject: 'Contact pour Bar à Bonbons',
+      html: htmlContent,
+      text: textContent
+    });
+
+    console.log("Email sent successfully:", result);
     res.status(200).json({ status: 200, message: "Email sent successfully!", result });
   } catch (error) {
     console.error("Error sending email:", error);
