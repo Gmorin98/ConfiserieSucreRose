@@ -29,7 +29,7 @@ const postContactBarBonbons = async (req, res) => {
   try {
     const result = await resend.emails.send({
       from: 'no-reply@confiseriesucrerose.ca',
-      to: `${email}`,
+      to: `confiseriesucrerose@gmail.com`,
       subject: 'Contact pour Bar à Bonbons',
       html: htmlContent,
       text: textContent
