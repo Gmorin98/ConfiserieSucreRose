@@ -1,21 +1,14 @@
-const AWS = require('@aws-sdk/client-ses');
 const stripe = require('stripe')(process.env.STRIPE_KEY);
+const { Resend } = require('resend');
 require("dotenv").config();
 
-const SES_CONFIG = {
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-  region: process.env.AWS_SES_REGION,
-};
-
-const AWS_SES = new AWS.SES(SES_CONFIG);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const postConfirmationCommande = async (req, res) => {
   const { panierWithoutImg, customerName, orderNumber, sessionId, customerEmail } = req.body;
 
   try {
+    // Retrieve the Stripe session
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     const amountPaid = (session.amount_total / 100).toFixed(2); // Stripe amount is in cents
 
@@ -131,35 +124,20 @@ const postConfirmationCommande = async (req, res) => {
 
     textBody += `\nMontant Payé: $${amountPaid} CAD\n*Toute commande sera prête dans un délai de 24 à 48 heures.\n`;
 
-    const params = {
-      Source: 'confiseriesucrerose@gmail.com',
-      Destination: {
-        ToAddresses: [`${customerEmail}`],
-      },
-      Message: {
-        Body: {
-          Html: {
-            Charset: 'UTF-8',
-            Data: htmlBody,
-          },
-          Text: {
-            Charset: 'UTF-8',
-            Data: textBody,
-          }
-        },
-        Subject: {
-          Charset: 'UTF-8',
-          Data: 'Confirmation de Commande Confiserie Sucre Rose',
-        },
-      },
-    };
-
-    const result = await AWS_SES.sendEmail(params);
-    res.status(200).json({ status: 200, message: "Email sent successfully!", result });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ status: 500, message: "Failed to send email.", error });
-  }
-};
+    const result = await resend.emails.send({
+      from: 'no-reply@confiseriesucrerose.ca',
+      to: `${customerEmail}`,
+      subject: 'Confirmation de Commande',
+      html: htmlContent,
+      text: textContent
+    });
+  
+      console.log("Email sent successfully:", result);
+      res.status(200).json({ status: 200, message: "Email sent successfully!", result });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).json({ status: 500, message: "Failed to send email.", error });
+    }
+  };
 
 module.exports = postConfirmationCommande;

@@ -1,28 +1,18 @@
-const AWS = require('@aws-sdk/client-ses');
-const stripe = require('stripe')(process.env.STRIPE_KEY)
-
+const stripe = require('stripe')(process.env.STRIPE_KEY);
+const { Resend } = require('resend');
 require("dotenv").config();
-const SES_CONFIG = {
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-  region: process.env.AWS_SES_REGION,
-};
 
-const AWS_SES = new AWS.SES(SES_CONFIG);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const postNouvelleCommande = async (req, res) => {
   const { panierWithoutImg, customerEmail, customerName, orderNumber, sessionId } = req.body;
-  
+
   try {
     // Retrieve the Stripe session
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-
     const amountPaid = (session.amount_total / 100).toFixed(2); // Stripe amount is in cents
-    const phoneNumber = session.customer_details.phone; // Retrieve the phone number.
+    const phoneNumber = session.customer_details.phone;
 
-    // Format panier data
     let htmlBody = `
     <!DOCTYPE html>
     <html>
@@ -125,34 +115,19 @@ const postNouvelleCommande = async (req, res) => {
       }
     });
 
-    htmlBody += `</div>`
-    // Remove last newline character from textBody
+    htmlBody += `</div></body></html>`
     textBody = textBody.trim();
     
-    const params = {
-      Source: 'confiseriesucrerose@gmail.com',
-      Destination: {
-        ToAddresses: ['confiseriesucrerose@gmail.com'],
-      },
-      Message: {
-        Body: {
-          Html: {
-            Charset: 'UTF-8',
-            Data: htmlBody,
-          },
-          Text: {
-            Charset: 'UTF-8',
-            Data: textBody,
-          }
-        },
-        Subject: {
-          Charset: 'UTF-8',
-          Data: 'Nouvelle Commande En Ligne',
-        },
-      },
-    };
-  
-    const result = await AWS_SES.sendEmail(params);
+    // Send email using Resend
+    const result = await resend.emails.send({
+      from: 'no-reply@confiseriesucrerose.ca',
+      to: 'confiseriesucrerose@gmail.com',
+      subject: 'Nouvelle Commande En Ligne',
+      html: htmlBody,
+      text: textBody,
+    });
+
+    console.log("Email sent successfully:", result);
     res.status(200).json({ status: 200, message: "Email sent successfully!", result });
   } catch (error) {
     console.error("Error sending email:", error);
