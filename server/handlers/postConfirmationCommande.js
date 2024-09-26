@@ -128,8 +128,8 @@ const postConfirmationCommande = async (req, res) => {
       from: 'no-reply@confiseriesucrerose.ca',
       to: `${customerEmail}`,
       subject: 'Confirmation de Commande',
-      html: htmlContent,
-      text: textContent
+      html: htmlBody,
+      text: textBody
     });
   
       console.log("Email sent successfully:", result);
