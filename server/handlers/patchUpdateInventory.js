@@ -21,18 +21,18 @@ const patchUpdateInventory = async (req, res) => {
     const collectionVrac = dbVrac.collection("Vrac");
 
     for (const item of items) {
-      const { _id, quantity, origine, bonbonsSelectionne } = item;
-
-      if (_id) {
-        let collection;
-        if (origine === "Produits") {
-          collection = collectionProduits;
-        } else if (origine === "Vrac") {
-          collection = collectionVrac;
-        } else {
-          console.warn(`Unknown origin: ${origine} for item with _id: ${_id} with quantity of: ${quantity}`);
-          continue; // Skip this item if origin is not recognized
-        }
+      const { _id, quantity, origine } = item;
+      
+      // Determine which collection to update based on the origin
+      let collection;
+      if (origine === "Produits") {
+        collection = collectionProduits;
+      } else if (origine === "Vrac") {
+        collection = collectionVrac;
+      } else {
+        console.warn(`Unknown origin: ${origine} for item with _id: ${_id} with quantity of: ${quantity}`);
+        continue; // Skip this item if origin is not recognized
+      }
 
         // Update the inventory for the matched _id
         const result = await collection.updateOne(
@@ -47,25 +47,7 @@ const patchUpdateInventory = async (req, res) => {
         } else {
           console.log(`Successfully reduced inventory for _id: ${_id}`);
         }
-      } else if (bonbonsSelectionne && bonbonsSelectionne.length > 0) {
-        // Handle items in 'bonbonsSelectionne' since '_id' is undefined
-        for (const subItem of bonbonsSelectionne) {
-          const { _id: subItemId, quantite: subItemQuantity } = subItem;
-          const result = await collectionVrac.updateOne(
-            { _id: subItemId },
-            { $inc: { inventaire: -subItemQuantity } }
-          );
-
-          if (result.matchedCount === 0) {
-            console.warn(`No document found with _id: ${subItemId}`);
-          } else if (result.modifiedCount === 0) {
-            console.warn(`Failed to update inventory for _id: ${subItemId}`);
-          } else {
-            console.log(`Successfully reduced inventory for _id: ${subItemId}`);
-          }
-        }
       }
-    }
 
     res.status(200).json({
       status: 200,

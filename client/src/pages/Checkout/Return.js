@@ -84,13 +84,21 @@ const Return = () => {
     };
 
     const reduceInventory = async () => {
-      // const items = panier.flatMap(item => {
-      //   return {
-      //     _id: item._id,
-      //     quantity: item.quantity,
-      //     origine: item.origine,
-      //   };
-      // });
+      const items = panier.flatMap(item => {
+        if (item._id === undefined) {
+          return item.bonbonsSelectionne.map(bonbons => ({
+            _id: bonbons._id,
+            quantity: bonbons.quantite,
+            origine: "Vrac"
+          }));
+        } else {
+          return {
+            _id: item._id,
+            quantity: item.quantity,
+            origine: item.origine,
+          };
+        }
+      });
 
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}pacthUpdateInventory`, {
@@ -98,7 +106,7 @@ const Return = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(panier),
+          body: JSON.stringify(items),
         });
         const data = await response.json();
       } catch (error) {
