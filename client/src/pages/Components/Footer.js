@@ -7,43 +7,43 @@ const Footer = () => {
   const [isEmplacementVisible, setIsEmplacementVisible] = useState(false);
   const [apiKey, setApiKey] = useState('');
 
-  useEffect(() => {
-    // Fetch the API key from the backend
-    const fetchApiKey = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}api/config`);
-        const data = await response.json();
-        setApiKey(data.googleMapsApiKey);
-      } catch (error) {
-        console.error('Error fetching API key:', error);
-      }
-    };
-    fetchApiKey();
-  }, []);
+  // useEffect(() => {
+  //   // Fetch the API key from the backend
+  //   const fetchApiKey = async () => {
+  //     try {
+  //       const response = await fetch(`${process.env.REACT_APP_API_URL}api/config`);
+  //       const data = await response.json();
+  //       setApiKey(data.googleMapsApiKey);
+  //     } catch (error) {
+  //       console.error('Error fetching API key:', error);
+  //     }
+  //   };
+  //   fetchApiKey();
+  // }, []);
 
   
-  useEffect(() => {
-    if (apiKey) {
-      const loader = new Loader({
-        apiKey: apiKey,
-        version: "weekly",
-      });
+  // useEffect(() => {
+  //   if (apiKey) {
+  //     const loader = new Loader({
+  //       apiKey: apiKey,
+  //       version: "weekly",
+  //     });
 
-      loader.load().then(() => {
-        const map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 45.748571, lng: -73.603838 },
-          zoom: 18,
-        });
+  //     loader.load().then(() => {
+  //       const map = new google.maps.Map(document.getElementById("map"), {
+  //         center: { lat: 45.748571, lng: -73.603838 },
+  //         zoom: 18,
+  //       });
 
-        new google.maps.Marker({
-          position: { lat: 45.748571, lng: -73.603838 },
-          map: map,
-        });
-      }).catch((error) => {
-        console.error('Error loading Google Maps:', error);
-      });
-    }
-  }, [apiKey]);
+  //       new google.maps.Marker({
+  //         position: { lat: 45.748571, lng: -73.603838 },
+  //         map: map,
+  //       });
+  //     }).catch((error) => {
+  //       console.error('Error loading Google Maps:', error);
+  //     });
+  //   }
+  // }, [apiKey]);
 
   const toggleVisibilityHoraire = () => {
     setIsHoraireVisible(!isHoraireVisible);
