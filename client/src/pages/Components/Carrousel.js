@@ -98,6 +98,7 @@ const CarouselContainer = styled.div`
     margin: 0;
     button {
       position: absolute;
+      font-size: 5rem;
     }
     button:first-of-type {
       left: -2.5vw;

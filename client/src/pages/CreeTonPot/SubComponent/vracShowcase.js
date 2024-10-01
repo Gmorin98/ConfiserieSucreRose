@@ -61,4 +61,10 @@ const Wrapper = styled.div`
     margin-top: 1em;
     font-size: 2em;
   }
+
+  @media screen and (max-width: 1200px) {
+    .wrapperQuantiteSac {
+      top: 125px;
+    }
+  }
 `

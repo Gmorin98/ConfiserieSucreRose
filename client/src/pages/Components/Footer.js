@@ -110,7 +110,7 @@ const Footer = () => {
           <button onClick={toggleVisibilityEmplacement}>V</button>
         </div>
         <div className={isEmplacementVisible ? "" : "hidden"}>
-          <div id="map" className="map" />
+          {/*<div id="map" className="map" />*/}
           <p>Adresse : 2918 Ch Sainte-Marie, Mascouche, QC J7K 1N7</p>
           <p>Téléphone : (514) 730-0259</p>
           <p>Courriel : confiseriesucrerose@gmail.com</p>
