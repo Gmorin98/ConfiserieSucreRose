@@ -305,7 +305,7 @@ const Wrapper = styled.div`
     width: 250px;
     padding: 5px;
     margin: 10px;
-    background-color: ${props => props.isActif ? '#ffffff' : '#f0f0f0'};
+    background-color: #ffffff;
     border: solid 2px var(--primary-color);
     border-radius: 10px;
     .container {

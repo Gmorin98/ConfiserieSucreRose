@@ -8,11 +8,6 @@ import Carrousel from "../Components/Carrousel";
 
 const CarrouselEvenements = [
   {
-    id: 1,
-    img: "images/Evenements/Chapo.png",
-    info: "Du 13 au 15 septembre 2024! Venez fêtez avec nous!"
-  },
-  {
     id: 2,
     img: "images/Evenements/Marmaille.png",
     info: "5-6 Octobre, au Centre Expo Terrebonne 2475 boulevard des Entreprises Terrebonne, QC J6X 5S5"
@@ -21,7 +16,22 @@ const CarrouselEvenements = [
     id: 3,
     img: "images/Evenements/Recolte.png",
     info: "Fête des Recoltes à Mascouche le 28 Septembre de 10h à 16h! 33 Hectares (1440, chemin de la Côte-Georges, Mascouche)"
-  }
+  },
+  {
+    id: 4,
+    img: "images/Evenements/Halloween.jpg",
+    info: "BOO 👻💀🎃 Collection Halloween!!! Jujubes d'une fraîcheur incroyable à offrir ou à s'offrir !"
+  },
+  {
+    id: 5,
+    img: "images/Evenements/Halloween_Contenant.jpg",
+    info: "Verre en vitre rempli de délicieux jujubes thématique Halloween 🎃 merveilleux cadeau d'hôtesse! "
+  },
+  {
+    id: 6,
+    img: "images/Evenements/Halloween_Plateau.jpg",
+    info: "Le plateau d'Halloween 👻🎃 pour vos partys 🎉 "
+  },
 ]
 
 const Accueil = () => {
