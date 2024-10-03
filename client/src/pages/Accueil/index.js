@@ -13,11 +13,6 @@ const CarrouselEvenements = [
     info: "5-6 Octobre, au Centre Expo Terrebonne 2475 boulevard des Entreprises Terrebonne, QC J6X 5S5"
   },
   {
-    id: 3,
-    img: "images/Evenements/Recolte.png",
-    info: "Fête des Recoltes à Mascouche le 28 Septembre de 10h à 16h! 33 Hectares (1440, chemin de la Côte-Georges, Mascouche)"
-  },
-  {
     id: 4,
     img: "images/Evenements/Halloween.jpg",
     info: "BOO 👻💀🎃 Collection Halloween!!! Jujubes d'une fraîcheur incroyable à offrir ou à s'offrir !"
