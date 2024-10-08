@@ -47,7 +47,7 @@ const Confirmation = ({sac, setSac, setReset}) => {
         {sac.nom !== '' &&
           <div className="resumer">
             <div className="imgContainer">
-              <img src={sac.img} alt={sac.nom}/>
+              <img src={sac.img} alt={sac.nom} loading="lazy"/>
             </div>
             <div className="sacContenu" style={{ display: sac.nom=== "" ? "none" : "block" }}>
               <h3>Le contenant comprend:</h3>

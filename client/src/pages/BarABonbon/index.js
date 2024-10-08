@@ -1,6 +1,7 @@
 // Necessary Import
 import styled from "styled-components";
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 // Component and Other Import
 import WarningMessage from "../Components/WarningMessage";
@@ -93,6 +94,18 @@ const BarABonbons = () => {
 
   return (
     <Wrapper>
+      {/* Helmet for SEO */}
+      <Helmet>
+        <title>Contactez-nous | Bar à Bonbons - Sucre Rose</title>
+        <meta name="description" content="Réservez votre bar à bonbons pour votre événement : mariage, fête d'entreprise, anniversaire, ou tout autre événement spécial. Contactez Sucre Rose pour plus d'informations ou une commande." />
+        <meta name="keywords" content="bar à bonbons, mariage, événement d'entreprise, fête, anniversaire, candy bar, réservation, contact, bonbons, information" />
+        <meta property="og:title" content="Confiserie Sucre Rose | Bar à Bonbons" />
+        <meta property="og:description" content="Organisez un bar à bonbons unique pour vos événements spéciaux tels que les mariages, événements d'entreprise, et fêtes. Contactez-nous dès aujourd'hui pour réserver." />
+        <meta property="og:image" content="images/BarABonbons/Bar_Bonbons_Bas.jpg" />
+        <meta property="og:url" content="https://www.confiseriesucrerose.ca/contact-bar-a-bonbons" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       <WarningMessage children={"Contactez-nous pour réserver votre bar à bonbons!"} />
       <Carrousel children={CarrouselBarBonbons}/>
       {!statusResponse ?

@@ -14,7 +14,7 @@ const Filtre = ({children, selectedFilters, handleFilterChange}) => {
 
   return (
     <Wrapper>
-      <button onClick={() => toggleVisibility()} className="toggleFiltre"><img src="/images/Filter_icon.svg"/></button>
+      <button onClick={() => toggleVisibility()} className="toggleFiltre"><img src="/images/Filter_icon.svg" loading="lazy"/></button>
       <div className={isVisible ? "" : "hidden"}>
         <h2>Filtres</h2>
         {children.map(element => {return (

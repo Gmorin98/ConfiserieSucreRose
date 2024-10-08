@@ -31,11 +31,11 @@ const Carrousel = ({ children }) => {
   return (
     <Wrapper>
       <CarouselContainer>
-        <CarouselItem className="left" src={children[prevPosition].img} />
+        <CarouselItem className="left" src={children[prevPosition].img} loading="lazy"/>
         <button onClick={() => {changePosition(-1)}}>&lt;</button>
-        <CarouselItem className="center" src={children[position].img} />
+        <CarouselItem className="center" src={children[position].img} loading="lazy"/>
         <button onClick={() => {changePosition(1)}}>&gt;</button>
-        <CarouselItem className="right" src={children[nextPosition].img} />
+        <CarouselItem className="right" src={children[nextPosition].img} loading="lazy"/>
       </CarouselContainer>
       {children[position].info && <p>{children[position].info}</p> }
     </Wrapper>

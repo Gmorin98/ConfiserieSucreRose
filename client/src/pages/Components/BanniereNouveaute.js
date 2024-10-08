@@ -6,7 +6,7 @@ const BanniereNouveaute = () => {
   return (
     <>
     <Wrapper className="banniere">
-      <img src="images/BannierePointe.svg" height="24px"/>
+      <img src="images/BannierePointe.svg" height="24px" loading="lazy"/>
       <p>Nouveauté!</p>
     </Wrapper>
     </>
