@@ -31,7 +31,7 @@ const Admin = () => {
   // Retreive Evenement Info
   const fetchEvenementInfo = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenementInfo`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenement`);
       if (!response.ok) {
         throw new Error("Failed to fetch the Evenement Info");
       }
