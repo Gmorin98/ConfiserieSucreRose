@@ -64,8 +64,8 @@ const Admin = () => {
 
   return (
     <div>
-      {isLoggedIn ? false : <Authentification setIsLoggedIn={setIsLoggedIn} />}
-      {!isLoggedIn ? true :      
+      {/* {isLoggedIn ? false : <Authentification setIsLoggedIn={setIsLoggedIn} />} */}
+      { /* !isLoggedIn */ false ? true :      
         <Wrapper>
           <aside>
             <button onClick={() => { setOptionSelectionne(allVrac); setCurrentInventaire("Vrac"); }}>Vrac Inventaire</button>
@@ -73,7 +73,7 @@ const Admin = () => {
             <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
             <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
             <button onClick={() => { setOptionSelectionne(allEvenement); setCurrentInventaire("Evenement")}}>Évènement</button>
-            {editingIndex !== null && 
+            {(editingIndex !== null && currentInventaire !== "Evenement") && 
               <div className="selectionTagWrapper">
                 {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
                   return (
@@ -92,7 +92,7 @@ const Admin = () => {
               </div>
             }
           </aside>
-          {(currentInventaire !== "" && currentInventaire !== "Filtre" && currentInventaire !== "Evenement") && 
+          {(currentInventaire === "Vrac" || currentInventaire === "Produits") && 
             <ProduitsInventaire 
               currentInventaire={currentInventaire} 
               optionSelectionne={optionSelectionne} 
@@ -116,7 +116,7 @@ const Admin = () => {
               filtreProduitInfo={filtreProduitInfo}
               setFiltreProduitInfo={setFiltreProduitInfo}
               />}
-          {(currentInventaire === "Evenement" ) && 
+          {currentInventaire === "Evenement" && 
             <Evenement 
               optionSelectionne={optionSelectionne} 
               setOptionSelectionne={setOptionSelectionne} 

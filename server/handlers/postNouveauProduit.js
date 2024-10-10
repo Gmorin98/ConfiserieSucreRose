@@ -9,7 +9,7 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 // Set up storage for file uploads (memory storage)
-const storage = multer.memoryStorage(); // Stores the file in memory as a buffer
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const postNouveauProduit = async (req, res) => {
@@ -28,7 +28,7 @@ const postNouveauProduit = async (req, res) => {
     const data = JSON.parse(req.body.data);
     
     // Construct the file path (e.g., "Produits/image.jpg" or "Vrac/image.jpg")
-    const filePath = `${data.origine}/${req.file.originalname}`;
+    const filePath = `Evenement/${req.file.originalname}`;
 
     // Upload the image to Vercel Blob
     const result = await blobUpload(filePath, req.file.buffer, { access: 'public' });
