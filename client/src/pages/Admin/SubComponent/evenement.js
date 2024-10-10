@@ -22,6 +22,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
 
   const nouveauEvenementInfo = (e, field) => {
     let value = e.target.value;
+    console.log(e.target.value);
 
     setNouveauEvenement({
       ...nouveauEvenement,
@@ -46,7 +47,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
       formData.append('data', JSON.stringify(data));
 
     // ↓ Handeling the Fetch ↓
-    fetch(`http://localhost:8000/nouveauEvenement`, {
+    fetch(`${process.env.REACT_APP_API_URL}nouveauEvenement`, {
       method: "POST",
       body: formData
     })
@@ -57,7 +58,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
 
   const handleConfirmUpdate = () => {
     // ↓ Handeling the Fetch ↓
-    fetch(`http://localhost:8000/patchEvenement`, {
+    fetch(`${process.env.REACT_APP_API_URL}patchEvenement`, {
       method: "PATCH",
       headers: {
         "Content-type" : "application/json"
@@ -85,7 +86,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
 
   const handleDelete = () => {
     // ↓ Handeling the Fetch ↓
-    fetch(`http://localhost:8000/deleteEvenement`, {
+    fetch(`${process.env.REACT_APP_API_URL}deleteEvenement`, {
       method: "DELETE",
       headers: {
         "Content-type" : "application/json"
