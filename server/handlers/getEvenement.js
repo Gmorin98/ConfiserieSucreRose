@@ -13,7 +13,7 @@ const getEvenement = async (req, res) => {
     const db = client.db(`Evenement`); // Database name
     const evenementInfo = await db.collection(`Info`).find().toArray(); // Collection name
 
-    if (produitsInfo.length === 0) {
+    if (evenementInfo === undefined) {
       res.status(404).json({
         status: 404,
         message: "Erreur, aucun evenement de trouvé.",
