@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from "react-router-dom";
 
@@ -33,20 +33,22 @@ const CarrouselEvenements = [
 const Accueil = () => {
   const [carrouselEvenements, setCarrouselEvenements] = useState([]);
 
-  const fetchEvenementInfo = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenement`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch the Evenement Info");
+  useEffect (() => {
+    const fetchEvenementInfo = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenement`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch the Evenement Info");
+        }
+        const allEvenementData = await response.json();
+        setAllEvenement(allEvenementData.data);
+        console.log(allEvenement);
+      } catch (error) {
+        console.error(error);
       }
-      const allEvenementData = await response.json();
-      setCarrouselEvenements(allEvenementData.data);
-      console.log(carrouselEvenements);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchEvenementInfo();
+    };
+    fetchEvenementInfo();
+  }, []);
 
   return (
     <Wrapper>

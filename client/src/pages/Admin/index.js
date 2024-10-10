@@ -28,22 +28,6 @@ const Admin = () => {
     setEditedOption({});
   }, [optionSelectionne]);
 
-  // Retreive Evenement Info
-  const fetchEvenementInfo = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenement`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch the Evenement Info");
-      }
-      const allEvenementData = await response.json();
-      setAllEvenement(allEvenementData.data);
-      console.log(allEvenement);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchEvenementInfo();
-
   const addTag = (tag) => {
     if (editedOption.tag.includes(tag)) {
       // If the tag is already selected, remove it from the array
@@ -62,7 +46,21 @@ const Admin = () => {
     }
   }
   useEffect (() => {
-  }, [allVrac, allProduits]);
+    const fetchEvenementInfo = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenement`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch the Evenement Info");
+        }
+        const allEvenementData = await response.json();
+        setAllEvenement(allEvenementData.data);
+        console.log(allEvenement);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchEvenementInfo();
+  }, []);
 
   return (
     <div>
