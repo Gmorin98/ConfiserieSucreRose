@@ -11,8 +11,8 @@ const updateInventaire = async (req, res) => {
 
   try {
     await client.connect();
-    const db = client.db(produit.origine); // Would need to change to the produit.origine
-    const collection = db.collection(produit.origine); // Would need to change to the produit.origine
+    const db = client.db(produit.origine); // Database name
+    const collection = db.collection(produit.origine); // Collection name
 
     const updatedProduit = {
       nom: produit.nom,

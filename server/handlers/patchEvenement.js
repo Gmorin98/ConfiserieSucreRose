@@ -5,36 +5,33 @@ const { MONGO_URI } = process.env;
 
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
-const updateFiltre = async (req, res) => {
-  const { inventaire } = req.params;
+const patchEvenement = async (req, res) => {
+  const evenement = req.body; // Receive the updated product data
   const client = new MongoClient(MONGO_URI);
 
   try {
     await client.connect();
-    const db = client.db(`${inventaire}`); // Use your actual DB name
-    const collection = db.collection(`${inventaire}`); // Use your actual collection name
+    const db = client.db(`Evenement`); // Database name
+    const collection = db.collection(`Info`); // Collection name
 
+    const updatedEvenement = {
+      info: evenement.info,
+    };
+    
     const result = await collection.updateOne(
-      { _id },
-      {
-        $set: {
-          nom: produit.nom,
-          tag: produit.tag,
-          inventaire: produit.inventaire,
-          nouveau: produit.nouveau,
-        },
-      }
-    );
+      { _id: evenement._id.toString() },
+      { $set: updatedEvenement }
+    )
 
     if (result.matchedCount === 0) {
       res.status(404).json({
         status: 404,
-        message: "Erreur, aucune information pour le produit n'a été trouvée.",
+        message: "Erreur, aucune information pour cette evenement n'a été trouvée.",
       });
     } else {
       res.status(200).json({
         status: 200,
-        message: "Produit mis à jour avec succès",
+        message: "Evenement mis à jour avec succès",
       });
     }
   } catch (error) {
@@ -48,4 +45,4 @@ const updateFiltre = async (req, res) => {
   }
 };
 
-module.exports = updateFiltre;
+module.exports = patchEvenement;

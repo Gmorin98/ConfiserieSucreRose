@@ -9,10 +9,10 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 // Set up storage for file uploads (memory storage)
-const storage = multer.memoryStorage(); // Stores the file in memory as a buffer
-const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+const uploadEvenement = multer({ storage: storage });
 
-const postNouveauProduit = async (req, res) => {
+const postEvenement = async (req, res) => {
   const client = new MongoClient(MONGO_URI);
 
   try {
@@ -28,45 +28,38 @@ const postNouveauProduit = async (req, res) => {
     const data = JSON.parse(req.body.data);
     
     // Construct the file path (e.g., "Produits/image.jpg" or "Vrac/image.jpg")
-    const filePath = `${data.origine}/${req.file.originalname}`;
+    const filePath = `Evenement/${req.file.originalname}`;
 
     // Upload the image to Vercel Blob
     const result = await blobUpload(filePath, req.file.buffer, { access: 'public' });
     console.log(result);
 
     // Create a new product object
-    const nouveauProduit = {
+    const nouveauEvenement = {
       _id: uuidv4(),
-      nom: data.nom,
       img: result.url, // Use the URL from the blob upload
-      prix: data.prix,
-      inventaire: data.stock,
-      tag: data.tag,
-      actif: data.actif,
-      nouveau: data.nouveau,
-      boutique: data.boutique,
-      origine: data.origine
+      info: data.info,
     };
 
     // Connect to MongoDB
     await client.connect();
-    const db = client.db(nouveauProduit.origine); // Database name
-    const collection = db.collection(nouveauProduit.origine); // Collection name
+    const db = client.db(`Evenement`); // Database name
+    const collection = db.collection(`Info`); // Collection name
 
     // Insert the new product into the collection
-    const dbResult = await collection.insertOne(nouveauProduit);
+    const dbResult = await collection.insertOne(nouveauEvenement);
 
     if (dbResult.acknowledged) {
       // Return the newly added product data
       res.status(200).json({
         status: 200,
-        data: nouveauProduit,
-        message: "Product added successfully.",
+        data: nouveauEvenement,
+        message: "Nouvelle Evenement à été ajouté!",
       });
     } else {
       res.status(500).json({
         status: 500,
-        message: "Failed to add the product.",
+        message: "Erreur durant l'ajout du nouvelle Evenement.",
       });
     }
   } catch (error) {
@@ -80,4 +73,4 @@ const postNouveauProduit = async (req, res) => {
   }
 };
 
-module.exports = { postNouveauProduit, upload };
+module.exports = { postEvenement, uploadEvenement };

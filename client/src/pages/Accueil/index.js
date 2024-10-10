@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 
 // Component and Other Import
@@ -30,6 +30,23 @@ const CarrouselEvenements = [
 ]
 
 const Accueil = () => {
+  const [carrouselEvenements, setCarrouselEvenements] = useState([]);
+
+  const fetchEvenementInfo = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenementInfo`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch the Evenement Info");
+      }
+      const allEvenementData = await response.json();
+      setCarrouselEvenements(allEvenementData.data);
+      console.log(carrouselEvenements);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchEvenementInfo();
+
   return (
     <Wrapper>
       <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%" className="logo"/>

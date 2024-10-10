@@ -8,11 +8,13 @@ import { AllProduitsContext } from "../../contexts/AllProduitsContext";
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import ProduitsInventaire from "./SubComponent/produitsInventaire";
 import ListeTag from "./SubComponent/listeTag";
+import Evenement from "./SubComponent/evenement";
 
 const Admin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { allVrac, allProduits } = useContext(AllProduitsContext);
   const { filtreVracInfo, setFiltreVracInfo, filtreProduitInfo, setFiltreProduitInfo} = useContext(AllFiltreContext);
+  const [allEvenement, setAllEvenement] = useState([]);
   const [currentInventaire, setCurrentInventaire] = useState("");
   const [sectionFiltre, setSectionFiltre] = useState("");
   const [optionSelectionne, setOptionSelectionne] = useState([]);
@@ -25,6 +27,22 @@ const Admin = () => {
     setEditingIndex(null);
     setEditedOption({});
   }, [optionSelectionne]);
+
+  // Retreive Evenement Info
+  const fetchEvenementInfo = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}getEvenementInfo`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch the Evenement Info");
+      }
+      const allEvenementData = await response.json();
+      setAllEvenement(allEvenementData.data);
+      console.log(allEvenement);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchEvenementInfo();
 
   const addTag = (tag) => {
     if (editedOption.tag.includes(tag)) {
@@ -56,6 +74,7 @@ const Admin = () => {
             <button onClick={() => { setOptionSelectionne(filtreVracInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Vrac") }}>Filtre Vrac Option</button>
             <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
             <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
+            <button onClick={() => { setOptionSelectionne(allEvenement); setCurrentInventaire("Evenement")}}>Evenement</button>
             {editingIndex !== null && 
               <div className="selectionTagWrapper">
                 {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
@@ -75,7 +94,7 @@ const Admin = () => {
               </div>
             }
           </aside>
-          {(currentInventaire !== "" && currentInventaire !== "Filtre") && 
+          {(currentInventaire !== "" && currentInventaire !== "Filtre" && currentInventaire !== "Evenement") && 
             <ProduitsInventaire 
               currentInventaire={currentInventaire} 
               optionSelectionne={optionSelectionne} 
@@ -91,13 +110,25 @@ const Admin = () => {
               />}
           {currentInventaire === "Filtre" && 
             <ListeTag 
-            optionSelectionne={optionSelectionne}
+              optionSelectionne={optionSelectionne}
             setOptionSelectionne={setOptionSelectionne} 
             sectionFiltre={sectionFiltre}
             filtreVracInfo={filtreVracInfo}
             setFiltreVracInfo={setFiltreVracInfo}
             filtreProduitInfo={filtreProduitInfo}
-            setFiltreProduitInfo={setFiltreProduitInfo}/>}
+              setFiltreProduitInfo={setFiltreProduitInfo}
+              />}
+          {(currentInventaire === "Evenement" ) && 
+            <Evenement 
+              optionSelectionne={optionSelectionne} 
+              setOptionSelectionne={setOptionSelectionne} 
+              editedOption={editedOption} 
+              setEditedOption={setEditedOption} 
+              editingIndex={editingIndex} 
+              setEditingIndex={setEditingIndex} 
+              trackError={trackError} 
+              setTrackError={setTrackError} 
+              />}
         </Wrapper>
       }
     </div>
