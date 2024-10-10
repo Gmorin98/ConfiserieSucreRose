@@ -56,17 +56,17 @@ const Footer = () => {
   return (
     <Wrapper>
       <section className="logo">
-        <img src="images/Logo_Nom.svg" width="400px" />
+        <img src="images/Logo_Nom.svg" width="400px" loading="lazy"/>
         <div className="socials">
           <a href="https://www.facebook.com/profile.php?id=100085415413271" className="socials">
-            <img src="images/Facebook_Icon.svg" width="40px" />
+            <img src="images/Facebook_Icon.svg" width="40px" loading="lazy"/>
           </a>
           <a href="https://www.instagram.com/confiserie_sucre_rose/" className="socials">
-            <img src="images/Instagram_Icon.svg" width="40px" />
+            <img src="images/Instagram_Icon.svg" width="40px" loading="lazy"/>
           </a>
         </div>
       </section>
-      <img src="images/Seperator.svg" height="250px" className="separateur" />
+      <img src="images/Seperator.svg" height="250px" className="separateur" loading="lazy"/>
       <section className="horaire">
         <div className="intro">
           <h3>Heures d'Ouverture</h3>
@@ -103,7 +103,7 @@ const Footer = () => {
           </div>
         </div>
       </section>
-      <img src="images/Seperator.svg" height="250px" className="separateur" />
+      <img src="images/Seperator.svg" height="250px" className="separateur" loading="lazy"/>
       <section className="emplacement">
         <div className="intro">
           <h3>Contactez-nous</h3>

@@ -54,7 +54,7 @@ const SelectionSac = ({setSac, setQuantiteContenant}) => {
       {listSac.map((sac, id) => {
         return (
           <div key={id} >
-            <img src={sac.img} alt={sac.nom} />
+            <img src={sac.img} alt={sac.nom} loading="lazy"/>
             <p>{sac.nom}</p>
             <p>{sac.prix}$</p>
             <button 

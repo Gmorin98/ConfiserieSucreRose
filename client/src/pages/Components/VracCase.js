@@ -72,7 +72,7 @@ const VracCase = ({ vrac, setSac, sac, setReset, reset }) => {
         produit.actif && (  // Only render if produit.actif is true
           <Wrapper key={id}>
             {produit.nouveau && <BanniereNouveaute />}
-            <img src={produit.img} alt={produit.nom} />
+            <img src={produit.img} alt={produit.nom} loading="lazy"/>
             <p className="nom">{produit.nom}</p>
             {produit.inventaire === 0 ? (
               <div className="quantite">

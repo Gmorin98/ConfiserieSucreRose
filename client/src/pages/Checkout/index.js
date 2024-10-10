@@ -84,7 +84,7 @@ const Checkout = () => {
               <div key={produit._id || index}>
                 <div className='infoProduit'>
                   <button className='removeProduits' onClick={() => handleRemoveItem(produit._id, index)}>X</button>
-                  <img src={produit.img} alt={produit.nom} />
+                  <img src={produit.img} alt={produit.nom} loading="lazy"/>
                   <div className='infoGeneral'>
                     <p>{produit.nom}</p>
                     <p>${produit.prix}</p>

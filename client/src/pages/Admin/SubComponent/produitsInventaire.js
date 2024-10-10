@@ -232,10 +232,10 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
       {optionSelectionne.map((option, id) => {
         const isEditing = editingIndex === id;
         return (
-          <div key={id} className="wrapperItem" isActif={option.actif}>
+          <div key={id} className="wrapperItem" style={{ backgroundColor: option.actif ? "#ffffff" : "#D3D3D3"}}>
             {isEditing && <button className="deleteButton" onClick={() => handleDelete()}>DELETE</button>}
             <div className="imgContainer">
-              <img src={option.img} alt={option.nom} />
+              <img src={option.img} alt={option.nom} loading="lazy"/>
             </div>
             <section>
               <div className="container">
@@ -305,7 +305,6 @@ const Wrapper = styled.div`
     width: 250px;
     padding: 5px;
     margin: 10px;
-    background-color: #ffffff;
     border: solid 2px var(--primary-color);
     border-radius: 10px;
     .container {

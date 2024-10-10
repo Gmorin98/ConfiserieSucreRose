@@ -1,6 +1,7 @@
 // Necessary Import
 import styled from "styled-components";
 import React, { useContext, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import { AllProduitsContext } from "../../contexts/AllProduitsContext";
 
@@ -43,17 +44,29 @@ const Produits = () => {
   const filteredProducts = filterProduits();
 
   return (
-    <Wrapper>
-      <WarningMessage children={"Plus de produits en Boutique!"}/>
-      <div className="Content">
-        <aside>
+    <>    
+      {/* Helmet for SEO */}
+      <Helmet>
+        <title>Confiserie Sucre Rose | Produits Exotiques</title>
+        <meta name="description" content="Explorez une vaste sélection de produits exotiques, des produits faits maison, de bonbons sucrés et fruités, ainsi que de friandises piquantes et funky. Découvrez plus de 50 produits uniques chez Confiserie Sucre Rose." />
+        <meta name="keywords" content="bonbons exotique, bonbons importé, bonbons funky, produits fait maison, sucrerie épicée, bonbons fruité, bonbons bizarre, bonbons gourmet, snack unique, bonbons, gélatine, produits exotiques" />
+        <meta property="og:title" content="Confiserie Sucre Rose | Produits Exotiques" />
+        <meta property="og:description" content="Découvrez des bonbons exotiques, des produits faits maison et des friandises uniques dans la boutique Confiserie Sucre Rose. Nos produits sont parfaits pour les amateurs de bonbons sucrés, piquants et fruités." />
+        <meta property="og:image" content="images/SUCRE_ROSE_Logo.svg" />
+        <meta property="og:url" content="https://www.confiseriesucrerose.ca/produits" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
+      <Wrapper>
+        <WarningMessage children={"Plus de produits en Boutique!"}/>
+        <div className="Content">
           <Filtre children={filtreProduitInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
-        </aside>
-        <div className="ProduitsShowcase">
-          <ProduitCase children={filteredProducts}/>
+          <div className="ProduitsShowcase">
+            <ProduitCase children={filteredProducts}/>
+          </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }
 

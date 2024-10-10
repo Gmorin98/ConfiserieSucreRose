@@ -48,12 +48,18 @@ const CreerTonPot = () => {
 
   return (
     <>
+      {/* Helmet for SEO */}
       <Helmet>
-        <title>Créez votre pot personnalisé</title>
-        <meta name="description" content="Créez votre mélange de bonbons personnalisé avec notre sélection de bonbons en vrac de qualité supérieure!" />
-        <meta name="keywords" content="bonbons, friandises, gourmandises, sucettes, vrac, sucre, confiserie, mélange de bonbons personnalisé" />
-        <meta name="author" content="Confiserie Sucre Rose" />
+        <title>Confiserie Sucre Rose | Créez Votre Pot de Bonbons Personnalisé</title>
+        <meta name="description" content="Créez votre propre pot de bonbons personnalisé avec notre vaste sélection de bonbons en vrac, principalement sucrés et fruités. Sélectionnez la taille du contenant et remplissez-le avec vos bonbons préférés!" />
+        <meta name="keywords" content="custom candy jar, create your own candy pot, vrac candy, bulk candy selection, sweet candies, fruity candies, personalized candy container, choose your own candy mix" />
+        <meta property="og:title" content="Créez Votre Pot de Bonbons Personnalisé chez Confiserie Sucre Rose" />
+        <meta property="og:description" content="Confiserie Sucre Rose vous propose de créer votre pot de bonbons personnalisé à partir d'une sélection de plus de 30 bonbons en vrac, parfait pour tous les amateurs de bonbons sucrés et fruités!" />
+        <meta property="og:image" content="images/SUCRE_ROSE_Logo.svg" />
+        <meta property="og:url" content="https://www.confiseriesucrerose.ca/creer-ton-pot" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
+  
       <Wrapper>
         <WarningMessage children={"Plus de produits en Boutique!"}/>
         <div className="content">

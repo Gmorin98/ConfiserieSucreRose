@@ -19,7 +19,7 @@ const PanierCheckout = () => {
 
   return (
     <Wrapper>
-      <img src="images/Shopping_Bag_Lolli.svg" alt="sacPanier" />
+      <img src="images/Shopping_Bag_Lolli.svg" alt="sacPanier" loading="lazy"/>
       {itemCount > 0 && (
         <Badge>{itemCount}</Badge>
       )}

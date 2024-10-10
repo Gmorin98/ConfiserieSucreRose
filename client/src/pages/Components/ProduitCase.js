@@ -78,7 +78,7 @@ const ProduitCase = ({children}) => {
             <Wrapper key={id}>
               {produit.nouveau && <BanniereNouveaute />}
               <div className="imgContainer">
-                <img src={produit.img} alt={produit.nom} />
+                <img src={produit.img} alt={produit.nom} loading="lazy"/>
               </div>
               <div className="info">
                 <p>{produit.nom}</p>
