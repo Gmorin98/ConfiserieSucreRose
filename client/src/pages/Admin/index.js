@@ -64,8 +64,8 @@ const Admin = () => {
 
   return (
     <div>
-      {/* {isLoggedIn ? false : <Authentification setIsLoggedIn={setIsLoggedIn} />} */}
-      { /* !isLoggedIn */ false ? true :      
+      { isLoggedIn ? false : <Authentification setIsLoggedIn={setIsLoggedIn} />}
+      { !isLoggedIn ? true :      
         <Wrapper>
           <aside>
             <button onClick={() => { setOptionSelectionne(allVrac); setCurrentInventaire("Vrac"); }}>Vrac Inventaire</button>
