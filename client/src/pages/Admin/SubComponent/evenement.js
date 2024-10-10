@@ -75,11 +75,9 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
         const newOptions = optionSelectionne.map((option, index) =>
           index === editingIndex ? { ...option, ...data.data } : option
         );
-  
         setOptionSelectionne(newOptions);
-        setEditingIndex(null); // Exit editing mode
+        setEditingIndex(null);
       } else {
-        // Handle errors or unsuccessful response
         setTrackError(data);
       }
     })
@@ -100,7 +98,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
     .then(data => {
       setTrackError(data)
       if(data.status === 200) {
-        setAllEvenement(prevAllEvenement => prevAllEvenement.filter(evenement => evenement._id !== editedOption._id));
+        setOptionSelectionne(prevOptionSelectionne => prevOptionSelectionne.filter(evenement => evenement._id !== editedOption._id));
       }
     })
   }
@@ -110,7 +108,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
   };
 
   const updateList = (newData) => {
-    setAllEvenement(prev => [...prev, newData]);
+    setOptionSelectionne(prev => [...prev, newData]);
   };
 
   return (
@@ -126,8 +124,8 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
                 <input type="file" onChange={(e) => nouveauEvenementInfo(e, 'img')} required />
               </div>
               <div>
-                <label>Nom :</label>
-                <input type="text" onChange={(e) => nouveauEvenementInfo(e, 'nom')} required />
+                <label>Info :</label>
+                <input type="text" onChange={(e) => nouveauEvenementInfo(e, 'info')} required />
               </div>
               <div>
                 <button className="confirmer" type="submit">CONFIRM</button>

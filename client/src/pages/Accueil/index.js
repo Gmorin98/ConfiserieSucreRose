@@ -42,7 +42,6 @@ const Accueil = () => {
         }
         const allEvenementData = await response.json();
         setCarrouselEvenements(allEvenementData.data);
-        console.log(allEvenement);
       } catch (error) {
         console.error(error);
       }

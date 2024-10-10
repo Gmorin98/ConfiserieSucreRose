@@ -72,7 +72,7 @@ const Admin = () => {
             <button onClick={() => { setOptionSelectionne(filtreVracInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Vrac") }}>Filtre Vrac Option</button>
             <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
             <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
-            <button onClick={() => { setOptionSelectionne(allEvenement); setCurrentInventaire("Evenement")}}>Evenement</button>
+            <button onClick={() => { setOptionSelectionne(allEvenement); setCurrentInventaire("Evenement")}}>Évènement</button>
             {editingIndex !== null && 
               <div className="selectionTagWrapper">
                 {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
