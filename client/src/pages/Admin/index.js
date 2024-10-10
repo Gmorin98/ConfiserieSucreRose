@@ -109,11 +109,11 @@ const Admin = () => {
           {currentInventaire === "Filtre" && 
             <ListeTag 
               optionSelectionne={optionSelectionne}
-            setOptionSelectionne={setOptionSelectionne} 
-            sectionFiltre={sectionFiltre}
-            filtreVracInfo={filtreVracInfo}
-            setFiltreVracInfo={setFiltreVracInfo}
-            filtreProduitInfo={filtreProduitInfo}
+              setOptionSelectionne={setOptionSelectionne} 
+              sectionFiltre={sectionFiltre}
+              filtreVracInfo={filtreVracInfo}
+              setFiltreVracInfo={setFiltreVracInfo}
+              filtreProduitInfo={filtreProduitInfo}
               setFiltreProduitInfo={setFiltreProduitInfo}
               />}
           {(currentInventaire === "Evenement" ) && 
@@ -125,7 +125,8 @@ const Admin = () => {
               editingIndex={editingIndex} 
               setEditingIndex={setEditingIndex} 
               trackError={trackError} 
-              setTrackError={setTrackError} 
+              setTrackError={setTrackError}
+              currentInventaire={currentInventaire}
               />}
         </Wrapper>
       }

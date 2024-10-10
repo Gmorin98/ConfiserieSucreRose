@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 // Component and Other Import
 
-const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, setEditingIndex, setTrackError}) => {
+const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, setEditingIndex, setTrackError, currentInventaire}) => {
   const [formNouveauEvenement, setFormNouveauEvenement] = useState(false);
   const [nouveauEvenement, setNouveauEvenement] = useState({
     'info': "",
@@ -117,10 +117,10 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
     <Wrapper>
       {currentInventaire !== "" && (
         !formNouveauEvenement ? 
-          <button className="ajoutBonbonButton" onClick={() => setFormNouveauEvenement(true)}>+</button> 
+          <button className="ajoutEvenementButton" onClick={() => setFormNouveauEvenement(true)}>+</button> 
           :
-          <div className="ajoutBonbonsWrapper">
-            <form className="ajoutBonbonsForm" onSubmit={handleConfirmNouveau}>
+          <div>
+            <form className="ajoutEvenementForm" onSubmit={handleConfirmNouveau}>
               <div>
                 <label>Image :</label>
                 <input type="file" onChange={(e) => nouveauEvenementInfo(e, 'img')} required />
@@ -232,7 +232,7 @@ const Wrapper = styled.div`
     }
   }
 
-  .ajoutBonbonButton {
+  .ajoutEvenementButton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -246,7 +246,7 @@ const Wrapper = styled.div`
     text-align: center;
   }
 
-  .ajoutBonbonsForm {
+  .ajoutEvenementForm {
     width: 250px;
     height: fit-content;
     padding: 5px;

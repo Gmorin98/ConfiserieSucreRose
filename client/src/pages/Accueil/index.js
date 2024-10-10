@@ -41,7 +41,7 @@ const Accueil = () => {
           throw new Error("Failed to fetch the Evenement Info");
         }
         const allEvenementData = await response.json();
-        setAllEvenement(allEvenementData.data);
+        setCarrouselEvenements(allEvenementData.data);
         console.log(allEvenement);
       } catch (error) {
         console.error(error);
