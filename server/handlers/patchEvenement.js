@@ -6,7 +6,7 @@ const { MONGO_URI } = process.env;
 if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 const patchEvenement = async (req, res) => {
-  const evenement = req.body; // Receive the updated product data
+  const { _id, info } = req.body; // Receive the updated product data
   const client = new MongoClient(MONGO_URI);
 
   try {
@@ -15,11 +15,11 @@ const patchEvenement = async (req, res) => {
     const collection = db.collection(`Info`); // Collection name
 
     const updatedEvenement = {
-      info: evenement.info,
+      info: info,
     };
     
     const result = await collection.updateOne(
-      { _id: evenement._id.toString() },
+      { _id: _id.toString() },
       { $set: updatedEvenement }
     )
 

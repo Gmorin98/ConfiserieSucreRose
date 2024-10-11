@@ -1,11 +1,11 @@
-// Necessary Import
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-// Components and Other Import
+// Components and Other Imports
 
 const Carrousel = ({ children }) => {
   const [position, setPosition] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const changePosition = (distance) => {
     setPosition((prevPosition) => {
@@ -16,14 +16,26 @@ const Carrousel = ({ children }) => {
       return newPosition % children.length;
     });
   }
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      changePosition(1);
-    }, 10000);
 
-    return () => clearInterval(interval);
-  }, [position]);
+  useEffect(() => {
+    if (children && children.length > 0) {
+      setIsLoading(false); // Set loading to false when children are available
+    }
+  }, [children]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      const interval = setInterval(() => {
+        changePosition(1);
+      }, 10000);
+
+      return () => clearInterval(interval);
+    }
+  }, [position, isLoading]);
+
+  if (isLoading) {
+    return; // Show a loading message or spinner
+  }
 
   const prevPosition = (position - 1 + children.length) % children.length;
   const nextPosition = (position + 1) % children.length;
@@ -32,12 +44,12 @@ const Carrousel = ({ children }) => {
     <Wrapper>
       <CarouselContainer>
         <CarouselItem className="left" src={children[prevPosition].img} loading="lazy"/>
-        <button onClick={() => {changePosition(-1)}}>&lt;</button>
+        <button onClick={() => {changePosition(-1)}}></button>
         <CarouselItem className="center" src={children[position].img} loading="lazy"/>
-        <button onClick={() => {changePosition(1)}}>&gt;</button>
+        <button onClick={() => {changePosition(1)}}></button>
         <CarouselItem className="right" src={children[nextPosition].img} loading="lazy"/>
       </CarouselContainer>
-      {children[position].info && <p>{children[position].info}</p> }
+      {children[position].info && <p>{children[position].info}</p>}
     </Wrapper>
   );
 };
@@ -82,15 +94,24 @@ const CarouselContainer = styled.div`
   height: 350px;
 
   button {
+    background-color: transparent;
     color: var(--primary-color);
     border: none;
     width: fit-content;
     margin: 0em 0.5em;
-    font-size: 5em;
-    width: fit-content;
+    font-size: 5rem;
     z-index: 5;
-    background-color: transparent;
     cursor: pointer;
+  }
+
+  button::before {
+    content: '<';
+    font-size: 5rem; /* Adjust the size as needed */
+    color: var(--primary-color);
+  }
+
+  button:last-of-type::before {
+    content: '>';
   }
 
   @media screen and (max-width: 900px) {
@@ -98,7 +119,12 @@ const CarouselContainer = styled.div`
     margin: 0;
     button {
       position: absolute;
-      font-size: 5rem;
+      padding: 0;
+      text-shadow:
+        -1px -1px 0 #FFFFFF,
+        1px -1px 0 #FFFFFF,
+        -1px 1px 0 #FFFFFF,
+        1px 1px 0 #FFFFFF; 
     }
     button:first-of-type {
       left: -2.5vw;

@@ -130,12 +130,23 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     .then(data => {
       // Check if the server response status is 200
       if (data.status === 200) {
-        // Update the product in the optionSelectionne state with the new data
-        const newOptions = optionSelectionne.map((option, index) =>
-          index === editingIndex ? { ...option, ...data.data } : option
+        // Find and update only specific fields in optionSelectionne by _id
+        const updatedOptions = optionSelectionne.map(option => 
+          option._id === editedOption._id 
+            ? { 
+                ...option, 
+                nom: editedOption.nom,
+                prix: editedOption.prix,
+                inventaire: editedOption.inventaire,
+                tag: editedOption.tag,
+                actif: editedOption.actif,
+                nouveau: editedOption.nouveau,
+                boutique: editedOption.boutique
+              }  // Update only the specified fields
+            : option
         );
   
-        setOptionSelectionne(newOptions);
+        setOptionSelectionne(updatedOptions);
         setEditingIndex(null); // Exit editing mode
       } else {
         // Handle errors or unsuccessful response

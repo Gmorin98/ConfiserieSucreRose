@@ -10,9 +10,9 @@ if (!MONGO_URI) throw new Error("Your MONGO_URI is missing!");
 
 // Set up storage for file uploads (memory storage)
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const uploadBarABonbons = multer({ storage: storage });
 
-const postNouveauProduit = async (req, res) => {
+const postBarABonbons = async (req, res) => {
   const client = new MongoClient(MONGO_URI);
 
   try {
@@ -24,48 +24,37 @@ const postNouveauProduit = async (req, res) => {
       });
     }
 
-    // Extract product details from the request body
-    const data = JSON.parse(req.body.data);
-    
     // Construct the file path (e.g., "Produits/image.jpg" or "Vrac/image.jpg")
-    const filePath = `Evenement/${req.file.originalname}`;
+    const filePath = `Bar_A_Bonbons/${req.file.originalname}`;
 
     // Upload the image to Vercel Blob
     const result = await blobUpload(filePath, req.file.buffer, { access: 'public' });
 
     // Create a new product object
-    const nouveauProduit = {
+    const nouveauBarABonbons = {
       _id: uuidv4(),
-      nom: data.nom,
       img: result.url, // Use the URL from the blob upload
-      prix: data.prix,
-      inventaire: data.stock,
-      tag: data.tag,
-      actif: data.actif,
-      nouveau: data.nouveau,
-      boutique: data.boutique,
-      origine: data.origine
     };
 
     // Connect to MongoDB
     await client.connect();
-    const db = client.db(nouveauProduit.origine); // Database name
-    const collection = db.collection(nouveauProduit.origine); // Collection name
+    const db = client.db(`Bar_A_Bonbons`); // Database name
+    const collection = db.collection(`Info`); // Collection name
 
     // Insert the new product into the collection
-    const dbResult = await collection.insertOne(nouveauProduit);
+    const dbResult = await collection.insertOne(nouveauBarABonbons);
 
     if (dbResult.acknowledged) {
       // Return the newly added product data
       res.status(200).json({
         status: 200,
-        data: nouveauProduit,
-        message: "Product added successfully.",
+        data: nouveauBarABonbons,
+        message: "Nouveau Bar à Bonbons à été ajouté!",
       });
     } else {
       res.status(500).json({
         status: 500,
-        message: "Failed to add the product.",
+        message: "Erreur durant l'ajout du Nouveau Bar à Bonbons.",
       });
     }
   } catch (error) {
@@ -79,4 +68,4 @@ const postNouveauProduit = async (req, res) => {
   }
 };
 
-module.exports = { postNouveauProduit, upload };
+module.exports = { postBarABonbons, uploadBarABonbons };

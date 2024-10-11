@@ -32,7 +32,6 @@ const postEvenement = async (req, res) => {
 
     // Upload the image to Vercel Blob
     const result = await blobUpload(filePath, req.file.buffer, { access: 'public' });
-    console.log(result);
 
     // Create a new product object
     const nouveauEvenement = {

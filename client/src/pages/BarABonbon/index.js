@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
 // Component and Other Import
@@ -9,28 +9,6 @@ import Checkbox from "../Components/Checkbox";
 import Carrousel from "../Components/Carrousel";
 
 const typeEvenement = ["Mariage", "Corporation", "Fête", "Cadeau", "Autre"];
-const CarrouselBarBonbons = [
-  {
-    id: 1,
-    img: "images/BarABonbons/Bar_Bonbons_Bas.jpg",
-  },
-  {
-    id: 2,
-    img: "images/BarABonbons/Bar_Bonbons_Chaise.jpg",
-  },
-  {
-    id: 3,
-    img: "images/BarABonbons/Bar_Bonbons_Haut.jpg",
-  },
-  {
-    id: 4,
-    img: "images/BarABonbons/Meuble_Bonbons_Haut.jpg",
-  },
-  {
-    id: 5,
-    img: "images/BarABonbons/Meuble_Vide.jpg",
-  }
-]
 
 const BarABonbons = () => {
   // All the info in this object
@@ -44,6 +22,23 @@ const BarABonbons = () => {
     extraInfo: ''
   });
   const [statusResponse, setStatusResponse] = useState();
+  const [carrouselEvenements, setCarrouselEvenements] = useState([]);
+
+  useEffect (() => {
+    const fetchEvenementInfo = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}getBarABonbons`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch the Evenement Info");
+        }
+        const allEvenementData = await response.json();
+        setCarrouselEvenements(allEvenementData.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchEvenementInfo();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -107,7 +102,7 @@ const BarABonbons = () => {
       </Helmet>
 
       <WarningMessage children={"Contactez-nous pour réserver votre bar à bonbons!"} />
-      <Carrousel children={CarrouselBarBonbons}/>
+      <Carrousel children={carrouselEvenements}/>
       {!statusResponse ?
         ( 
           <div className="formulaireWrapper">

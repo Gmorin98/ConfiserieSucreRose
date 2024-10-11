@@ -9,12 +9,14 @@ import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import ProduitsInventaire from "./SubComponent/produitsInventaire";
 import ListeTag from "./SubComponent/listeTag";
 import Evenement from "./SubComponent/evenement";
+import BarABonbons from "./SubComponent/barABonbons";
 
 const Admin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { allVrac, allProduits } = useContext(AllProduitsContext);
   const { filtreVracInfo, setFiltreVracInfo, filtreProduitInfo, setFiltreProduitInfo} = useContext(AllFiltreContext);
   const [allEvenement, setAllEvenement] = useState([]);
+  const [allBarABonbons, setAllBarABonbons] = useState([]);
   const [currentInventaire, setCurrentInventaire] = useState("");
   const [sectionFiltre, setSectionFiltre] = useState("");
   const [optionSelectionne, setOptionSelectionne] = useState([]);
@@ -54,12 +56,26 @@ const Admin = () => {
         }
         const allEvenementData = await response.json();
         setAllEvenement(allEvenementData.data);
-        console.log(allEvenement);
       } catch (error) {
         console.error(error);
       }
     };
+
+    const fetchBarABonbonsInfo = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}getBarABonbons`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch the Bar a Bonbons Info");
+        }
+        const allBarABonbonsData = await response.json();
+        setAllBarABonbons(allBarABonbonsData.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchEvenementInfo();
+    fetchBarABonbonsInfo();
   }, []);
 
   return (
@@ -73,7 +89,8 @@ const Admin = () => {
             <button onClick={() => { setOptionSelectionne(allProduits); setCurrentInventaire("Produits"); }}>Produits Inventaire</button>
             <button onClick={() => { setOptionSelectionne(filtreProduitInfo); setCurrentInventaire("Filtre"); setSectionFiltre("Produits")}}>Filtre Produits Option</button>
             <button onClick={() => { setOptionSelectionne(allEvenement); setCurrentInventaire("Evenement")}}>Évènement</button>
-            {(editingIndex !== null && currentInventaire !== "Evenement") && 
+            <button onClick={() => { setOptionSelectionne(allBarABonbons); setCurrentInventaire("BarABonbons")}}>Bar à Bonbons</button>
+            {(editingIndex !== null && currentInventaire !== "Evenement" && currentInventaire !== "BarABonbons") && 
               <div className="selectionTagWrapper">
                 {(currentInventaire === "Vrac" ? filtreVracInfo : filtreProduitInfo).map((section, id) => {
                   return (
@@ -118,6 +135,18 @@ const Admin = () => {
               />}
           {currentInventaire === "Evenement" && 
             <Evenement 
+              optionSelectionne={optionSelectionne} 
+              setOptionSelectionne={setOptionSelectionne} 
+              editedOption={editedOption} 
+              setEditedOption={setEditedOption} 
+              editingIndex={editingIndex} 
+              setEditingIndex={setEditingIndex} 
+              trackError={trackError} 
+              setTrackError={setTrackError}
+              currentInventaire={currentInventaire}
+              />}
+          {currentInventaire === "BarABonbons" && 
+            <BarABonbons 
               optionSelectionne={optionSelectionne} 
               setOptionSelectionne={setOptionSelectionne} 
               editedOption={editedOption} 

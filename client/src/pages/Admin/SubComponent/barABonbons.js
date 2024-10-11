@@ -4,28 +4,15 @@ import React, { useState } from 'react';
 
 // Component and Other Import
 
-const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, setEditingIndex, setTrackError, currentInventaire}) => {
+const BarABonbons = ({optionSelectionne, setOptionSelectionne, editedOption, setEditedOption, editingIndex, setEditingIndex, setTrackError, currentInventaire}) => {
   const [formNouveauEvenement, setFormNouveauEvenement] = useState(false);
   const [nouveauEvenement, setNouveauEvenement] = useState({
     'img': null,
     'info': "",
   });
 
-  const handleChangeEvenement = (e, field) => {
-    let value = e.target.value;
-
-    setEditedOption({
-      ...editedOption,
-      [field]: value,
-    });
-  };
-
   const nouveauEvenementInfo = (e, field) => {
-    let value = e.target.value;
-
-    if (field === "img") {
-      value = e.target.files[0]; // Handle file input
-    }
+    let value = e.target.files[0]; // Handle file input
 
     setNouveauEvenement({
       ...nouveauEvenement,
@@ -50,7 +37,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
       formData.append('data', JSON.stringify(data));
 
     // ↓ Handeling the Fetch ↓
-    fetch(`${process.env.REACT_APP_API_URL}nouveauEvenement`, {
+    fetch(`${process.env.REACT_APP_API_URL}nouveauBarABonbons`, {
       method: "POST",
       body: formData
     })
@@ -59,39 +46,9 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
     .catch(error => console.error('Error:', error));
   };
 
-  const handleConfirmUpdate = () => {
-    // ↓ Handeling the Fetch ↓
-    fetch(`${process.env.REACT_APP_API_URL}patchEvenement`, {
-      method: "PATCH",
-      headers: {
-        "Content-type" : "application/json"
-      },
-      body: JSON.stringify({
-        _id: editedOption._id,
-        info: editedOption.info,
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Check if the server response status is 200
-      if (data.status === 200) {
-        // Update the product in the optionSelectionne state with the new data
-        const updatedOptions = optionSelectionne.map(option =>
-          option._id === editedOption._id 
-          ? { ...option, info: editedOption.info }  // Update info field with new value
-          : option
-        );
-        setOptionSelectionne(updatedOptions);
-        setEditingIndex(null);
-      } else {
-        setTrackError(data);
-      }
-    })
-  };
-
   const handleDelete = () => {
     // ↓ Handeling the Fetch ↓
-    fetch(`${process.env.REACT_APP_API_URL}deleteEvenement`, {
+    fetch(`${process.env.REACT_APP_API_URL}deleteBarABonbons`, {
       method: "DELETE",
       headers: {
         "Content-type" : "application/json"
@@ -130,10 +87,6 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
                 <input type="file" onChange={(e) => nouveauEvenementInfo(e, 'img')} required />
               </div>
               <div>
-                <label>Info :</label>
-                <input type="text" onChange={(e) => nouveauEvenementInfo(e, 'info')} required />
-              </div>
-              <div>
                 <button className="confirmer" type="submit">CONFIRM</button>
                 <button className="cancel" onClick={() => setFormNouveauEvenement(false)}>CANCEL</button>
               </div>
@@ -148,17 +101,9 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
             <div className="imgContainer">
               <img src={option.img} />
             </div>
-            <section>
-              <div className="container">
-                {isEditing ?
-                  <input type="text" value={editedOption.info} onChange={(e) => handleChangeEvenement(e, 'info')} /> 
-                  : <p>&nbsp;{option.info}</p>}
-              </div>
-            </section>
             <div className="editButton">
               {isEditing ? (
                 <>
-                  <button className="confirmer" onClick={handleConfirmUpdate}>CONFIRM</button>
                   <button className="cancel" onClick={handleCancel}>CANCEL</button>
                 </>
               ) : (
@@ -172,7 +117,7 @@ const Evenement = ({optionSelectionne, setOptionSelectionne, editedOption, setEd
   )
 }
 
-export default Evenement
+export default BarABonbons;
 
 const Wrapper = styled.div`
   width: 80%;
@@ -197,13 +142,16 @@ const Wrapper = styled.div`
     .container {
       display: flex;
       align-items: center;
-      height: fit-content;
+      height: 30px;
       > input {
-        width: 100%;
+        width: 70%;
       }
       > p:last-of-type {
         width: fit-content;
-        height: fit-content;
+        height: 24px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     .editButton {

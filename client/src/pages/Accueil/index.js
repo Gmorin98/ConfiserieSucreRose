@@ -7,29 +7,6 @@ import { Link } from "react-router-dom";
 // Component and Other Import
 import Carrousel from "../Components/Carrousel";
 
-const CarrouselEvenements = [
-  {
-    id: 2,
-    img: "images/Evenements/Marmaille.png",
-    info: "5-6 Octobre, au Centre Expo Terrebonne 2475 boulevard des Entreprises Terrebonne, QC J6X 5S5"
-  },
-  {
-    id: 4,
-    img: "images/Evenements/Halloween.jpg",
-    info: "BOO 👻💀🎃 Collection Halloween!!! Jujubes d'une fraîcheur incroyable à offrir ou à s'offrir !"
-  },
-  {
-    id: 5,
-    img: "images/Evenements/Halloween_Contenant.jpg",
-    info: "Verre en vitre rempli de délicieux jujubes thématique Halloween 🎃 merveilleux cadeau d'hôtesse! "
-  },
-  {
-    id: 6,
-    img: "images/Evenements/Halloween_Plateau.jpg",
-    info: "Le plateau d'Halloween 👻🎃 pour vos partys 🎉 "
-  },
-]
-
 const Accueil = () => {
   const [carrouselEvenements, setCarrouselEvenements] = useState([]);
 
@@ -82,7 +59,7 @@ const Accueil = () => {
       </section>
       <section className="promotion">
         <h2>Événements et nouveautés</h2>
-        <Carrousel children={CarrouselEvenements}/>
+        <Carrousel children={carrouselEvenements}/>
       </section>
     </Wrapper>
   );
