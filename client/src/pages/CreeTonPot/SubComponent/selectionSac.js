@@ -15,7 +15,8 @@ const listSac = [
 
 const SelectionSac = ({setSac, setQuantiteContenant}) => {
   const [clickedButtons, setClickedButtons] = useState({}); // Track which buttons were clicked
-  const panierOnlyContenant = JSON.parse(localStorage.getItem('panier')).filter(item => item._id === undefined) || [];
+  let panier = JSON.parse(localStorage.getItem('panier') || null)
+  const panierOnlyContenant = (panier !== null) ? panier.filter(item => item._id === undefined) : [];
   let quantiteContenant = 0;
   
   const handleSacSelection = (sac, index) => {
