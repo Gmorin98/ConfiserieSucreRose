@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from "react-router-dom";
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
@@ -19,7 +19,6 @@ const CreerTonPot = () => {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [reset, setReset] = useState(false);
   const [quantiteContenant, setQuantiteContenant] = useState(0);
-  
   // Selection Variable.
   const [sac, setSac] = useState({
     nom: '',
@@ -39,12 +38,13 @@ const CreerTonPot = () => {
     );
   };
 
-  const filteredVrac = useMemo(() => {
+  const filteredVrac = () => {
     if (selectedFilters.length === 0) return allVrac;
+
     return allVrac.filter(vrac => 
       selectedFilters.some(filter => vrac.tag.includes(filter))
     );
-  }, [selectedFilters, allVrac]);
+  };
 
   return (
     <>
@@ -80,7 +80,7 @@ const CreerTonPot = () => {
             <SelectionSac setSac={setSac} setQuantiteContenant={setQuantiteContenant} />
             <h2 className="etape">Étape 2</h2>
             <p className="explication">Faites votre choix parmi cette vaste sélection de bonbons!</p>
-            <VracShowcase vrac={filteredVrac} setSac={setSac} sac={sac} reset={reset} setReset={setReset} />
+            <VracShowcase vrac={filteredVrac()} setSac={setSac} sac={sac} reset={reset} setReset={setReset} />
             <h2 className="etape">Étape 3</h2>
             <p className="explication">Validez votre/vos choix.</p>
             <Confirmation sac={sac} setSac={setSac} setReset={setReset}/>

@@ -24,9 +24,7 @@ const Produits = () => {
   };
 
   const filterProduits = () => {
-    if (selectedFilters.length === 0) {
-      return allProduits; // No filter selected, send back the entire catalog.
-    }
+    if (selectedFilters.length === 0) return allProduits; // No filter selected, send back the entire catalog.
 
     return allProduits.filter(product => {
       // Filter products by ensurin all selected filters match the product's tags.
