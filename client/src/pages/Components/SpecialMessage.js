@@ -4,22 +4,24 @@ import styled from "styled-components";
 
 // Components and Other Import
 
-const WarningMessage = ({children}) => {
+const SpecialMessage = () => {
   return (
     <Wrapper>
-      <p>{children}</p>
+      <p>Vacances de la Sucre Rose!</p>
+      <p>La boutique sera fermée du lundi 17 février au jeudi 20 février.</p>
+      <p>De RETOUR vendredi 21 février.</p>
     </Wrapper>
   )
 }
 
-export default WarningMessage;
+export default SpecialMessage;
 
 const Wrapper = styled.div`
   color: white;
   background-color: var(--accent-color);
   font-family: var(--font-primary);
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.5em;
   border-radius: 20px;
   width: fit-content;
   max-width: 45%;
