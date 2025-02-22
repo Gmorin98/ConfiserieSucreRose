@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './CheckoutForm';
-import SpecialMessage from '../Components/SpecialMessage';
 
 // Load your Stripe publishable key
 const stripePromise = loadStripe('pk_live_51Pv3PZEK95c21YRdzCarcCRd8ESlOjQOuf9qWkpBZdUVpxEJjWzRv9IYeenVrn6wTKDd36jUirARUs0clsvVCY9a00RRJBi2ZQ');
@@ -62,7 +61,6 @@ const Checkout = () => {
 
   return (
     <Wrapper>
-      <SpecialMessage />
       <div>
         {!agreedPickUp ? (
           <div className="confirmation">

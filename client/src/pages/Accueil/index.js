@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 // Component and Other Import
 import Carrousel from "../Components/Carrousel";
-import SpecialMessage from "../Components/SpecialMessage";
 
 const Accueil = () => {
   const [carrouselEvenements, setCarrouselEvenements] = useState([]);
@@ -41,7 +40,6 @@ const Accueil = () => {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <SpecialMessage />
       <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%" className="logo" loading="lazy"/>
       <section className="redirection">
         <Link to={"/creer-ton-pot"}>
