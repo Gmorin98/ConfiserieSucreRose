@@ -64,7 +64,7 @@ const BarABonbons = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       // Sending user credentials using POST
       const response = await fetch(`${process.env.REACT_APP_API_URL}contactBarBonbon`, {
@@ -171,7 +171,7 @@ const BarABonbons = () => {
                 onChange={handleChange}
                 required
               />
-              <button type="submit" onClick={handleSubmit} className="submit">Soumettre!</button>
+              <button type="submit" className="submit">Soumettre!</button>
             </form>
           </div>
         ) : (
