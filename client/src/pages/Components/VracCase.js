@@ -7,6 +7,7 @@ import BanniereNouveaute from "./BanniereNouveaute";
 const VracCase = ({ vrac }) => {
   vrac.sort((a, b) => a.nom.localeCompare(b.nom, "fr", { sensitivity: "base" }))
 
+  
   return (
     <>
       {vrac.map((produit, id) => (
