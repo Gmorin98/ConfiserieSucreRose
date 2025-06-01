@@ -52,10 +52,8 @@ const CreerTonPot = () => {
           <Filtre children={filtreVracInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
           <section>
             <h2 className="etape">Emballages</h2>
-            <p className="explication">Sélectionnez le contenant que vous voulez.</p>
             <SelectionSac />
             <h2 className="etape">Jujubes</h2>
-            <p className="explication">Faites votre choix parmi cette vaste sélection de bonbons!</p>
             <VracShowcase vrac={filteredVrac()} />
           </section>
         </div>

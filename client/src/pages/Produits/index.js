@@ -58,7 +58,7 @@ const Produits = () => {
       <Wrapper>
         <WarningMessage children={"Plus de produits en Boutique!"}/>
         <div className="Content">
-          <Filtre children={filtreProduitInfo} selectedFilters={filteredProducts.sort((a, b) => a.nom.localeCompare(b.nom))} handleFilterChange={handleFilterChange} />
+          <Filtre children={filtreProduitInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
           <div className="ProduitsShowcase">
             <ProduitCase children={filteredProducts}/>
           </div>
