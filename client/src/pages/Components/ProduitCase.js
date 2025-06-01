@@ -4,6 +4,8 @@ import styled from "styled-components";
 import BanniereNouveaute from "./BanniereNouveaute";
 
 const ProduitCase = ({children}) => {
+  children.sort((a, b) => a.nom.localeCompare(b.nom, "fr", { sensitivity: "base" }))
+
   
   return (
     <>
