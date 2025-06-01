@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from 'react';
-import { Loader } from "@googlemaps/js-api-loader";
 
 const Footer = () => {
   const [isHoraireVisible, setIsHoraireVisible] = useState(false);

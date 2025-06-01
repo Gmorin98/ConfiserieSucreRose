@@ -1,5 +1,4 @@
 // Necessary Imports
-import React from 'react';
 import ReactDOM from "react-dom/client";
 import GlobalStyle from "./pages/Components/GlobalStyles";
 import App from "./App";

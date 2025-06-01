@@ -1,26 +1,17 @@
 // Necessary Import
 import styled from "styled-components";
-import React from 'react';
 
 // Component and Other Import
 import VracCase from "../../Components/VracCase";
 
-const VracShowcase = ({vrac, setSac, sac, setReset, reset}) => {
+const VracShowcase = ({vrac}) => {
 
   return (
     <Wrapper>
-      {sac.nom && 
-        <div className="wrapperQuantiteSac">
-          <div className="quantiteSac">
-            <p>{sac.quantitePrise}g</p>
-            <p>{sac.quantiteMax}g</p>
-          </div>
-        </div>
-      }
       {vrac.length === 0 ? ( 
         <p className="information">Aucun bonbons trouvé</p> 
       ) : (
-        <VracCase vrac={vrac} setSac={setSac} sac={sac} setReset={setReset} reset={reset} />
+        <VracCase vrac={vrac.sort((a, b) => a.nom.localeCompare(b.nom))} />
       )}
     </Wrapper>
   )

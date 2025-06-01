@@ -1,69 +1,9 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from 'react';
 
 // Component and Other Import
 import BanniereNouveaute from "./BanniereNouveaute";
 
 const ProduitCase = ({children}) => {
-  const [clickedButtons, setClickedButtons] = useState({}); // Track which buttons were clicked
-  const [data, setData] = useState(() => {
-    try {
-      const savedData = localStorage.getItem('panier');
-      return savedData ? JSON.parse(savedData) : [];
-    } catch (error) {
-      console.error("Error parsing localStorage data:", error);
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem('panier', JSON.stringify(data));
-  }, [data]);
-
-  const addToCart = (produit, index) => {
-    setData((prevData) => {
-      const existingProductIndex = prevData.findIndex(item => item._id === produit._id);
-
-      if (existingProductIndex !== -1) {
-        const existingProduct = prevData[existingProductIndex];
-
-        if (existingProduct.quantity < produit.inventaire) {
-          const updatedProduct = {
-            ...existingProduct,
-            quantity: existingProduct.quantity + 1,
-          };
-          return [
-            ...prevData.slice(0, existingProductIndex),
-            updatedProduct,
-            ...prevData.slice(existingProductIndex + 1),
-          ];
-        } else {
-          return prevData;
-        }
-      } else {
-        const newProduct = {
-          ...produit,
-          quantity: 1,
-        };
-
-        return [...prevData, newProduct];
-      }
-    });
-
-    // Trigger the animation for the specific button
-    setClickedButtons((prevState) => ({
-      ...prevState,
-      [index]: true,
-    }));
-
-    // Revert the animation state after the animation completes
-    setTimeout(() => {
-      setClickedButtons((prevState) => ({
-        ...prevState,
-        [index]: false,
-      }));
-    }, 2000);  // Adjust the duration to match your animation
-  };
   
   return (
     <>
@@ -84,18 +24,6 @@ const ProduitCase = ({children}) => {
                 <p>{produit.nom}</p>
                 <p>{`${produit.prix}$`}</p>
               </div>
-              {produit.boutique ? ( 
-                <button disabled className="disableButton">En boutique seulement</button>
-              ) : produit.inventaire === 0 ? (
-                <button disabled className="disableButton">Rupture de Stock</button>
-              ) : (
-                <button 
-                  onClick={() => addToCart(produit, id)} 
-                  className={`addToCart ${clickedButtons[id] ? 'transform-active' : ''}`}
-                >
-                  Ajouter au Panier
-                </button>
-              )}
             </Wrapper>
           ))
       )}
@@ -147,6 +75,8 @@ const Wrapper = styled.div`
     align-items: center;
     width: 100%;
     padding: 0.5em;
+    background-color: var(--background-color);
+    border-radius: 0px 0px 15px 15px;
 
     p {
       margin: 0;
@@ -157,28 +87,13 @@ const Wrapper = styled.div`
     }
   }
 
-  button {
-    width: 100%;
-    height: 3em;
-    border-radius: 15px;
-    color: var(--primary-color);
-    border: none;
-    background-color: var(--background-color);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
   .banniere {
     color: #ffffff;
     position: absolute;
     top: 10px;
     right: -10px;
   }
-  
-  .disableButton {
-    cursor: not-allowed;
-  }
-  
+
   @media screen and (max-width: 900px) {
     width: 175px;
     margin: 0em 0 3em;;
@@ -190,24 +105,5 @@ const Wrapper = styled.div`
         width: 100%;
       }
     }
-  }
-  
-  @keyframes confirmationAdded {
-    0% {
-      background: var(--background-color);
-      color: white;
-    }
-    50% {
-      background: #6FF178;
-      color: white;
-    }
-    100% {
-      background: var(--background-color);
-      color: var(--primary-color);
-    }
-  }
-
-  .addToCart.transform-active {
-    animation: confirmationAdded 2s linear forwards;
   }
 `

@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from "react-router-dom";
 
@@ -42,8 +42,8 @@ const Accueil = () => {
 
       <img src="images/SUCRE_ROSE_Logo.svg" alt="Logo Confiserie Sucre Rose" width="15%" className="logo" loading="lazy"/>
       <section className="redirection">
-        <Link to={"/creer-ton-pot"}>
-          <h2>Crée ton pot à bonbons!</h2>
+        <Link to={"/jujube-et-emballage"}>
+          <h2>Nos Jujubes et Emballages!</h2>
         </Link>
         <img src="images/Seperator.svg" height="400px" loading="lazy" alt="Seperator"/>
         <Link to={"/bar-a-bonbons"}>
@@ -88,7 +88,7 @@ const Wrapper = styled.div`
       margin: 50px;
     }
     a {
-      width: 20%;
+      width: 22.5%;
     }
   }
 
