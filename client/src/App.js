@@ -6,12 +6,10 @@ import { BrowserRouter as Router, Routes as Switch, Route, Navigate } from "reac
 import Accueil from "./pages/Accueil/index.js";
 import Produit from "./pages/Produits/index.js";
 import BarABonbons from "./pages/BarABonbon/index.js";
-import CreeTonPot from "./pages/CreeTonPot/index.js";
-import Checkout from "./pages/Checkout/index.js";
+import JujubeEmballage from "./pages/JujubeEtEmballage/index.js";
 import NavigationBar from "./pages/Components/NavigationBar.js";
 import Footer from "./pages/Components/Footer.js";
 import Admin from "./pages/Admin/index.js";
-import Return from "./pages/Checkout/Return.js";
 
 const App = () => {
 
@@ -22,11 +20,9 @@ const App = () => {
         <Route path="/" element={<Accueil />} />
         <Route path="/produits" element={<Produit />} />
         <Route path="/bar-a-bonbons" element={<BarABonbons />} />
-        <Route path="/creer-ton-pot" element={<CreeTonPot />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/jujube-et-emballage" element={<JujubeEmballage />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/return" element={<Return/>} />
       </Switch>
       <Footer />
     </Router>

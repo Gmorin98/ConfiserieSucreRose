@@ -43,7 +43,6 @@ const postNouveauProduit = async (req, res) => {
       tag: data.tag,
       actif: data.actif,
       nouveau: data.nouveau,
-      boutique: data.boutique,
       origine: data.origine
     };
 

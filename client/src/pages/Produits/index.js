@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { AllFiltreContext } from "../../contexts/AllFiltreContext";
 import { AllProduitsContext } from "../../contexts/AllProduitsContext";
@@ -36,7 +36,7 @@ const Produits = () => {
         return product.prix >= min && product.prix <= max;
       });
       return tagsMatch || priceMatch;
-    });
+    })
   };
 
   const filteredProducts = filterProduits();
@@ -58,7 +58,7 @@ const Produits = () => {
       <Wrapper>
         <WarningMessage children={"Plus de produits en Boutique!"}/>
         <div className="Content">
-          <Filtre children={filtreProduitInfo} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
+          <Filtre children={filtreProduitInfo} selectedFilters={filteredProducts.sort((a, b) => a.nom.localeCompare(b.nom))} handleFilterChange={handleFilterChange} />
           <div className="ProduitsShowcase">
             <ProduitCase children={filteredProducts}/>
           </div>

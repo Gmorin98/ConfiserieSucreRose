@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import PanierCheckout from './PanierCheckout';
 
 const NavigationBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,9 +30,8 @@ const NavigationBar = () => {
         <MenuLinks menuOpen={menuOpen}>
           <NavLink to="/produits" className="options" onClick={closeMenu}>Produits</NavLink>
           <NavLink to="/bar-a-bonbons" className="options" onClick={closeMenu}>Bar à Bonbons</NavLink>
-          <NavLink to="/creer-ton-pot" className="options" onClick={closeMenu}>Crée ton Pot</NavLink>
+          <NavLink to="/jujube-et-emballage" className="options" onClick={closeMenu}>Jujubes et Emballages</NavLink>
         </MenuLinks>
-        <NavLink to="/checkout" className="options" onClick={closeMenu}><PanierCheckout /></NavLink>
       </NavWrapper>
     </>
   );
@@ -51,7 +49,7 @@ const NavWrapper = styled.nav`
   box-shadow: 0px 8px 20px #696969;
   margin-bottom: 3em;
   position: relative;
-  z-index: 1; /* Ensure the NavWrapper remains below the menu when open */
+  z-index: 1;
 
   .logo-link {
     width: fit-content;
@@ -79,7 +77,7 @@ const HamburgerMenu = styled.div`
   display: flex;
   align-items: center;
   padding-left: 20px;
-  z-index: 3; /* Ensure the hamburger icon is always clickable */
+  z-index: 3;
   fill: red;
 
   @media screen and (min-width: 1201px) {
@@ -100,17 +98,17 @@ const MenuLinks = styled.div`
 
   
   @media screen and (max-width: 1200px) {
-    flex-direction: column; /* Stack links in a column */
+    flex-direction: column;
     position: absolute;
     gap: 20px;
     top: 0;
     left: 0;
     background-color: var(--background-color);
     width: 250px;
-    height: fit-content; /* Full height for the menu */
-    margin-top: 100px; /* Push links down below the nav */
+    height: fit-content;
+    margin-top: 100px;
     padding-top: 25px;
-    transition: transform 0.3s ease-in-out; /* Optional: smooth open/close */
+    transition: transform 0.3s ease-in-out;
     transform: ${({ menuOpen }) => (menuOpen ? 'translateX(0)' : 'translateX(-100%)')};
     z-index: 1;
     border-radius: 0px 0px 10px 0px;
@@ -129,6 +127,6 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-  z-index: 1; /* Ensure the overlay is below the menu but above the rest */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 `;

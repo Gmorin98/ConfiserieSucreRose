@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 // Component and Other Import
 import Authentification from "./SubComponent/Authentification";
@@ -112,7 +112,7 @@ const Admin = () => {
           {(currentInventaire === "Vrac" || currentInventaire === "Produits") && 
             <ProduitsInventaire 
               currentInventaire={currentInventaire} 
-              optionSelectionne={optionSelectionne} 
+              optionSelectionne={optionSelectionne.sort((a, b) => a.nom.toLowerCase().localeCompare(b.nom.toLowerCase()))} 
               setOptionSelectionne={setOptionSelectionne} 
               editedOption={editedOption} 
               setEditedOption={setEditedOption} 

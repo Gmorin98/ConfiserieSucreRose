@@ -5,7 +5,7 @@ const routes = require("./routes")
 
 const PORT = 8000;
 
-const app = express();
+const app = express(); 
 
 const corsOptions = {
   origin: ['https://www.confiseriesucrerose.ca', 'http://localhost:3000'],

@@ -1,6 +1,6 @@
 // Necessary Import
 import styled from "styled-components";
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 // Component and Other Import
 import { AllProduitsContext } from "../../../contexts/AllProduitsContext";
@@ -12,11 +12,9 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     'nom': "",
     'img': null,
     'prix': null,
-    'stock': 0,
     'tag': [],
     'actif': false,
     'nouveau': false,
-    'boutique': false,
     'inventaire': `${currentInventaire}`,
   });
 
@@ -25,11 +23,7 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     switch (field) {
       case "nouveau":
       case "actif":
-      case "boutique":
         value = e.target.checked; // Handle checkbox toggle
-        break;
-      case "stock":
-        value = Math.max(0, Number(value)); // Ensure the inventory is a positive number
         break;
       case "prix":
         value = value.trim() === "" ? null : Number(value); // Set to NaN if empty
@@ -54,14 +48,10 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
         break;
       case "actif":
       case "nouveau":
-      case "boutique":
         value = e.target.checked; // Handle checkbox inputs
         break;
       case "tag":
         value = value.split(',').map(tag => tag.trim()); // Handle tag as an array
-        break;
-      case "stock":
-        value = Math.max(0, Number(value)); // Ensure inventory is at least 0
         break;
       case "prix":
         value = value.trim() === "" ? null : Number(value); // Set to null if empty
@@ -85,11 +75,9 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
     const data = {
       nom: nouveauProduit.nom ?? "",
       prix: nouveauProduit.prix ?? null,
-      stock: nouveauProduit.stock ?? 0,
       tag: nouveauProduit.tag ?? [],
       actif: nouveauProduit.actif ?? false,
       nouveau: nouveauProduit.nouveau ?? false,
-      boutique: nouveauProduit.boutique ?? false,
       origine: currentInventaire,
     };
 
@@ -118,11 +106,9 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
         _id: editedOption._id,
         nom: editedOption.nom,
         prix: editedOption.prix,
-        inventaire: editedOption.inventaire,
         tag: editedOption.tag,
         actif: editedOption.actif,
         nouveau: editedOption.nouveau,
-        boutique: editedOption.boutique,
         origine: editedOption.origine,
       })
     })
@@ -137,12 +123,10 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                 ...option, 
                 nom: editedOption.nom,
                 prix: editedOption.prix,
-                inventaire: editedOption.inventaire,
                 tag: editedOption.tag,
                 actif: editedOption.actif,
                 nouveau: editedOption.nouveau,
-                boutique: editedOption.boutique
-              }  // Update only the specified fields
+              }
             : option
         );
   
@@ -210,10 +194,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                 <input type="text" onChange={(e) => nouveauProduitInformation(e, 'nom')} required />
               </div>
               <div>
-                <label>Stock :</label>
-                <input type="number" onChange={(e) => nouveauProduitInformation(e, 'stock')} required />
-              </div>
-              <div>
                 <label>Prix :</label>
                 <input type="text" onChange={(e) => nouveauProduitInformation(e, 'prix')} />
               </div>
@@ -224,10 +204,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
               <div>
                 <label>Nouveauté :</label>
                 <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'nouveau')} />
-              </div>
-              <div>
-                <label>Boutique Seulement :</label>
-                <input type="checkbox" onChange={(e) => nouveauProduitInformation(e, 'boutique')} />
               </div>
               <div>
                 <label>Tag :</label>
@@ -255,12 +231,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
                   <input type="text" value={editedOption.nom} onChange={(e) => handleChangeProduits(e, 'nom')} /> 
                   : <p>&nbsp;{option.nom}</p>}
               </div>
-              <div className="container">
-                <p>STOCK: </p>
-                {isEditing ?
-                  <input type="number" value={editedOption.inventaire} onChange={(e) => handleChangeProduits(e, 'inventaire')} min="0" />
-                  : <p>&nbsp;{option.inventaire + (currentInventaire === "Vrac" ? "g" : "")}</p>}               
-              </div>
               {option.prix && (
                 <div className="container">
                   <p>PRIX: </p>
@@ -275,9 +245,6 @@ const ProduitsInventaire = ({optionSelectionne, setOptionSelectionne, editedOpti
               <p>NOUVEAUTÉ: {isEditing ?
                 <input type="checkbox" checked={editedOption.nouveau} onChange={(e) => handleChangeProduits(e, 'nouveau')} /> 
                 : (option.nouveau ? "OUI" : "NON")}</p>
-              <p>BOUTIQUE SEULEMENT: {isEditing ?
-                <input type="checkbox" checked={editedOption.boutique} onChange={(e) => handleChangeProduits(e, 'boutique')} /> 
-                : (option.boutique ? "OUI" : "NON")}</p>
               <p>TAG: {Array.isArray(option.tag) ? option.tag.join(', ') : ''}</p>
             </section>
             <div className="editButton">
