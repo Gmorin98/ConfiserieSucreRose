@@ -2,14 +2,12 @@
 import styled from "styled-components";
 
 const listSac = [
-  {nom: "Petit Cône 125g", prix: "4.50", img: "images/Vrac/Sacs/Petit_Cone_Crop.png"},
-  {nom: "Sac 175g", prix: "5.50", img: "images/Vrac/Sacs/Sac_Crop.png"},
-  {nom: "Contenant 200g", prix: "5.25", img: "images/Vrac/Sacs/Petit_Format_Crop.png"},
-  {nom: "Grand Cône 225g", prix: "6.75", img: "images/Vrac/Sacs/Grand_Cone_Crop.png"},
-  {nom: "Contenant 300g", prix: "7.55", img: "images/Vrac/Sacs/Grand_Format_Crop.png"},
-  {nom: "Verre en vitre avec Paille 325g", prix: "15.99", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png"},
-  {nom: "Plateau 1000g", prix: "29.50", img: "images/Vrac/Sacs/Plateau_Crop.png"}, 
-  {nom: "Plateau 1300g", prix: "36.50", img: "images/Vrac/Sacs/Plateau_Crop.png"}
+  {nom: "Petit Cône 125g", img: "images/Vrac/Sacs/Petit_Cone_Crop.png"},
+  {nom: "Sac 175g", img: "images/Vrac/Sacs/Sac_Crop.png"},
+  {nom: "Grand Cône 225g", img: "images/Vrac/Sacs/Grand_Cone_Crop.png"},
+  {nom: "Verre en vitre avec Paille 325g", img: "images/Vrac/Sacs/Verre_Pascale_Crop.png"},
+  {nom: "Plateau 1000g", img: "images/Vrac/Sacs/Plateau_Crop.png"}, 
+  {nom: "Plateau 1300g", img: "images/Vrac/Sacs/Plateau_Crop.png"}
 ]
 
 const SelectionSac = () => {
@@ -21,7 +19,6 @@ const SelectionSac = () => {
             <img src={sac.img} alt={sac.nom} loading="lazy"/>
             <div>
               <p>{sac.nom}</p>
-              <p>{sac.prix}$</p>
             </div>
           </div>
         )
@@ -66,6 +63,7 @@ const Wrapper = styled.div`
       background-color: var(--background-color);
       width: 100%;
       border-radius: 0px 0px 15px 15px;
+      padding: 0.5em;
     }
   }
 `
